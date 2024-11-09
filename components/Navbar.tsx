@@ -5,11 +5,10 @@ import {
   signInBtn as SignInBtn,
   signOutBtn as SignOutBtn,
 } from "./AuthButtons";
-import { displayNameTag } from "../app/lib/utils/helpers";
 
 const Navbar = async () => {
   const session = await auth();
-  const nameTag = await displayNameTag();
+
   return (
     <header className="px-8 py-2 bg-white border-b border-gray-200 shadow-md">
       <nav className="flex flex-between gap-5 text-[#072454]">

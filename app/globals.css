@@ -12,7 +12,7 @@
 
 @layer utilities {
   .heading {
-    @apply uppercase bg-black/70 rounded-2xl px-6 py-3 font-work-sans font-extrabold text-white sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
+    @apply uppercase bg-black/75 rounded-2xl px-6 py-3 font-work-sans font-extrabold text-white sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
   }
 
   .sub-heading {
@@ -57,15 +57,24 @@
   }
 
   .search-btn {
-    @apply size-[2.5rem] rounded-full bg-black flex justify-center items-center !important;
+    @apply size-[2.5rem] rounded-full bg-black hover:text-cyan-600 transition duration-200 flex justify-center items-center !important;
   }
 
+  .section_container {
+    @apply px-6 py-10 max-w-7xl mx-auto;
+  }
 
+  .card_grid {
+    @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5;
+  }
 
+  .card_grid-sm {
+    @apply grid sm:grid-cols-2 gap-5;
+  }
 
-
-
-
+  .no-result {
+    @apply text-black-100 text-sm font-normal;
+  }
 
   .text-30-extrabold {
     @apply text-[30px] font-extrabold text-white;
@@ -99,29 +108,17 @@
     @apply font-normal text-sm text-white-100/80;
   }
 
+
+
+
+
+
+
   
 
   .tag {
     @apply bg-secondary px-6 py-3 font-work-sans font-bold rounded-sm uppercase relative tag-tri;
-  }
-
-  
-
-  .section_container {
-    @apply px-6 py-10 max-w-7xl mx-auto;
-  }
-
-  .card_grid {
-    @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5;
-  }
-
-  .card_grid-sm {
-    @apply grid sm:grid-cols-2 gap-5;
-  }
-
-  .no-result {
-    @apply text-black-100 text-sm font-normal;
-  }
+  }  
 
   /* profile */
   .profile_container {
@@ -166,7 +163,7 @@
 
   /* startupcard */
   .startup-card {
-    @apply bg-white border-[5px] border-black py-6 px-5 rounded-[22px] shadow-200 hover:border-primary transition-all duration-500 hover:shadow-300 hover:bg-primary-100;
+    @apply bg-white border-[3px] border-black py-6 px-5 rounded-[22px] transition-all duration-300 hover:shadow-100 hover:bg-primary-100;
   }
 
   .startup-card_date {
