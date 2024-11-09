@@ -47,6 +47,19 @@
     background-repeat: no-repeat;
   }
 
+  /* searchform */
+  .search-form {
+    @apply max-w-3xl w-full min-h-[4rem] bg-white border-[0.2rem] border-black rounded-[80px] text-[24px] mt-8 px-5 flex flex-row items-center gap-5;
+  }
+
+  .search-input {
+    @apply flex-1 font-bold placeholder:font-normal placeholder:text-black/80 w-full h-auto outline-none;
+  }
+
+  .search-btn {
+    @apply size-[2.5rem] rounded-full bg-black flex justify-center items-center !important;
+  }
+
 
 
 
@@ -149,18 +162,7 @@
     @apply border-[5px] py-4 border-black bg-white text-black relative shadow-100 font-work-sans font-medium hover:shadow-none transition-all duration-500 !important;
   }
 
-  /* searchform */
-  .search-form {
-    @apply max-w-3xl w-full min-h-[80px] bg-white border-[5px] border-black rounded-[80px] text-[24px] mt-8 px-5 flex flex-row items-center gap-5;
-  }
-
-  .search-input {
-    @apply flex-1 font-bold placeholder:font-semibold placeholder:text-black-100 w-full h-auto outline-none;
-  }
-
-  .search-btn {
-    @apply size-[50px] rounded-full bg-black flex justify-center items-center !important;
-  }
+  
 
   /* startupcard */
   .startup-card {

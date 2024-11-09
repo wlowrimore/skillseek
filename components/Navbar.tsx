@@ -5,7 +5,7 @@ import {
   signInBtn as SignInBtn,
   signOutBtn as SignOutBtn,
 } from "./AuthButtons";
-import { displayNameTag } from "../lib/utils/helpers";
+import { displayNameTag } from "../app/lib/utils/helpers";
 
 const Navbar = async () => {
   const session = await auth();

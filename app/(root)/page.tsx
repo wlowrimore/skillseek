@@ -1,4 +1,7 @@
+import SearchForm from "@/components/SearchForm";
+
 export default async function Home() {
+  const query = "";
   return (
     <>
       <section className="blue_container bg-swirl-pattern">
@@ -9,6 +12,7 @@ export default async function Home() {
         <div className="sub-heading">
           <h2>Find help. Save money. Support your community.</h2>
         </div>
+        <SearchForm query={query} />
       </section>
     </>
   );
