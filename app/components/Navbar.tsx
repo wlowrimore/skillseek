@@ -19,7 +19,7 @@ const Navbar = async () => {
             alt="brand logo"
             width={75}
             height={75}
-            className="w-auto h-auto"
+            className="w-auto h-auto border-l-2 border-r-2 border-primary px-2 py-1 rounded-xl"
           />
         </Link>
 

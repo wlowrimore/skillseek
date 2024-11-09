@@ -53,6 +53,11 @@ const workSans = localFont({
   variable: "--font-work-sans",
 });
 
+export const metadata: Metadata = {
+  title: "DIFO",
+  description: "Lend a helping hand to others",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
