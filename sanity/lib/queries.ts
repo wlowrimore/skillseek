@@ -16,3 +16,42 @@ export const SERVICES_QUERY =
     category,
     image,
     }`);
+
+export const SERVICE_BY_ID_QUERY =
+  defineQuery(`*[_type == "service" && _id == $id][0]{
+    _id,
+    title,
+    slug,
+    _createdAt,
+    author -> {
+      name,
+      image,
+      email
+    },
+    description,
+    category,
+    image,
+    pitch,
+    }`);
+
+export const PLAYLIST_BY_SLUG_QUERY =
+  defineQuery(`*[_type == "playlist" && slug.current == $slug][0]{
+    _id,
+    title,
+    slug,
+    select[]->{
+      _id,
+      _createdAt,
+      title,
+      slug,
+      author-> {
+        name,
+        slug,
+        image,
+        email
+        }},
+        description,
+        category,
+        image,
+        pitch,
+    }`);

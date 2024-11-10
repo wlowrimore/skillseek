@@ -25,17 +25,16 @@ const ServiceCard = ({ post }: { post: ServiceTypeCard }) => {
             <h3 className="text-26-semibold line-clamp-1">{title}</h3>
           </Link>
         </div>
-        <div className="p-0.5 border border-primary bg-cyan-600 rounded-xl w-fit">
-          <Link href={`/user/${author?._id}`}>
-            <Image
-              src={author?.image as string}
-              alt={author?.name as string}
-              width={100}
-              height={100}
-              className="startup-card_avatar max-h-16 max-w-16 object-cover object-center rounded-lg"
-            />
-          </Link>
-        </div>
+
+        <Link href={`/user/${author?._id}`}>
+          <Image
+            src={author?.image as string}
+            alt={author?.name as string}
+            width={100}
+            height={100}
+            className="startup-card_avatar max-h-16 max-w-16 object-cover object-center rounded-lg"
+          />
+        </Link>
       </div>
 
       <Link href={`/service/${_id}`}>
@@ -48,7 +47,7 @@ const ServiceCard = ({ post }: { post: ServiceTypeCard }) => {
           <p className="text-16-medium">{category}</p>
         </Link>
         <Button className="startup-card_btn" asChild>
-          <Link href={`/startup/${_id}`}>Details</Link>
+          <Link href={`/service/${_id}`}>Details</Link>
         </Button>
       </div>
     </li>
