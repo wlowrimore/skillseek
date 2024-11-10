@@ -6,14 +6,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export async function displayNameTag() {
+export async function displayTagName() {
   const session = await auth();
-  if (session && session?.user?.email) {
-    const nameTag = session.user.email.split("@")[0].toLowerCase();
-    return `@${nameTag}`;
-  } else {
-    return "@Anonymous".toLowerCase();
-  }
+  const email = session?.user?.email;
+  const nameTag = email?.split("@")[0].toLowerCase();
+  return `@${nameTag}`;
 }
 
 export function formatDate(date: string) {

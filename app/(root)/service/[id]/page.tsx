@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { displayNameTag } from "@/lib/utils";
+import { displayTagName } from "@/lib/utils";
 
 import markdownit from "markdown-it";
 import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
@@ -18,7 +18,7 @@ export const experimental_ppr = true;
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
-  const nameTag = await displayNameTag();
+  const username = await displayTagName();
 
   const [post, playlist] = await Promise.all([
     client.fetch(SERVICE_BY_ID_QUERY, { id }),
@@ -65,7 +65,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
               <div>
                 <p className="text-20-medium">{post.author.name}</p>
-                <p className="text-16-medium !text-black-300">{nameTag}</p>
+                <p className="text-16-medium !text-black-300">{username}</p>
               </div>
             </Link>
 
