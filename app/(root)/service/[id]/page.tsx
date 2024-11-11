@@ -22,10 +22,12 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   const [post, playlist] = await Promise.all([
     client.fetch(SERVICE_BY_ID_QUERY, { id }),
-    client.fetch(PLAYLIST_BY_SLUG_QUERY, { slug: "editor-picks-new" }),
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, { slug: "editor-picks" }),
   ]);
 
-  const editorPosts = playlist?.select;
+  const editorPosts = playlist?.select || [];
+  console.log("PLAYLIST QUERY RESULT:", playlist);
+  console.log("EDITOR POSTS", editorPosts);
 
   if (!post) return notFound();
 
@@ -60,7 +62,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 alt="avatar"
                 width={64}
                 height={64}
-                className="rounded-lg w-20 h-20 object-cover drop-shadow-lg"
+                className="rounded-full w-20 h-20 object-cover drop-shadow-lg"
               />
 
               <div>

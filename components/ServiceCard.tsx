@@ -5,9 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Author, Service } from "@/sanity/types";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export type ServiceTypeCard = Omit<Service, "author"> & { author?: Author };
+export type ServiceTypeCard = Omit<Service, "author"> & {
+  author?: Author;
+  image?: string;
+};
 
 const ServiceCard = ({ post }: { post: ServiceTypeCard }) => {
+  console.log("POST:", post);
+  console.log("AUTHOR:", post.author);
   const { _createdAt, author, title, category, _id, image, description } = post;
 
   return (
@@ -39,7 +44,7 @@ const ServiceCard = ({ post }: { post: ServiceTypeCard }) => {
 
       <Link href={`/service/${_id}`}>
         <p className="startup-card_desc">{description}</p>
-        <img src={image} alt="placeholder" className="startup-card_img" />
+        <img src={image} alt={title} className="startup-card_img" />
       </Link>
 
       <div className="flex-between gap-3 mt-5">
