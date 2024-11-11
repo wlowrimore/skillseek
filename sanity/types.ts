@@ -130,7 +130,7 @@ export type Playlist = {
   _type: "playlist";
   _createdAt: string;
   _updatedAt: string;
-  _ref: string;
+  _rev: string;
   title?: string;
   slug?: Slug;
   select?: Array<{
@@ -147,7 +147,7 @@ export type Service = {
   _type: "service";
   _createdAt: string;
   _updatedAt: string;
-  _ref: string;
+  _rev: string;
   title?: string;
   slug?: Slug;
   author?: {
@@ -167,12 +167,11 @@ export type Author = {
   _type: "author";
   _createdAt: string;
   _updatedAt: string;
-  _ref: string;
+  _rev: string;
   id?: string;
   name?: string;
   email?: string;
   image?: string;
-  slug?: Slug;
 };
 
 export type Slug = {
@@ -183,20 +182,5 @@ export type Slug = {
 
 export type Markdown = string;
 
-export type AllSanitySchemaTypes =
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityImageHotspot
-  | SanityImageCrop
-  | SanityFileAsset
-  | SanityImageAsset
-  | SanityImageMetadata
-  | Geopoint
-  | SanityAssetSourceData
-  | Playlist
-  | Service
-  | Author
-  | Slug
-  | Markdown;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | SanityAssetSourceData | Playlist | Service | Author | Slug | Markdown;
 export declare const internalGroqTypeReferenceTo: unique symbol;

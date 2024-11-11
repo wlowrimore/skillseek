@@ -38,7 +38,10 @@ export const service = defineType({
     }),
     defineField({
       name: "pitch",
-      type: "markdown",
+      title: "Pitch",
+      type: "text",
+      description: "Briefly describe your services and how you can help others",
+      validation: (Rule) => Rule.required().min(20).max(1000),
     }),
   ],
 });

@@ -25,31 +25,41 @@ const ServiceForm = () => {
         description: formData.get("description") as string,
         category: formData.get("category") as string,
         link: formData.get("link") as string,
-        pitch,
+        pitch: formData.get("pitch") as string,
       };
 
-      await formSchema.parseAsync(formValues);
+      // await formSchema.parseAsync(formValues);
 
-      const result = await createPitch(prevState, formData, pitch);
+      console.log("Attempting to validate:", formValues);
+
+      const validatedData = await formSchema.parseAsync(formValues);
+      console.log("Validation passed:", validatedData);
+
+      const result = await createPitch(prevState, formData);
 
       if (result.status == "SUCCESS") {
+        console.log("SERVICE CREATED", result);
+        console.log("Redirecting to /service/" + result.id);
         toast({
           title: "Success",
           description: "Your service has been successfully created",
         });
-        router.push(`/service/${result.id}`);
+        router.push(`/service/${result._id}`);
       }
 
       return result;
     } catch (error) {
+      console.log("Validation or submission error:", error);
+
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors;
+        console.log("Field errors:", fieldErrors);
 
         setErrors(fieldErrors as unknown as Record<string, string>);
 
         toast({
-          title: "Error",
-          description: "Please check your input fields and try again",
+          title: "Validation Error",
+          description: "Please check the image URL and try again",
           variant: "destructive",
         });
 
@@ -134,31 +144,28 @@ const ServiceForm = () => {
           name="link"
           className="startup-form_input"
           required
-          placeholder="Service Image URL"
+          placeholder="https://example.com/image.jpg"
         />
+        <p className="text-sm text-muted-foreground mt-1">
+          Please enter a direct image URL ending in .jpg, .jpeg, .png, .gif,
+          .webp, or from image hosting services like Unsplash, Imgur, or
+          Cloudinary
+        </p>
 
         {errors.link && <p className="startup-form_error">{errors.link}</p>}
       </div>
 
-      <div data-color-mode="light">
+      <div>
         <label htmlFor="pitch" className="startup-form_label">
           Pitch
         </label>
 
-        <MDEditor
-          value={pitch}
-          onChange={(value) => setPitch(value as string)}
+        <Textarea
           id="pitch"
-          preview="edit"
-          height={300}
-          style={{ borderRadius: 20, overflow: "hidden" }}
-          textareaProps={{
-            placeholder:
-              "Briefly describe your services and how you can help others",
-          }}
-          previewOptions={{
-            disallowedElements: ["style"],
-          }}
+          name="pitch"
+          className="startup-form_textarea h-32"
+          required
+          placeholder="Briefly describe your services and how you can help others"
         />
 
         {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}

@@ -9,10 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { displayTagName } from "@/lib/utils";
 
-import markdownit from "markdown-it";
 import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
-
-const md = markdownit();
 
 export const experimental_ppr = true;
 
@@ -31,7 +28,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (!post) return notFound();
 
-  const parsedContent = md.render(post?.pitch || "");
+  const parsedContent = post?.pitch || "";
 
   return (
     <>
@@ -48,7 +45,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           alt="service image"
           width={1000}
           height={1000}
-          className="mx-w-[52rem] h-auto rounded-xl object-cover mx-auto"
+          className="rounded-xl object-cover mx-auto"
         />
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">

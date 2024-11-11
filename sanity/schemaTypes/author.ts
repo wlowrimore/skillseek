@@ -23,7 +23,7 @@ export const author = defineType({
       name: "email",
       title: "Email",
       type: "string",
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: any) => Rule.required().unique(),
     }),
     defineField({
       name: "image",
