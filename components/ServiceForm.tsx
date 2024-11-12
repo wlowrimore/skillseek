@@ -11,12 +11,15 @@ import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { createPitch } from "@/lib/actions";
+import { form } from "sanity/structure";
 
 const ServiceForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [imageUrl, setImageUrl] = useState<string>("");
   const { toast } = useToast();
   const router = useRouter();
+
+  console.log("IMAGE URL:", imageUrl);
 
   const handleImageUpload = (url: string) => {
     console.log("Image uploaded:", url);
@@ -43,12 +46,19 @@ const ServiceForm = () => {
       console.log("Validation passed:", validatedData);
 
       const submitFormData = new FormData();
-      Object.entries(validatedData).forEach(([key, value]) => {
-        submitFormData.append(key, value);
-        console.log(`APPENDING TO FORMDATA: ${key}: ${value}`);
-      });
+      submitFormData.append("title", formData.get("title") as string);
+      submitFormData.append(
+        "description",
+        formData.get("description") as string
+      );
+      submitFormData.append("category", formData.get("category") as string);
+      submitFormData.append("image", imageUrl as string);
+      submitFormData.append("pitch", formData.get("pitch") as string);
 
-      const result = await createPitch(prevState, formData);
+      console.log("SUBMIT FORM DATA:", submitFormData);
+      console.log("Image URL being submitted:", submitFormData.get("image"));
+
+      const result = await createPitch(prevState, submitFormData);
       console.log("CREATE PITCH RESULT:", result);
 
       if (result.status == "SUCCESS") {
@@ -157,7 +167,7 @@ const ServiceForm = () => {
         </label>
         <div className="flex items-center gap-8">
           <CloudinaryUploader
-            onImageUrlChange={handleImageUpload}
+            onImageUrlChange={(imageUrl) => setImageUrl(imageUrl)}
             className="bg-cyan-600 border border-black !max-w-fit hover:bg-black text-white font-semibold py-2 px-11 rounded-full transition:hover duration-300"
           />
 
@@ -173,7 +183,7 @@ const ServiceForm = () => {
             <img
               src={imageUrl}
               alt="Uploaded preview"
-              className="mt-2 max-w-xs rounded"
+              className="mt-2 max-w-xs rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
             />
           </div>
         )}

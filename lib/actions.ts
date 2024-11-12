@@ -14,7 +14,7 @@ export const createPitch = async (state: any, form: FormData) => {
       status: "ERROR",
     });
 
-  const { title, description, category, link, pitch } =
+  const { title, description, category, image, pitch } =
     Object.fromEntries(form);
 
   const slug = slugify(title as string, { lower: true, strict: true });
@@ -46,7 +46,7 @@ export const createPitch = async (state: any, form: FormData) => {
       title,
       description,
       category,
-      image: link,
+      image: image as string,
       slug: {
         _type: slug,
         current: slug,
@@ -57,7 +57,8 @@ export const createPitch = async (state: any, form: FormData) => {
       },
       pitch,
     };
-
+    console.log("SERVICE IN action.ts:", service);
+    console.log("SERVICE IMAGE IN action.ts:", service.image);
     const result = await writeClient.create(service);
 
     return parseServerActionResponse({

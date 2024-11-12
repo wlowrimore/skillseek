@@ -33,6 +33,7 @@ export const service = defineType({
     }),
     defineField({
       name: "image",
+      title: "Image",
       type: "url",
       validation: (Rule) => Rule.required(),
     }),

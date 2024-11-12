@@ -1,6 +1,9 @@
+"use client";
 import { signOut } from "@/auth";
+import { redirect, useRouter } from "next/navigation";
 
 const SignInBtn = async () => {
+  const router = useRouter();
   return (
     <form
       action={async () => {

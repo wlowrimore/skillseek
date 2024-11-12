@@ -41,11 +41,11 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
       <section className="section_container">
         <Image
-          src={post.image}
+          src={post.image as string}
           alt="service image"
           width={1000}
           height={1000}
-          className="mx-auto max-w-[40rem]"
+          className="mx-auto max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
         />
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
@@ -59,7 +59,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 alt="avatar"
                 width={64}
                 height={64}
-                className="rounded-full w-20 h-20 object-cover drop-shadow-lg"
+                className="rounded-full w-16 h-16 object-cover drop-shadow-lg"
               />
 
               <div>
@@ -67,17 +67,18 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <p className="text-16-medium !text-black-300">{username}</p>
               </div>
             </Link>
-
-            <h3 className="text-30-bold">Pitch Details</h3>
-            {parsedContent ? (
-              <article
-                className="prose max-w-4xl font-work-sans break-all"
-                dangerouslySetInnerHTML={{ __html: parsedContent }}
-              />
-            ) : (
-              <p className="no-result">No details provided</p>
-            )}
+            <p className="category-tag">{post.category}</p>
           </div>
+
+          <h3 className="text-30-bold">Pitch Details</h3>
+          {parsedContent ? (
+            <article
+              className="prose max-w-4xl font-work-sans break-all"
+              dangerouslySetInnerHTML={{ __html: parsedContent }}
+            />
+          ) : (
+            <p className="no-result">No details provided</p>
+          )}
 
           <hr className="divider" />
 
