@@ -3,9 +3,9 @@
 import { useState, useActionState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import MDEditor from "@uiw/react-md-editor";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
+import CloudinaryUploader from "@/components/CloudinaryUploader";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
@@ -14,32 +14,44 @@ import { createPitch } from "@/lib/actions";
 
 const ServiceForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [pitch, setPitch] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
   const { toast } = useToast();
   const router = useRouter();
 
+  const handleImageUpload = (url: string) => {
+    console.log("Image uploaded:", url);
+    setImageUrl(url);
+    setErrors((prev) => ({ ...prev, image: "" }));
+  };
+
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
     try {
+      console.log("FORM SUBMISSION STARTED!");
+      console.log("CURRENT IMAGE URL:", imageUrl);
+
       const formValues = {
         title: formData.get("title") as string,
         description: formData.get("description") as string,
         category: formData.get("category") as string,
-        link: formData.get("link") as string,
+        image: imageUrl,
         pitch: formData.get("pitch") as string,
       };
 
-      // await formSchema.parseAsync(formValues);
-
-      console.log("Attempting to validate:", formValues);
+      console.log("FORM VALUES PREPARED:", formValues);
 
       const validatedData = await formSchema.parseAsync(formValues);
       console.log("Validation passed:", validatedData);
 
+      const submitFormData = new FormData();
+      Object.entries(validatedData).forEach(([key, value]) => {
+        submitFormData.append(key, value);
+        console.log(`APPENDING TO FORMDATA: ${key}: ${value}`);
+      });
+
       const result = await createPitch(prevState, formData);
+      console.log("CREATE PITCH RESULT:", result);
 
       if (result.status == "SUCCESS") {
-        console.log("SERVICE CREATED", result);
-        console.log("Redirecting to /service/" + result.id);
         toast({
           title: "Success",
           description: "Your service has been successfully created",
@@ -63,7 +75,11 @@ const ServiceForm = () => {
           variant: "destructive",
         });
 
-        return { ...prevState, error: "Validation Failed", status: "ERROR" };
+        return {
+          ...prevState,
+          error: "An unexpected error has occurred",
+          status: "ERROR",
+        };
       }
       toast({
         title: "Error",
@@ -135,22 +151,32 @@ const ServiceForm = () => {
         )}
       </div>
 
-      <div>
+      <div className="flex flex-col gap-2">
         <label htmlFor="link" className="startup-form_label">
-          Image URL
+          Service Image
         </label>
-        <Input
-          id="link"
-          name="link"
-          className="startup-form_input"
-          required
-          placeholder="https://example.com/image.jpg"
-        />
-        <p className="text-sm text-muted-foreground mt-1">
-          Please enter a direct image URL ending in .jpg, .jpeg, .png, .gif,
-          .webp, or from image hosting services like Unsplash, Imgur, or
-          Cloudinary
-        </p>
+        <div className="flex items-center gap-8">
+          <CloudinaryUploader
+            onImageUrlChange={handleImageUpload}
+            className="bg-cyan-600 border border-black !max-w-fit hover:bg-black text-white font-semibold py-2 px-11 rounded-full transition:hover duration-300"
+          />
+
+          <p className="leading-5 text-sm text-slate-700 font-semibold tracking-wide text-muted-foreground !max-w-[16rem]">
+            Upload an image from your device that represents your service.
+          </p>
+        </div>
+        {imageUrl && (
+          <div className="mt-2">
+            <p className="text-sm text-green-600 mt-2">
+              Image uploaded successfully!
+            </p>
+            <img
+              src={imageUrl}
+              alt="Uploaded preview"
+              className="mt-2 max-w-xs rounded"
+            />
+          </div>
+        )}
 
         {errors.link && <p className="startup-form_error">{errors.link}</p>}
       </div>
@@ -171,7 +197,11 @@ const ServiceForm = () => {
         {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
       </div>
 
-      <Button type="submit" className="startup-form_btn" disabled={isPending}>
+      <Button
+        type="submit"
+        className="startup-form_btn"
+        disabled={isPending || !imageUrl}
+      >
         {isPending ? "Submitting..." : "Submit Your Service"}
         <Send className="size-6 ml-2" />
       </Button>

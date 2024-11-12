@@ -45,7 +45,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           alt="service image"
           width={1000}
           height={1000}
-          className="rounded-xl object-cover mx-auto"
+          className="mx-auto max-w-[40rem]"
         />
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">

@@ -13,26 +13,7 @@ export const formSchema = z.object({
     .string()
     .min(3, "Category must be at least 3 characters")
     .max(20, "Category must be less than 20 characters"),
-  link: z
-    .string()
-    .url("Please enter a valid URL")
-    .refine((url) => {
-      // Basic image URL validation - checks if the URL ends with common image extensions
-      const imageExtensions = [
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".gif",
-        ".webp",
-        ".svg",
-      ];
-      return (
-        imageExtensions.some((ext) => url.toLowerCase().endsWith(ext)) ||
-        url.toLowerCase().includes("images.unsplash.com") ||
-        url.toLowerCase().includes("imgur.com") ||
-        url.toLowerCase().includes("cloudinary.com")
-      );
-    }, "Please provide a valid image URL"),
+  image: z.string().min(1, { message: "Image is required" }),
   pitch: z.string().min(10, "Pitch must be at least 10 characters"),
 });
 
