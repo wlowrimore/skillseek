@@ -5,7 +5,7 @@ export async function signInBtn() {
     <form
       action={async () => {
         "use server";
-        await signIn("google", { callbackUrl: "/service/create" });
+        await signIn("google", { redirectTo: "/service/create" });
       }}
     >
       <button
@@ -21,16 +21,16 @@ export async function signInBtn() {
 export async function signOutBtn() {
   return (
     <form
-      action={async () => {
+      action={async (formData: FormData) => {
         "use server";
-        await signOut();
+        await signOut({ redirectTo: "/" });
       }}
     >
       <button
         type="submit"
-        className="text-[#072454] hover:text-blue-500 rounded"
+        className="text-white font-normal w-full text-[1.3rem] bg-black/80 px-5 py-2 mt-4 rounded-xl hover:bg-black transition-hover duration-200"
       >
-        <span>SignOut</span>
+        <span>Yes, Sign Me Out</span>
       </button>
     </form>
   );

@@ -11,8 +11,6 @@ export type ServiceTypeCard = Omit<Service, "author"> & {
 };
 
 const ServiceCard = ({ post }: { post: ServiceTypeCard }) => {
-  console.log("POST:", post);
-  console.log("AUTHOR:", post.author);
   const { _createdAt, author, title, category, _id, image, description } = post;
 
   return (

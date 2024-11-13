@@ -47,6 +47,10 @@
     background-repeat: no-repeat;
   }
 
+  .sign-out_container {
+    @apply w-full bg-swirl-pattern min-h-screen pattern flex justify-center items-center flex-col py-10 px-6;
+  }
+
   /* searchform */
   .search-form {
     @apply max-w-3xl w-full min-h-[4rem] bg-white border-[0.2rem] border-black rounded-[80px] text-[24px] mt-8 px-5 flex flex-row items-center gap-5;

@@ -1,11 +1,7 @@
 import { auth } from "@/auth";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  signInBtn as SignInBtn,
-  signOutBtn as SignOutBtn,
-} from "./AuthButtons";
-import { Sign } from "crypto";
+import { signInBtn as SignInBtn } from "./AuthButtons";
 
 const Navbar = async () => {
   const session = await auth();
@@ -23,14 +19,19 @@ const Navbar = async () => {
           />
         </Link>
 
-        <section className="flex-between gap-14">
+        <section className="flex-between gap-6">
           <Link href="/service/create" className="hover:text-blue-500">
             <span className="p-2">Create</span>
           </Link>
 
           {session && session.user ? (
             <>
-              <SignOutBtn />
+              <Link
+                href="/signout"
+                className="text-primary hover:text-blue-500 transition duration-200"
+              >
+                SignOut
+              </Link>
               <div className="flex flex-col justify-center items-center p-0.5 border-2 border-[#072454] rounded-full">
                 <Image
                   src={session.user.image as string}
