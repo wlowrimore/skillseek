@@ -1,22 +1,101 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { deleteService } from "@/lib/actions";
 import { cn, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Author, Service } from "@/sanity/types";
+import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export type ServiceTypeCard = Omit<Service, "author"> & {
+  service: {
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    image: string;
+    pitch: string;
+    author: Author;
+  };
+
   author?: Author;
   image?: string;
-};
+} & { currentUserEmail?: string };
 
-const ServiceCard = ({ post }: { post: ServiceTypeCard }) => {
+const ServiceCard = ({
+  post,
+  service,
+  currentUserEmail,
+}: {
+  post: ServiceTypeCard;
+  service: ServiceTypeCard;
+  currentUserEmail?: string | undefined;
+}) => {
   const { _createdAt, author, title, category, _id, image, description } = post;
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const router = useRouter();
+  const { toast } = useToast();
+
+  // console.log("CURRENT USER EMAIL:", currentUserEmail);
+
+  const isAuthor = currentUserEmail === service?.author?.email;
+
+  const handleUpdate = async () => {
+    router.push(`/service/edit/${service?._id}`);
+  };
+
+  const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this service?"))
+      return;
+
+    setIsDeleting(true);
+    try {
+      const result = await deleteService(service._id);
+
+      if (result.status === "SUCCESS") {
+        toast({
+          title: "Success",
+          description: "Service deleted successfully",
+        });
+        router.refresh();
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete service",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <li className="startup-card group">
       <div className="flex-between">
         <p className="startup_card_date">{formatDate(_createdAt)}</p>
+        {isAuthor && (
+          <div className="flex gap-4 items-center">
+            <Button
+              onClick={handleUpdate}
+              className="bg-green-300 px-2 rounded-lg"
+            >
+              update
+            </Button>
+            <Button
+              onClick={handleDelete}
+              className="bg-red-400 px-2 rounded-lg"
+            >
+              {isDeleting ? "Deleting..." : "Delete"}
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="flex-bewtween mt-5 gap-5">

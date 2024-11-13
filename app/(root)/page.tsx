@@ -39,7 +39,12 @@ export default async function Home({
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
             posts.map((post: ServiceTypeCard) => (
-              <ServiceCard key={post?._id} post={post} />
+              <ServiceCard
+                key={post?._id}
+                post={post}
+                service={post}
+                currentUserEmail={session?.user?.email as string | undefined}
+              />
             ))
           ) : (
             <p className="no-results">No services found</p>

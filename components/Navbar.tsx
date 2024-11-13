@@ -7,15 +7,15 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <header className="px-8 py-2 sticky top-0 bg-white border-b border-gray-200 shadow-md">
+    <header className="px-8 py-2 sticky top-0 bg-white border-b border-gray-200 shadow shadow-neutral-100">
       <nav className="flex flex-between gap-5 text-[#072454]">
         <Link href="/">
           <Image
             src="/brand-logo.png"
             alt="brand logo"
-            width={75}
-            height={75}
-            className="w-auto h-auto border-l-2 border-r-2 border-primary px-2 py-1 rounded-xl"
+            width={1000}
+            height={1000}
+            className="w-44 h-auto border-l-2 border-r-2 border-primary px-2 py-1 rounded-xl"
           />
         </Link>
 

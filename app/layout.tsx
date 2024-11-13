@@ -54,8 +54,8 @@ const workSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "DIFO",
-  description: "Lend a helping hand to others",
+  title: "SkillSeek",
+  description: "Trade skills with neighbors",
 };
 
 export default function RootLayout({

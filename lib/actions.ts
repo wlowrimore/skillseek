@@ -4,6 +4,8 @@ import { auth } from "@/auth";
 import { parseServerActionResponse } from "@/lib/utils";
 import slugify from "slugify";
 import { writeClient } from "@/sanity/lib/write-client";
+import { client } from "@/sanity/lib/client";
+import { revalidatePath } from "next/cache";
 
 export const createPitch = async (state: any, form: FormData) => {
   const session = await auth();
@@ -76,3 +78,53 @@ export const createPitch = async (state: any, form: FormData) => {
     });
   }
 };
+
+// ----------------------------------------------------------------
+//                          MUTATIONS
+// ----------------------------------------------------------------
+
+export async function updateService(prevState: any, formData: FormData) {
+  try {
+    const id = formData.get("id") as string;
+    const updatedData = {
+      title: formData.get("title"),
+      description: formData.get("description"),
+      category: formData.get("category"),
+      image: formData.get("image"),
+      pitch: formData.get("pitch"),
+    };
+
+    await client.patch(id).set(updatedData).commit();
+
+    revalidatePath("/");
+    revalidatePath(`/service/${id}`);
+
+    return {
+      status: "SUCCESS",
+      message: "Service updated successfully",
+    };
+  } catch (error) {
+    return {
+      status: "ERROR",
+      message: "Failed to update service",
+    };
+  }
+}
+
+export async function deleteService(id: string) {
+  try {
+    await client.delete(id);
+
+    revalidatePath("/");
+
+    return {
+      status: "SUCCESS",
+      message: "Service deleted successfully",
+    };
+  } catch (error) {
+    return {
+      status: "ERROR",
+      message: "Failed to delete service",
+    };
+  }
+}

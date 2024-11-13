@@ -93,3 +93,18 @@ export const PLAYLIST_BY_SLUG_QUERY =
         image,
         pitch,
     }`);
+
+export const UPDATE_SERVICE_MUTATION =
+  defineQuery(`*[_type == "service" && _id == $id]{
+      _type,
+      _id,
+      title,
+      description,
+      category,
+      image,
+      pitch,
+      }`);
+
+export const DELETE_SERVICE_MUTATION = defineQuery(
+  `*[_type == "service" && _id == $id]`
+);

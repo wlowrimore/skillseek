@@ -32,7 +32,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <section className="blue_container bg-swirl-pattern">
+      <section className="sticky blue_container bg-swirl-pattern">
         <p className="tag">{formatDate(post?._createdAt)}</p>
 
         <h1 className="heading">{post.title}</h1>
@@ -73,7 +73,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <h3 className="text-30-bold">Pitch Details</h3>
           {parsedContent ? (
             <article
-              className="prose max-w-4xl font-work-sans break-all"
+              className="text-black max-w-4xl font-work-sans"
               dangerouslySetInnerHTML={{ __html: parsedContent }}
             />
           ) : (
@@ -88,7 +88,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
               <ul className="mt-7 card_grid-sm">
                 {editorPosts.map((post: ServiceTypeCard, i: number) => (
-                  <ServiceCard key={i} post={post} />
+                  <ServiceCard key={i} post={post} service={post} />
                 ))}
               </ul>
             </div>

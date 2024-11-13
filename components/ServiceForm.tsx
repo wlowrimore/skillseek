@@ -11,65 +11,90 @@ import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { createPitch } from "@/lib/actions";
-import { form } from "sanity/structure";
+import { updateService } from "@/lib/actions";
 
-const ServiceForm = () => {
+interface ServiceFormProps {
+  initialData?: {
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    image: string;
+    pitch: string;
+  };
+}
+
+const ServiceForm = ({ initialData }: ServiceFormProps) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState(initialData?.image || "");
   const { toast } = useToast();
   const router = useRouter();
 
   console.log("IMAGE URL:", imageUrl);
 
-  const handleImageUpload = (url: string) => {
-    console.log("Image uploaded:", url);
-    setImageUrl(url);
-    setErrors((prev) => ({ ...prev, image: "" }));
-  };
+  // const handleImageUpload = (url: string) => {
+  //   console.log("Image uploaded:", url);
+  //   setImageUrl(url);
+  //   setErrors((prev) => ({ ...prev, image: "" }));
+  // };
 
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
     try {
-      console.log("FORM SUBMISSION STARTED!");
-      console.log("CURRENT IMAGE URL:", imageUrl);
+      if (initialData) {
+        formData.append("id", initialData._id);
+        const result = await updateService(prevState, formData);
 
-      const formValues = {
-        title: formData.get("title") as string,
-        description: formData.get("description") as string,
-        category: formData.get("category") as string,
-        image: imageUrl,
-        pitch: formData.get("pitch") as string,
-      };
+        if (result.status === "SUCCESS") {
+          toast({
+            title: "Success",
+            description: "Service updated successfully",
+          });
+          router.refresh();
+        } else {
+          throw new Error(result.message);
+        }
 
-      console.log("FORM VALUES PREPARED:", formValues);
+        return result;
+      } else if (!initialData) {
+        const formValues = {
+          title: formData.get("title") as string,
+          description: formData.get("description") as string,
+          category: formData.get("category") as string,
+          image: imageUrl,
+          pitch: formData.get("pitch") as string,
+        };
 
-      const validatedData = await formSchema.parseAsync(formValues);
-      console.log("Validation passed:", validatedData);
+        console.log("FORM VALUES PREPARED:", formValues);
 
-      const submitFormData = new FormData();
-      submitFormData.append("title", formData.get("title") as string);
-      submitFormData.append(
-        "description",
-        formData.get("description") as string
-      );
-      submitFormData.append("category", formData.get("category") as string);
-      submitFormData.append("image", imageUrl as string);
-      submitFormData.append("pitch", formData.get("pitch") as string);
+        const validatedData = await formSchema.parseAsync(formValues);
+        console.log("Validation passed:", validatedData);
 
-      console.log("SUBMIT FORM DATA:", submitFormData);
-      console.log("Image URL being submitted:", submitFormData.get("image"));
+        const submitFormData = new FormData();
+        submitFormData.append("title", formData.get("title") as string);
+        submitFormData.append(
+          "description",
+          formData.get("description") as string
+        );
+        submitFormData.append("category", formData.get("category") as string);
+        submitFormData.append("image", imageUrl as string);
+        submitFormData.append("pitch", formData.get("pitch") as string);
 
-      const result = await createPitch(prevState, submitFormData);
-      console.log("CREATE PITCH RESULT:", result);
+        console.log("SUBMIT FORM DATA:", submitFormData);
+        console.log("Image URL being submitted:", submitFormData.get("image"));
 
-      if (result.status == "SUCCESS") {
-        toast({
-          title: "Success",
-          description: "Your service has been successfully created",
-        });
-        router.push(`/service/${result._id}`);
+        const result = await createPitch(prevState, submitFormData);
+        console.log("CREATE PITCH RESULT:", result);
+
+        if (result.status == "SUCCESS") {
+          toast({
+            title: "Success",
+            description: "Your service has been successfully created",
+          });
+          router.push(`/service/${result._id}`);
+        }
+
+        return result;
       }
-
-      return result;
     } catch (error) {
       console.log("Validation or submission error:", error);
 
@@ -118,6 +143,7 @@ const ServiceForm = () => {
         </label>
         <Input
           id="title"
+          defaultValue={initialData?.title}
           name="title"
           className="startup-form_input"
           required
@@ -133,6 +159,7 @@ const ServiceForm = () => {
         </label>
         <Textarea
           id="description"
+          defaultValue={initialData?.description}
           name="description"
           className="startup-form_textarea"
           required
@@ -150,6 +177,7 @@ const ServiceForm = () => {
         </label>
         <Input
           id="category"
+          defaultValue={initialData?.category}
           name="category"
           className="startup-form_input"
           required
@@ -198,6 +226,7 @@ const ServiceForm = () => {
 
         <Textarea
           id="pitch"
+          defaultValue={initialData?.pitch}
           name="pitch"
           className="startup-form_textarea h-32"
           required
