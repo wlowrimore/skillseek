@@ -125,6 +125,16 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
+export type Role = {
+  _id: string;
+  _type: "role";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: string;
+};
+
 export type Playlist = {
   _id: string;
   _type: "playlist";
@@ -172,6 +182,13 @@ export type Author = {
   name?: string;
   email?: string;
   image?: string;
+  roles?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "role";
+  }>;
 };
 
 export type Slug = {
@@ -180,7 +197,5 @@ export type Slug = {
   source?: string;
 };
 
-export type Markdown = string;
-
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | SanityAssetSourceData | Playlist | Service | Author | Slug | Markdown;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | SanityAssetSourceData | Role | Playlist | Service | Author | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;

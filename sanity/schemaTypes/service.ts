@@ -7,10 +7,12 @@ export const service = defineType({
   fields: [
     defineField({
       name: "title",
+      title: "Title",
       type: "string",
     }),
     defineField({
       name: "slug",
+      title: "Slug",
       type: "slug",
       options: {
         source: "title",
@@ -18,15 +20,19 @@ export const service = defineType({
     }),
     defineField({
       name: "author",
+      title: "Author",
       type: "reference",
       to: { type: "author" },
+      description: "The author who created this service",
     }),
     defineField({
       name: "description",
+      title: "Description",
       type: "text",
     }),
     defineField({
       name: "category",
+      title: "Category",
       type: "string",
       validation: (Rule) =>
         Rule.min(1).max(20).required().error("Please enter a category"),

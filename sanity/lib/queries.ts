@@ -66,6 +66,7 @@ export const AUTHOR_BY_GOOGLE_ID_QUERY =
       name,
       email,
       image,
+      "roles": roles[]->title
     }`);
 
 export const PLAYLIST_BY_SLUG_QUERY =
@@ -96,8 +97,8 @@ export const PLAYLIST_BY_SLUG_QUERY =
 
 export const UPDATE_SERVICE_MUTATION =
   defineQuery(`*[_type == "service" && _id == $id]{
-      _type,
-      _id,
+    _id,
+    _type,
       title,
       description,
       category,

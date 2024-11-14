@@ -11,7 +11,13 @@ declare module "next-auth" {
       name: string;
       email: string;
       image: string;
+      roles: string[];
     };
+  }
+
+  interface Token {
+    id: string;
+    roles: string[];
   }
 }
 
@@ -28,10 +34,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           if (!existingAuthor) {
             await writeClient.create({
               _type: "author",
-              id: user.email, // Using email as ID
+              _id: `author-${user.email}`, // Using email as ID
               name: user.name,
               email: user.email,
               image: user.image,
+              roles: [
+                {
+                  _type: "reference",
+                  _ref: "role-contributor",
+                },
+              ],
             });
           }
 
@@ -42,6 +54,42 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
       }
       return true;
+    },
+    async jwt({ token, user }) {
+      if (user && user.email) {
+        try {
+          const author = await client.withConfig({ useCdn: false }).fetch(
+            `*[_type == "author" && email == $email][0]{
+              _id,
+              name,
+              email,
+              image,
+              "roles": roles[]->title
+            }`,
+            {
+              email: user.email,
+            }
+          );
+
+          if (author) {
+            token.id = author._id;
+            token.roles = [...author(author.roles || []), "contributor"]; // Default to contributor if no roles found
+          } else {
+            token.roles = ["contributor"];
+          }
+        } catch (error) {
+          console.error("Error fetching author for JWT:", error);
+        }
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id as string;
+        session.user.roles = (token as { id: string; roles: string[] }).roles;
+      }
+      return session;
     },
   },
 });

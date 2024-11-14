@@ -1,8 +1,6 @@
 "use client";
-
-/**
- * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
- */
+import { LoginMethod } from "sanity";
+import type { SanityDocument, User } from "@sanity/types";
 
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
@@ -12,7 +10,11 @@ import { structureTool } from "sanity/structure";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
-import { markdownSchema } from "sanity-plugin-markdown";
+
+interface AccessControlContext {
+  document: SanityDocument;
+  identity: User | null;
+}
 
 export default defineConfig({
   basePath: "/studio",
@@ -25,6 +27,43 @@ export default defineConfig({
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
-    markdownSchema(),
   ],
+  auth: {
+    loginMethod: "jwt" as LoginMethod,
+  },
+  accessControl: {
+    rules: [
+      {
+        operation: "read",
+        allow: true,
+      },
+      {
+        operation: "create",
+        allow: ({ identity }: AccessControlContext) => {
+          return identity !== null;
+        },
+        permission: "create",
+      },
+      {
+        operation: "update",
+        allow: ({ document, identity }: AccessControlContext) => {
+          return (
+            (document?.author as { _ref: string })?._ref ===
+            `author-${identity?.email}`
+          );
+        },
+        permission: "update",
+      },
+      {
+        operation: "delete",
+        allow: ({ document, identity }: AccessControlContext) => {
+          return (
+            (document?.author as { _ref: string })?._ref ===
+            `author-${identity?.email}`
+          );
+        },
+        permission: "delete",
+      },
+    ],
+  },
 });

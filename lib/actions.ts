@@ -7,6 +7,32 @@ import { writeClient } from "@/sanity/lib/write-client";
 import { client } from "@/sanity/lib/client";
 import { revalidatePath } from "next/cache";
 
+interface Author {
+  _id: string;
+  _type: string;
+  email: string;
+  name?: string;
+}
+
+interface ServiceWithAuthorRef {
+  _id: string;
+  _type: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  pitch: string;
+  author: {
+    _type: string;
+    _ref: string;
+  };
+}
+
+// New interface for service with expanded author
+interface ServiceWithAuthor extends Omit<ServiceWithAuthorRef, "author"> {
+  author: Author;
+}
+
 export const createPitch = async (state: any, form: FormData) => {
   const session = await auth();
 
@@ -83,31 +109,74 @@ export const createPitch = async (state: any, form: FormData) => {
 //                          MUTATIONS
 // ----------------------------------------------------------------
 
-export async function updateService(prevState: any, formData: FormData) {
+export async function updateService(
+  serviceId: string,
+  data: Partial<Omit<ServiceWithAuthorRef, "author">>,
+  authorEmail: string
+) {
   try {
-    const id = formData.get("id") as string;
+    console.log("\n=== Update Service Debug Info ===");
+    console.log("Service ID:", serviceId);
+    console.log("Author Email:", authorEmail);
+
+    // Get the existing service first
+    const existingService = await client.fetch<ServiceWithAuthor | null>(
+      `*[_type == "service" && _id == $serviceId][0]{
+        _id,
+        _type,
+        title,
+        description,
+        category,
+        image,
+        pitch,
+        "author": author->{
+          _id,
+          _type,
+          email,
+          name
+        }
+      }`,
+      { serviceId }
+    );
+
+    console.log("\n=== Existing Service ===");
+    console.log(JSON.stringify(existingService, null, 2));
+
+    if (!existingService) {
+      throw new Error(`Service with ID ${serviceId} not found`);
+    }
+
+    // Check if the service's author email matches the provided email
+    if (existingService.author.email !== authorEmail) {
+      console.log("\n=== Authorization Failed ===");
+      console.log("Service Author Email:", existingService.author.email);
+      console.log("Provided Email:", authorEmail);
+      throw new Error(
+        "Unauthorized: You don't have permission to edit this service"
+      );
+    }
+
+    // Use the existing author reference for the update
     const updatedData = {
-      title: formData.get("title"),
-      description: formData.get("description"),
-      category: formData.get("category"),
-      image: formData.get("image"),
-      pitch: formData.get("pitch"),
+      ...data,
+      author: {
+        _type: "reference",
+        _ref: existingService.author._id,
+      },
     };
 
-    await client.patch(id).set(updatedData).commit();
+    console.log("\n=== Updated Data to Commit ===");
+    console.log(JSON.stringify(updatedData, null, 2));
 
-    revalidatePath("/");
-    revalidatePath(`/service/${id}`);
+    const result = await writeClient.patch(serviceId).set(updatedData).commit();
 
-    return {
-      status: "SUCCESS",
-      message: "Service updated successfully",
-    };
+    console.log("\n=== Update Result ===");
+    console.log(JSON.stringify(result, null, 2));
+    return result;
   } catch (error) {
-    return {
-      status: "ERROR",
-      message: "Failed to update service",
-    };
+    console.error("\n=== Error updating service ===");
+    console.error("Error:", error);
+    throw error;
   }
 }
 

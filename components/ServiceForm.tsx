@@ -18,13 +18,16 @@ interface ServiceFormProps {
     _id: string;
     title: string;
     description: string;
+    author: { _ref: string; email: string };
     category: string;
     image: string;
     pitch: string;
   };
+  authorEmail: string;
 }
 
 const ServiceForm = ({ initialData }: ServiceFormProps) => {
+  console.log("INITIAL DATA:", initialData);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [imageUrl, setImageUrl] = useState(initialData?.image || "");
   const { toast } = useToast();
@@ -32,17 +35,20 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
 
   console.log("IMAGE URL:", imageUrl);
 
-  // const handleImageUpload = (url: string) => {
-  //   console.log("Image uploaded:", url);
-  //   setImageUrl(url);
-  //   setErrors((prev) => ({ ...prev, image: "" }));
-  // };
-
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
     try {
       if (initialData) {
-        formData.append("id", initialData._id);
-        const result = await updateService(prevState, formData);
+        const result = await updateService(
+          initialData._id,
+          {
+            title: formData.get("title") as string,
+            description: formData.get("description") as string,
+            category: formData.get("category") as string,
+            image: imageUrl,
+            pitch: formData.get("pitch") as string,
+          },
+          initialData.author.email
+        );
 
         if (result.status === "SUCCESS") {
           toast({
@@ -53,8 +59,6 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         } else {
           throw new Error(result.message);
         }
-
-        return result;
       } else if (!initialData) {
         const formValues = {
           title: formData.get("title") as string,
