@@ -29,6 +29,7 @@ export const service = defineType({
       name: "description",
       title: "Description",
       type: "text",
+      validation: (Rule) => Rule.min(10).max(50),
     }),
     defineField({
       name: "category",

@@ -175,7 +175,7 @@
   }
 
   .startup-card_desc {
-    @apply font-normal text-[16px] line-clamp-2 my-3 text-black-100;
+    @apply text-xs tracking-wide line-clamp-2 text-cyan-950 mt-2 font-semibold leading-4;
   }
 
   .startup-card_img {

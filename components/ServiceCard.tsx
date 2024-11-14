@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Author, Service } from "@/sanity/types";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Blocks } from "lucide-react";
+import { PackageMinus } from "lucide-react";
 
 export type ServiceTypeCard = Omit<Service, "author"> & {
   service: {
@@ -40,9 +42,9 @@ const ServiceCard = ({
   const router = useRouter();
   const { toast } = useToast();
 
-  // console.log("CURRENT USER EMAIL:", currentUserEmail);
-
   const isAuthor = currentUserEmail === service?.author?.email;
+  const createdUsername = service?.author?.email?.split("@")[0];
+  const username = `@${createdUsername}`;
 
   const handleUpdate = async () => {
     router.push(`/service/edit/${service?._id}`);
@@ -82,46 +84,52 @@ const ServiceCard = ({
         <p className="startup_card_date">{formatDate(_createdAt)}</p>
         {isAuthor && (
           <div className="flex gap-4 items-center">
-            <Button
+            <Blocks
               onClick={handleUpdate}
-              className="bg-green-300 px-2 rounded-lg"
-            >
-              update
-            </Button>
-            <Button
+              className="size-6 text-green-600 cursor-pointer"
+              name="Update"
+            />
+
+            <PackageMinus
               onClick={handleDelete}
-              className="bg-red-400 px-2 rounded-lg"
-            >
-              {isDeleting ? "Deleting..." : "Delete"}
-            </Button>
+              className="size-6 text-red-600 cursor-pointer"
+            />
+            {isDeleting ? "Deleting..." : ""}
           </div>
         )}
       </div>
 
-      <div className="flex-bewtween mt-5 gap-5">
+      <div className="flex-bewtween gap-5">
         <div className="flex-1">
-          <Link href={`/user/${author?._id}`}>
-            <p className="text-16-medium line-clamp-1">{author?.name}</p>
-          </Link>
           <Link href={`/service/${_id}`}>
-            <h3 className="text-26-semibold line-clamp-1">{title}</h3>
+            <h3 className="text-26-semibold line-clamp-1 mb-6">{title}</h3>
+          </Link>
+          <Link
+            href={`/user/${author?._id}`}
+            className="flex gap-3 items-center mb-5"
+          >
+            <Image
+              src={author?.image as string}
+              alt={author?.name as string}
+              width={100}
+              height={100}
+              className="startup-card_avatar max-h-14 max-w-14 object-cover object-center rounded-2xl"
+            />
+            <div className="flex flex-col leading-4">
+              <p className="line-clamp-1 font-semibold">{author?.name}</p>
+              <p className="text-sm">{username}</p>
+            </div>
           </Link>
         </div>
-
-        <Link href={`/user/${author?._id}`}>
-          <Image
-            src={author?.image as string}
-            alt={author?.name as string}
-            width={100}
-            height={100}
-            className="startup-card_avatar max-h-16 max-w-16 object-cover object-center rounded-lg"
-          />
-        </Link>
       </div>
 
       <Link href={`/service/${_id}`}>
+        <img
+          src={image}
+          alt={title}
+          className="startup-card_img border border-neutral-300"
+        />
         <p className="startup-card_desc">{description}</p>
-        <img src={image} alt={title} className="startup-card_img" />
       </Link>
 
       <div className="flex-between gap-3 mt-5">
