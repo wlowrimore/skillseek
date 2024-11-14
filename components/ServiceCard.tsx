@@ -10,8 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Author, Service } from "@/sanity/types";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Blocks } from "lucide-react";
+import { Blocks, Delete } from "lucide-react";
 import { PackageMinus } from "lucide-react";
+import { UpdateButton, DeleteButton } from "./MutationButtons";
 
 export type ServiceTypeCard = Omit<Service, "author"> & {
   service: {
@@ -41,42 +42,10 @@ const ServiceCard = ({
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const router = useRouter();
   const { toast } = useToast();
-
   const isAuthor = currentUserEmail === service?.author?.email;
+
   const createdUsername = service?.author?.email?.split("@")[0];
   const username = `@${createdUsername}`;
-
-  const handleUpdate = async () => {
-    router.push(`/service/edit/${service?._id}`);
-  };
-
-  const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this service?"))
-      return;
-
-    setIsDeleting(true);
-    try {
-      const result = await deleteService(service._id);
-
-      if (result.status === "SUCCESS") {
-        toast({
-          title: "Success",
-          description: "Service deleted successfully",
-        });
-        router.refresh();
-      } else {
-        throw new Error(result.message);
-      }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to delete service",
-        variant: "destructive",
-      });
-    } finally {
-      setIsDeleting(false);
-    }
-  };
 
   return (
     <li className="startup-card group">
@@ -84,17 +53,8 @@ const ServiceCard = ({
         <p className="startup_card_date">{formatDate(_createdAt)}</p>
         {isAuthor && (
           <div className="flex gap-4 items-center">
-            <Blocks
-              onClick={handleUpdate}
-              className="size-6 text-green-600 cursor-pointer"
-              name="Update"
-            />
-
-            <PackageMinus
-              onClick={handleDelete}
-              className="size-6 text-red-600 cursor-pointer"
-            />
-            {isDeleting ? "Deleting..." : ""}
+            <UpdateButton service={service} />
+            <DeleteButton service={service} />
           </div>
         )}
       </div>
@@ -102,7 +62,7 @@ const ServiceCard = ({
       <div className="flex-bewtween gap-5">
         <div className="flex-1">
           <Link href={`/service/${_id}`}>
-            <h3 className="text-26-semibold line-clamp-1 mb-6">{title}</h3>
+            <h3 className="text-26-semibold line-clamp-1 mb-2">{title}</h3>
           </Link>
           <Link
             href={`/user/${author?._id}`}
@@ -137,7 +97,7 @@ const ServiceCard = ({
           <p className="text-16-medium">{category}</p>
         </Link>
         <Button className="startup-card_btn" asChild>
-          <Link href={`/service/${_id}`}>Details</Link>
+          <Link href={`/service/${_id}`}>More...</Link>
         </Button>
       </div>
     </li>

@@ -1,4 +1,5 @@
 import { client } from "@/sanity/lib/client";
+import { auth } from "@/auth";
 import {
   PLAYLIST_BY_SLUG_QUERY,
   SERVICE_BY_ID_QUERY,
@@ -7,7 +8,9 @@ import { notFound } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { displayTagName } from "@/lib/utils";
+import { UpdateButton, DeleteButton } from "@/components/MutationButtons";
+// import { Blocks } from "lucide-react";
+// import { PackageMinus } from "lucide-react";
 
 import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
 
@@ -15,7 +18,7 @@ export const experimental_ppr = true;
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
-  const username = await displayTagName();
+  const session = await auth();
 
   const [post, playlist] = await Promise.all([
     client.fetch(SERVICE_BY_ID_QUERY, { id }),
@@ -27,6 +30,15 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   console.log("EDITOR POSTS", editorPosts);
 
   if (!post) return notFound();
+
+  const authorEmail = post.author?.email;
+  console.log("SESSION:", session);
+  console.log("AUTHOR EMAIL:", authorEmail);
+
+  const isAuthor = authorEmail === session?.user?.email;
+  console.log("IS AUTHOR:", isAuthor);
+  const createdUserName = post.author?.email?.split("@")[0];
+  const username = `@${createdUserName}`;
 
   const parsedContent = post?.pitch || "";
 
@@ -40,13 +52,21 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
       </section>
 
       <section className="section_container">
-        <Image
-          src={post.image as string}
-          alt="service image"
-          width={1000}
-          height={1000}
-          className="mx-auto max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
-        />
+        <span className="relative">
+          <Image
+            src={post.image as string}
+            alt="service image"
+            width={1000}
+            height={1000}
+            className="mx-auto max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
+          />
+          {isAuthor && (
+            <span className="absolute bottom-6 right-52 z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
+              <UpdateButton service={post} />
+              <DeleteButton service={post} />
+            </span>
+          )}
+        </span>
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
           <div className="flex-between gap-5">
@@ -62,9 +82,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 className="rounded-full w-16 h-16 object-cover drop-shadow-lg"
               />
 
-              <div>
-                <p className="text-20-medium">{post.author.name}</p>
-                <p className="text-16-medium !text-black-300">{username}</p>
+              <div className="leading-5">
+                <p className="text-xl font-semibold">{post.author.name}</p>
+                <p className="text-small">{username}</p>
               </div>
             </Link>
             <p className="category-tag">{post.category}</p>

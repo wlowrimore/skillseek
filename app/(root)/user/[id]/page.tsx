@@ -17,6 +17,8 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   console.log("USER in user/[id]/page.tsx", user);
   if (!user) return notFound();
 
+  const isAuthor = session?.user?.email === user.email;
+
   return (
     <>
       <section className="profile_container">
@@ -30,16 +32,14 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <Image
             src={user.image}
             alt={user.name}
-            width={220}
-            height={220}
+            width={1000}
+            height={1000}
             className="w-44 h-44 object-cover object-center rounded-2xl"
           />
         </div>
 
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">
-          <p className="text-30-bold">
-            {session?.user?.email === id ? "Your" : "All"} Startups
-          </p>
+          <p className="text-30-bold">{isAuthor ? "Your" : "All"} Startups</p>
           <ul className="card_grid-sm">
             <Suspense fallback={<ServiceCardSkeleton />}>
               <UserServices id={id} />
