@@ -50,14 +50,19 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           initialData.author.email
         );
 
-        if (result.status === "SUCCESS") {
+        if (result) {
           toast({
             title: "Success",
             description: "Service updated successfully",
           });
           router.refresh();
+          router.push(`/service/${result._id}`);
+          return {
+            status: "SUCCESS",
+            message: "Service updated successfully",
+          };
         } else {
-          throw new Error(result.message);
+          throw new Error("Failed to update service");
         }
       } else if (!initialData) {
         const formValues = {
