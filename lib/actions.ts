@@ -6,6 +6,7 @@ import slugify from "slugify";
 import { writeClient } from "@/sanity/lib/write-client";
 import { client } from "@/sanity/lib/client";
 import { revalidatePath } from "next/cache";
+import { deleteCloudinaryImage } from "@/lib/cloudinary";
 
 interface Author {
   _id: string;
@@ -42,7 +43,7 @@ export const createPitch = async (state: any, form: FormData) => {
       status: "ERROR",
     });
 
-  const { title, description, category, image, pitch } =
+  const { title, description, category, image, pitch, deleteToken } =
     Object.fromEntries(form);
 
   const slug = slugify(title as string, { lower: true, strict: true });
@@ -75,6 +76,7 @@ export const createPitch = async (state: any, form: FormData) => {
       description,
       category,
       image: image as string,
+      deleteToken: deleteToken as string,
       slug: {
         _type: slug,
         current: slug,
@@ -85,8 +87,10 @@ export const createPitch = async (state: any, form: FormData) => {
       },
       pitch,
     };
+
     console.log("SERVICE IN action.ts:", service);
     console.log("SERVICE IMAGE IN action.ts:", service.image);
+
     const result = await writeClient.create(service);
 
     return parseServerActionResponse({
@@ -180,9 +184,61 @@ export async function updateService(
   }
 }
 
-export async function deleteService(id: string) {
+export async function deleteService(serviceId: string) {
   try {
-    await client.delete(id);
+    const session = await auth();
+    if (!session?.user?.email) {
+      throw new Error("Authorization required");
+    }
+
+    const service = await client.fetch(
+      `
+      *[_type == "service" && _id == $serviceId][0]{
+        _id,
+        image,
+        deleteToken,
+        author->{
+          _id,
+          email
+        }
+      }
+    `,
+      { serviceId }
+    );
+
+    console.log("Fetched service:", service);
+
+    if (!service) {
+      throw new Error("Service not found");
+    }
+
+    if (!service.author) {
+      throw new Error("Service author information not found");
+    }
+
+    if (service.author.email !== session.user.email) {
+      console.log("Auth mismatch:", {
+        serviceAuthorEmail: service.author.email,
+        currentUserEmail: session.user.email,
+      }); // Debug log
+      throw new Error(
+        "Unauthorized: You don't have permission to delete this service"
+      );
+    }
+
+    // Delete the image from Cloudinary if deleteToken exists
+    if (service.deleteToken) {
+      try {
+        await deleteCloudinaryImage(service.deleteToken);
+        console.log("Cloudinary image deleted successfully");
+      } catch (cloudinaryError) {
+        console.error("Failed to delete Cloudinary image:", cloudinaryError);
+      }
+    }
+
+    // Delete the service from Sanity
+    await client.delete(serviceId);
+    console.log("Service deleted from Sanity successfully");
 
     revalidatePath("/");
 
@@ -191,9 +247,16 @@ export async function deleteService(id: string) {
       message: "Service deleted successfully",
     };
   } catch (error) {
+    console.error("Delete error details:", {
+      error,
+      message: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
+    });
+
     return {
       status: "ERROR",
-      message: "Failed to delete service",
+      message:
+        error instanceof Error ? error.message : "Failed to delete service",
     };
   }
 }

@@ -45,6 +45,11 @@ export const service = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "deleteToken",
+      title: "Delete Token",
+      type: "string",
+    }),
+    defineField({
       name: "pitch",
       title: "Pitch",
       type: "text",

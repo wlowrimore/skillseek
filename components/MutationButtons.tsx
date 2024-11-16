@@ -7,12 +7,20 @@ import { toast } from "@/hooks/use-toast";
 import cn from "clsx";
 import { ServiceTypeCard } from "@/components/ServiceCard";
 import { Blocks, PackageMinus } from "lucide-react";
+import { deleteCloudinaryImage } from "@/lib/cloudinary";
 
 interface MutationButtonsProps {
   service: ServiceTypeCard;
+  deleteToken: ServiceTypeCard;
 }
 
-export function UpdateButton({ service }: MutationButtonsProps) {
+export function UpdateButton({
+  service,
+  deleteToken,
+}: {
+  service: ServiceTypeCard;
+  deleteToken: string;
+}) {
   const router = useRouter();
   const handleUpdate = () => {
     router.push(`/service/edit/${service?._id}`);
@@ -28,46 +36,70 @@ export function UpdateButton({ service }: MutationButtonsProps) {
   );
 }
 
-export function DeleteButton({ service }: MutationButtonsProps) {
+export function DeleteButton({
+  service,
+  deleteToken,
+}: {
+  service: ServiceTypeCard;
+  deleteToken: string;
+}) {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleDelete = () => (e: React.MouseEvent<SVGSVGElement>) => {
-    if (!window.confirm("Are you sure you want to delete this service?"))
-      return;
+  const handleDelete = async (e: React.MouseEvent<SVGSVGElement>) => {
+    e.preventDefault();
 
-    setIsDeleting(true);
-    deleteService(service._id)
-      .then((result) => {
-        if (result.status === "SUCCESS") {
-          toast({
-            title: "Success",
-            description: "Service deleted successfully",
-          });
-          router.refresh();
-        } else {
-          throw new Error(result.message);
-        }
-      })
-      .catch((error) => {
-        toast({
-          title: "Error",
-          description: "Failed to delete service",
-          variant: "destructive",
-        });
-      })
-      .finally(() => {
-        setIsDeleting(false);
+    try {
+      if (!window.confirm("Are you sure you want to delete this service?")) {
+        return;
+      }
+
+      setIsDeleting(true);
+
+      console.log("Attempting to delete service:", {
+        serviceId: service._id,
+        serviceDetails: service,
       });
+
+      const result = await deleteService(service._id);
+      console.log("Delete service result:", result);
+
+      if (result.status === "SUCCESS") {
+        toast({
+          title: "Success",
+          description: "Service deleted successfully",
+        });
+        router.refresh();
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error) {
+      console.error(
+        "Delete error:",
+        error instanceof Error ? error.message : error
+      );
+      toast({
+        title: "Error",
+        description:
+          error instanceof Error ? error.message : "Failed to delete service",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeleting(false);
+    }
   };
+
+  if (!service?._id) {
+    return null;
+  }
 
   return (
     <span title="Delete">
       <PackageMinus
-        onClick={handleDelete()}
+        onClick={handleDelete}
         className={cn(
           "size-6 text-red-600 cursor-pointer",
-          isDeleting && "opacity-50 cursor-not allowed"
+          isDeleting && "opacity-50 cursor-not-allowed"
         )}
       />
     </span>

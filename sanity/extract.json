@@ -910,6 +910,13 @@
         },
         "optional": true
       },
+      "deleteToken": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "pitch": {
         "type": "objectAttribute",
         "value": {

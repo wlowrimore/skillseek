@@ -14,20 +14,22 @@ import { Blocks, Delete } from "lucide-react";
 import { PackageMinus } from "lucide-react";
 import { UpdateButton, DeleteButton } from "./MutationButtons";
 
-export type ServiceTypeCard = Omit<Service, "author"> & {
-  service: {
+export type ServiceTypeCard = {
+  _id: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  pitch: string;
+  deleteToken?: string;
+  author?: {
     _id: string;
-    title: string;
-    description: string;
-    category: string;
-    image: string;
-    pitch: string;
-    author: Author;
+    name?: string;
+    email?: string;
+    image?: string;
   };
-
-  author?: Author;
-  image?: string;
-} & { currentUserEmail?: string };
+  _createdAt?: string;
+};
 
 const ServiceCard = ({
   post,
@@ -36,7 +38,7 @@ const ServiceCard = ({
 }: {
   post: ServiceTypeCard;
   service: ServiceTypeCard;
-  currentUserEmail?: string | undefined;
+  currentUserEmail?: string;
 }) => {
   const { _createdAt, author, title, category, _id, image, description } = post;
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -50,11 +52,11 @@ const ServiceCard = ({
   return (
     <li className="startup-card group">
       <div className="flex-between">
-        <p className="startup_card_date">{formatDate(_createdAt)}</p>
+        <p className="startup_card_date">{formatDate(_createdAt ?? "")}</p>
         {isAuthor && (
           <div className="flex gap-4 items-center">
-            <UpdateButton service={service} />
-            <DeleteButton service={service} />
+            <UpdateButton service={post} deleteToken={post.deleteToken || ""} />
+            <DeleteButton service={post} deleteToken={post.deleteToken || ""} />
           </div>
         )}
       </div>

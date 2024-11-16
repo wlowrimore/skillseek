@@ -21,73 +21,88 @@ declare module "next-auth" {
   }
 }
 
+const createValidId = (email: string) => {
+  return `author-${email.replace(/[@.]/g, "-")}`;
+};
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
+  debug: true,
   callbacks: {
     async signIn({ user, account, profile }) {
+      if (!user?.email) {
+        console.error("No email provided by Google");
+        return false;
+      }
+
       if (account?.provider === "google") {
         try {
-          const existingAuthor = await client.fetch(AUTHOR_BY_GOOGLE_ID_QUERY, {
-            email: user.email,
-          });
+          const existingAuthor = await client
+            .fetch(AUTHOR_BY_GOOGLE_ID_QUERY, {
+              email: user.email,
+            })
+            .catch((err) => {
+              console.error("Error fetching author:", err);
+              return null;
+            });
 
           if (!existingAuthor) {
-            await writeClient.create({
-              _type: "author",
-              _id: `author-${user.email}`, // Using email as ID
-              name: user.name,
-              email: user.email,
-              image: user.image,
-              roles: [
-                {
-                  _type: "reference",
-                  _ref: "role-contributor",
-                },
-              ],
-            });
+            const validId = createValidId(user.email);
+            try {
+              await writeClient.createIfNotExists({
+                _type: "author",
+                _id: validId, // Using email as ID
+                name: user.name || "",
+                email: user.email,
+                image: user.image || "",
+                roles: [
+                  {
+                    _type: "reference",
+                    _ref: "role-contributor",
+                  },
+                ],
+              });
+              console.log("New author created successfully");
+            } catch (createError) {
+              console.error("Error creating author:", createError);
+            }
           }
 
           return true;
         } catch (error) {
-          console.error("Error during sign in:", error);
-          return false;
+          console.error("Error in signin callback:", error);
+          return true;
         }
       }
       return true;
     },
-    async jwt({ token, user }) {
-      if (user && user.email) {
-        try {
-          const author = await client.withConfig({ useCdn: false }).fetch(
-            `*[_type == "author" && email == $email][0]{
-              _id,
-              name,
-              email,
-              image,
-              "roles": roles[]->title
-            }`,
-            {
+    async jwt({ token, user, account }) {
+      try {
+        if (user?.email) {
+          const author = await client
+            .fetch(AUTHOR_BY_GOOGLE_ID_QUERY, {
               email: user.email,
-            }
-          );
+            })
+            .catch(() => null);
 
           if (author) {
             token.id = author._id;
-            token.roles = [...author(author.roles || []), "contributor"]; // Default to contributor if no roles found
+            token.roles = author.roles || ["contributor"]; // Default to contributor if no roles found
           } else {
+            token.id = createValidId(user.email);
             token.roles = ["contributor"];
           }
-        } catch (error) {
-          console.error("Error fetching author for JWT:", error);
         }
+      } catch (error) {
+        console.error("Error in JWT callback:", error);
+        token.roles = token.roles || ["contributor"];
       }
-
       return token;
     },
     async session({ session, token }) {
-      if (token) {
+      if (session.user && token) {
         session.user.id = token.id as string;
-        session.user.roles = (token as { id: string; roles: string[] }).roles;
+        session.user.roles = (token.roles as string[]) || ["contributor"];
       }
       return session;
     },

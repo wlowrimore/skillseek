@@ -66,4 +66,22 @@ export default defineConfig({
       },
     ],
   },
+  document: {
+    // New: Add permissions
+    actions: (prev, { schemaType }) => {
+      if (schemaType === "service") {
+        return prev.filter(
+          ({ action }) =>
+            action !== undefined &&
+            ["create", "update", "delete", "publish"].includes(action)
+        );
+      }
+      return prev;
+    },
+  },
+
+  cors: {
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  },
 });

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useActionState } from "react";
+import { useUpdatePath } from "@/hooks/useUpdatePath";
+import { useTimeLimit } from "@/hooks/useTimeLimit";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -10,8 +12,7 @@ import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { createPitch } from "@/lib/actions";
-import { updateService } from "@/lib/actions";
+import { createPitch, updateService } from "@/lib/actions";
 
 interface ServiceFormProps {
   initialData?: {
@@ -26,26 +27,60 @@ interface ServiceFormProps {
   authorEmail: string;
 }
 
+interface ServiceFormData {
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  imageDeleteToken?: string;
+  pitch: string;
+}
+
 const ServiceForm = ({ initialData }: ServiceFormProps) => {
-  console.log("INITIAL DATA:", initialData);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [imageUrl, setImageUrl] = useState(initialData?.image || "");
+  const [formData, setFormData] = useState<ServiceFormData>({
+    title: initialData?.title || "",
+    description: initialData?.description || "",
+    category: initialData?.category || "",
+    image: initialData?.image || "",
+    imageDeleteToken: "",
+    pitch: initialData?.pitch || "",
+  });
   const { toast } = useToast();
   const router = useRouter();
+  const { isUpdatePath } = useUpdatePath();
+  const showSuccess = useTimeLimit(formData.image);
 
-  console.log("IMAGE URL:", imageUrl);
+  const handleImageChange = (url: string, deleteToken?: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      image: url,
+      imageDeleteToken: deleteToken || "",
+    }));
+  };
 
-  const handleFormSubmit = async (prevState: any, formData: FormData) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleFormSubmit = async (prevState: any, formDataSubmit: FormData) => {
     try {
       if (initialData) {
         const result = await updateService(
           initialData._id,
           {
-            title: formData.get("title") as string,
-            description: formData.get("description") as string,
-            category: formData.get("category") as string,
-            image: imageUrl,
-            pitch: formData.get("pitch") as string,
+            ...formData,
+            title: formDataSubmit.get("title") as string,
+            description: formDataSubmit.get("description") as string,
+            category: formDataSubmit.get("category") as string,
+            image: formDataSubmit.get("image") as string,
+            pitch: formDataSubmit.get("pitch") as string,
           },
           initialData.author.email
         );
@@ -64,37 +99,20 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         } else {
           throw new Error("Failed to update service");
         }
-      } else if (!initialData) {
-        const formValues = {
-          title: formData.get("title") as string,
-          description: formData.get("description") as string,
-          category: formData.get("category") as string,
-          image: imageUrl,
-          pitch: formData.get("pitch") as string,
-        };
-
-        console.log("FORM VALUES PREPARED:", formValues);
-
-        const validatedData = await formSchema.parseAsync(formValues);
+      } else {
+        const validatedData = await formSchema.parseAsync(formData);
         console.log("Validation passed:", validatedData);
 
         const submitFormData = new FormData();
-        submitFormData.append("title", formData.get("title") as string);
-        submitFormData.append(
-          "description",
-          formData.get("description") as string
-        );
-        submitFormData.append("category", formData.get("category") as string);
-        submitFormData.append("image", imageUrl as string);
-        submitFormData.append("pitch", formData.get("pitch") as string);
-
-        console.log("SUBMIT FORM DATA:", submitFormData);
-        console.log("Image URL being submitted:", submitFormData.get("image"));
+        Object.entries(formData).forEach(([key, value]) => {
+          if (value !== undefined) {
+            submitFormData.append(key, value);
+          }
+        });
 
         const result = await createPitch(prevState, submitFormData);
-        console.log("CREATE PITCH RESULT:", result);
 
-        if (result.status == "SUCCESS") {
+        if (result.status === "SUCCESS" && formData.image) {
           toast({
             title: "Success",
             description: "Your service has been successfully created",
@@ -109,22 +127,21 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
 
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors;
-        console.log("Field errors:", fieldErrors);
-
         setErrors(fieldErrors as unknown as Record<string, string>);
 
         toast({
           title: "Validation Error",
-          description: "Please check the image URL and try again",
+          description: "Please check the form fields and try again",
           variant: "destructive",
         });
 
         return {
           ...prevState,
-          error: "An unexpected error has occurred",
+          error: "Validation error occurred",
           status: "ERROR",
         };
       }
+
       toast({
         title: "Error",
         description: "An unexpected error has occurred",
@@ -152,13 +169,13 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         </label>
         <Input
           id="title"
-          defaultValue={initialData?.title}
           name="title"
+          value={formData.title}
+          onChange={handleInputChange}
           className="startup-form_input"
           required
           placeholder="Service Title"
         />
-
         {errors.title && <p className="startup-form_error">{errors.title}</p>}
       </div>
 
@@ -168,13 +185,13 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         </label>
         <Textarea
           id="description"
-          defaultValue={initialData?.description}
           name="description"
+          value={formData.description}
+          onChange={handleInputChange}
           className="startup-form_textarea"
           required
           placeholder="Service Description"
         />
-
         {errors.description && (
           <p className="startup-form_error">{errors.description}</p>
         )}
@@ -186,13 +203,13 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         </label>
         <Input
           id="category"
-          defaultValue={initialData?.category}
           name="category"
+          value={formData.category}
+          onChange={handleInputChange}
           className="startup-form_input"
           required
           placeholder="Service Category (Home, Auto, Tech, Lawn & Garden...)"
         />
-
         {errors.category && (
           <p className="startup-form_error">{errors.category}</p>
         )}
@@ -204,53 +221,57 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         </label>
         <div className="flex items-center gap-8">
           <CloudinaryUploader
-            onImageUrlChange={(imageUrl) => setImageUrl(imageUrl)}
+            onImageUrlChange={handleImageChange}
+            currentImageUrl={formData.image}
+            // currentdeletetoken={formData.imageDeleteToken}
             className="bg-cyan-600 border border-black !max-w-fit hover:bg-black text-white font-semibold py-2 px-11 rounded-full transition:hover duration-300"
           />
-
-          <p className="leading-5 text-sm text-slate-700 font-semibold tracking-wide text-muted-foreground !max-w-[16rem]">
-            Upload an image from your device that represents your service.
-          </p>
         </div>
-        {imageUrl && (
+        {formData.image && (
           <div className="mt-2">
-            <p className="text-sm text-green-600 mt-2">
-              Image uploaded successfully!
-            </p>
+            {showSuccess && (
+              <p className="text-sm text-green-600 mt-2">
+                Image uploaded successfully!
+              </p>
+            )}
             <img
-              src={imageUrl}
+              src={formData.image}
               alt="Uploaded preview"
               className="mt-2 max-w-xs rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
             />
           </div>
         )}
-
-        {errors.link && <p className="startup-form_error">{errors.link}</p>}
+        {errors.image && <p className="startup-form_error">{errors.image}</p>}
       </div>
 
       <div>
         <label htmlFor="pitch" className="startup-form_label">
           Pitch
         </label>
-
         <Textarea
           id="pitch"
-          defaultValue={initialData?.pitch}
           name="pitch"
+          value={formData.pitch}
+          onChange={handleInputChange}
           className="startup-form_textarea h-32"
           required
           placeholder="Briefly describe your services and how you can help others"
         />
-
         {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
       </div>
 
       <Button
         type="submit"
         className="startup-form_btn"
-        disabled={isPending || !imageUrl}
+        disabled={isPending || !formData.image}
       >
-        {isPending ? "Submitting..." : "Submit Your Service"}
+        {isPending
+          ? isUpdatePath
+            ? "Updating..."
+            : "Submitting..."
+          : isUpdatePath
+            ? "Submit Changes"
+            : "Submit Your Service"}
         <Send className="size-6 ml-2" />
       </Button>
     </form>

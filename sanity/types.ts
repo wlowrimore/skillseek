@@ -169,6 +169,7 @@ export type Service = {
   description?: string;
   category?: string;
   image?: string;
+  deleteToken?: string;
   pitch?: string;
 };
 
