@@ -9,14 +9,18 @@ import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { UpdateButton, DeleteButton } from "@/components/MutationButtons";
-// import { Blocks } from "lucide-react";
-// import { PackageMinus } from "lucide-react";
 
 import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
 
 export const experimental_ppr = true;
 
-const page = async ({ params }: { params: Promise<{ id: string }> }) => {
+const page = async ({
+  params,
+}: {
+  params: Promise<{
+    id: string;
+  }>;
+}) => {
   const id = (await params).id;
   const session = await auth();
 
@@ -32,11 +36,11 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!post) return notFound();
 
   const authorEmail = post.author?.email;
-  console.log("SESSION:", session);
-  console.log("AUTHOR EMAIL:", authorEmail);
+  const currentUserEmail = session?.user?.email;
+  const isAuthor = Boolean(
+    currentUserEmail && authorEmail && currentUserEmail === authorEmail
+  );
 
-  const isAuthor = authorEmail === session?.user?.email;
-  console.log("IS AUTHOR:", isAuthor);
   const createdUserName = post.author?.email?.split("@")[0];
   const username = `@${createdUserName}`;
 
@@ -62,8 +66,14 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           />
           {isAuthor && (
             <span className="absolute bottom-6 right-52 z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
-              <UpdateButton service={post} />
-              <DeleteButton service={post} />
+              <UpdateButton
+                service={post}
+                deleteToken={post.deleteToken || ""}
+              />
+              <DeleteButton
+                service={post}
+                deleteToken={post.deleteToken || ""}
+              />
             </span>
           )}
         </span>
@@ -108,7 +118,12 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
               <ul className="mt-7 card_grid-sm">
                 {editorPosts.map((post: ServiceTypeCard, i: number) => (
-                  <ServiceCard key={i} post={post} service={post} />
+                  <ServiceCard
+                    key={i}
+                    post={post}
+                    service={post}
+                    currentUserEmail={currentUserEmail}
+                  />
                 ))}
               </ul>
             </div>

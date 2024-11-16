@@ -18,6 +18,8 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!user) return notFound();
 
   const isAuthor = session?.user?.email === user.email;
+  console.log("IS AUTHOR IN USER/[ID]/PAGE.TSX:", isAuthor);
+  console.log("USER IN USER/[ID]/PAGE.TSX:", user);
 
   return (
     <>

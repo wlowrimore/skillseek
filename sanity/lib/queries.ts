@@ -38,16 +38,21 @@ export const SERVICE_BY_ID_QUERY =
 
 export const SERVICES_BY_AUTHOR_QUERY =
   defineQuery(`*[_type == "service" && author._ref == $id] | order(_createdAt desc){
-    _id,
-    title,
-    slug,
-    _createdAt,
-    author -> {
-      _id, name, image
-      },
-      description,
-      category,
-      image,
+      _id,
+  title,
+  slug,
+  _createdAt,
+  author -> {
+    _id, 
+    name, 
+    image,
+    email    // Added email field
+  },
+  description,
+  category,
+  image,
+  deleteToken,  // Make sure this is included if you need it for mutations
+  pitch
     }`);
 
 export const AUTHOR_BY_ID_QUERY =

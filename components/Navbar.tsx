@@ -20,12 +20,15 @@ const Navbar = async () => {
         </Link>
 
         <section className="flex-between gap-6">
-          <Link href="/service/create" className="hover:text-blue-500">
+          {/* <Link href="/service/create" className="hover:text-blue-500">
             <span className="p-2">Create</span>
-          </Link>
+          </Link> */}
 
           {session && session.user ? (
             <>
+              <Link href="/service/create" className="hover:text-blue-500">
+                <span className="p-2">Create</span>
+              </Link>
               <Link
                 href="/signout"
                 className="text-primary hover:text-blue-500 transition duration-200"

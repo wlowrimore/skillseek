@@ -44,7 +44,9 @@ const ServiceCard = ({
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const router = useRouter();
   const { toast } = useToast();
-  const isAuthor = currentUserEmail === service?.author?.email;
+  const isAuthor = Boolean(
+    currentUserEmail && author?.email && currentUserEmail === author.email
+  );
 
   const createdUsername = service?.author?.email?.split("@")[0];
   const username = `@${createdUsername}`;
