@@ -54,5 +54,12 @@ export const service = defineType({
       description: "Briefly describe your services and how you can help others",
       validation: (Rule) => Rule.required().min(20).max(1000),
     }),
+    defineField({
+      name: "contact",
+      title: "Contact Email",
+      type: "email",
+      description: "Contact email for this service",
+      validation: (Rule) => Rule.required().error("Contact email is required"),
+    }),
   ],
 });

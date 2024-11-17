@@ -36,6 +36,7 @@ export const category = {
       },
       { title: "HVAC Heating & Cooling", value: "HVAC Heating & Cooling" },
       { title: "Pool Maintenance", value: "Pool Maintenance" },
+      { title: "Other", value: "Other" },
     ],
   },
   validation: (Rule: any) => Rule.required(),

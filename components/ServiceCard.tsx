@@ -26,6 +26,7 @@ export type ServiceTypeCard = {
     _id: string;
     name?: string;
     email?: string;
+    contact: string;
     image?: string;
   };
   _createdAt?: string;

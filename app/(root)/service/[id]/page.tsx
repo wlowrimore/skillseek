@@ -35,6 +35,8 @@ const page = async ({
 
   if (!post) return notFound();
 
+  console.log("POST IN SERVICE PAGE:", post);
+
   const authorEmail = post.author?.email;
   const currentUserEmail = session?.user?.email;
   const isAuthor = Boolean(
@@ -52,7 +54,9 @@ const page = async ({
         <p className="tag">{formatDate(post?._createdAt)}</p>
 
         <h1 className="heading">{post.title}</h1>
-        <p className="sub-heading !max-w-5xl">{post.description}</p>
+        <p className="text-black text-2xl font-semibold !max-w-5xl">
+          {post.description}
+        </p>
       </section>
 
       <section className="section_container">
@@ -79,10 +83,10 @@ const page = async ({
         </span>
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
-          <div className="flex-between gap-5">
+          <div className="flex justify-between items-center">
             <Link
               href={`/user/${post.author?._id}`}
-              className="flex gap-2 items-center mb-3"
+              className="flex gap-2 items-center"
             >
               <Image
                 src={post.author.image}
@@ -97,6 +101,15 @@ const page = async ({
                 <p className="text-small">{username}</p>
               </div>
             </Link>
+            <span className="flex flex-col items-center w-fit mr-6">
+              <p className="text-lg font-semibold">Contact Me</p>
+              <Link
+                href={`mailto:${post.contact}`}
+                className="text-sm text-cyan-800 hover:underline"
+              >
+                {post.contact}
+              </Link>
+            </span>
             <p className="category-tag">{post.category}</p>
           </div>
 

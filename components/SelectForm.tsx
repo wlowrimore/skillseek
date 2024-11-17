@@ -63,6 +63,7 @@ export function SelectForm({ value, onChange }: SelectFormProps) {
               HVAC Heating & Cooling
             </SelectItem>
             <SelectItem value="Pool Maintenance">Pool Maintenance</SelectItem>
+            <SelectItem value="Other">Other</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>

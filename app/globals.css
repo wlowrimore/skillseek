@@ -16,7 +16,7 @@
   }
 
   .sub-heading {
-    @apply font-semibold text-[1.4rem] text-gray-800 max-w-2xl text-center break-words;
+    @apply w-full font-semibold text-[1.4rem] text-slate-400 max-w-2xl text-center mx-auto capitalize break-words;
   }
 
   .flex-between {

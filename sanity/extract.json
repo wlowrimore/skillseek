@@ -894,6 +894,10 @@
         {
           "type": "string",
           "value": "Pool Maintenance"
+        },
+        {
+          "type": "string",
+          "value": "Other"
         }
       ]
     }
@@ -1008,6 +1012,13 @@
         "optional": true
       },
       "pitch": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "contact": {
         "type": "objectAttribute",
         "value": {
           "type": "string"

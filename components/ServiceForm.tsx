@@ -15,6 +15,32 @@ import { useRouter } from "next/navigation";
 import { createPitch, updateService } from "@/lib/actions";
 import { SelectForm } from "@/components/SelectForm";
 
+export type Author = {
+  _id: string;
+  name: string;
+  image: string;
+  email: string;
+};
+
+export type Service = {
+  _id: string;
+  _createdAt: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  pitch: string;
+  contact: string; // Add this field
+  author: Author;
+};
+
+export type ServiceWithAuthorRef = Omit<Service, "author"> & {
+  author: {
+    _ref: string;
+    email: string;
+  };
+};
+
 interface ServiceFormProps {
   initialData?: {
     _id: string;
@@ -23,6 +49,7 @@ interface ServiceFormProps {
     author: { _ref: string; email: string };
     category: string;
     image: string;
+    contact: string;
     pitch: string;
   };
   authorEmail: string;
@@ -33,6 +60,7 @@ interface ServiceFormData {
   description: string;
   category: string;
   image: string;
+  contact: string;
   imageDeleteToken?: string;
   pitch: string;
 }
@@ -46,6 +74,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
     image: initialData?.image || "",
     imageDeleteToken: "",
     pitch: initialData?.pitch || "",
+    contact: initialData?.contact || "",
   });
   const { toast } = useToast();
   const router = useRouter();
@@ -70,6 +99,11 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
     }));
   };
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleCategoryChange = (value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -79,6 +113,23 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
 
   const handleFormSubmit = async (prevState: any, formDataSubmit: FormData) => {
     try {
+      if (!validateEmail(formData.contact)) {
+        setErrors((prev) => ({
+          ...prev,
+          contact: "Please enter a valid email address",
+        }));
+        toast({
+          title: "Validation Error",
+          description: "Please enter a valid email address",
+          variant: "destructive",
+        });
+        return {
+          ...prevState,
+          error: "Invalid email address",
+          status: "ERROR",
+        };
+      }
+
       if (initialData) {
         const result = await updateService(
           initialData._id,
@@ -88,6 +139,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
             description: formDataSubmit.get("description") as string,
             category: formDataSubmit.get("category") as string,
             image: formDataSubmit.get("image") as string,
+            contact: formDataSubmit.get("contact") as string,
             pitch: formDataSubmit.get("pitch") as string,
           },
           initialData.author.email
@@ -222,7 +274,6 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           <CloudinaryUploader
             onImageUrlChange={handleImageChange}
             currentImageUrl={formData.image}
-            // currentdeletetoken={formData.imageDeleteToken}
             className="bg-cyan-600 border border-black !max-w-fit hover:bg-black text-white font-semibold py-2 px-11 rounded-full transition:hover duration-300"
           />
         </div>
@@ -257,6 +308,24 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           placeholder="Briefly describe your services and how you can help others"
         />
         {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="contact" className="startup-form_label">
+          Contact Email
+        </label>
+        <Input
+          id="contact"
+          name="contact"
+          value={formData.contact}
+          onChange={handleInputChange}
+          className="startup-form_input"
+          required
+          placeholder="Get Connected"
+        />
+        {errors.contact && (
+          <p className="startup-form_error">{errors.contact}</p>
+        )}
       </div>
 
       <Button

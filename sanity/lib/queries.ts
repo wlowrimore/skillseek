@@ -34,6 +34,7 @@ export const SERVICE_BY_ID_QUERY =
     category,
     image,
     pitch,
+    contact,
     }`);
 
 export const SERVICES_BY_AUTHOR_QUERY =

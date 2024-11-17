@@ -13,26 +13,42 @@ interface Author {
   _type: string;
   email: string;
   name?: string;
+  image: string;
 }
 
-interface ServiceWithAuthorRef {
+export type Service = {
   _id: string;
-  _type: string;
+  _createdAt: string;
   title: string;
   description: string;
-  category: string;
   image: string;
+  category: string;
   pitch: string;
+  contact: string;
+  author: Author;
+};
+
+export type ServiceWithAuthorRef = Omit<Service, "author"> & {
   author: {
-    _type: string;
     _ref: string;
+    email: string;
   };
-}
+};
 
 // New interface for service with expanded author
 interface ServiceWithAuthor extends Omit<ServiceWithAuthorRef, "author"> {
   author: Author;
 }
+
+export type ServiceFormData = {
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  imageDeleteToken?: string;
+  pitch: string;
+  contact: string;
+};
 
 export const createPitch = async (state: any, form: FormData) => {
   const session = await auth();
@@ -43,7 +59,7 @@ export const createPitch = async (state: any, form: FormData) => {
       status: "ERROR",
     });
 
-  const { title, description, category, image, pitch, deleteToken } =
+  const { title, description, category, image, pitch, deleteToken, contact } =
     Object.fromEntries(form);
 
   const slug = slugify(title as string, { lower: true, strict: true });
@@ -77,6 +93,7 @@ export const createPitch = async (state: any, form: FormData) => {
       category,
       image: image as string,
       deleteToken: deleteToken as string,
+      contact: contact as string,
       slug: {
         _type: slug,
         current: slug,
@@ -115,7 +132,7 @@ export const createPitch = async (state: any, form: FormData) => {
 
 export async function updateService(
   serviceId: string,
-  data: Partial<Omit<ServiceWithAuthorRef, "author">>,
+  data: Partial<Omit<ServiceWithAuthorRef, "author"> & { contact: string }>,
   authorEmail: string
 ) {
   try {
@@ -133,6 +150,7 @@ export async function updateService(
         category,
         image,
         pitch,
+        contact,
         "author": author->{
           _id,
           _type,

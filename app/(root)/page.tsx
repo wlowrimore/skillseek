@@ -22,11 +22,11 @@ export default async function Home({
     <>
       <section className="blue_container bg-swirl-pattern">
         <div className="heading">
-          <h1 className="">DIY Projects made easy,</h1>
-          <p className="">Thanks to your neighbors</p>
-        </div>
-        <div className="sub-heading">
-          <h2>Find help. Save money. Support your community.</h2>
+          <h1 className="">Find help. Save money.</h1>
+          <p className="">Support your community.</p>
+          <div className="sub-heading">
+            <h2>The marketplace for all your services.</h2>
+          </div>
         </div>
         <SearchForm query={query} />
       </section>
