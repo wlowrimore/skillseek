@@ -11,7 +11,6 @@ const UserServices = async ({ id }: UserServicesProps) => {
   const session = await auth();
   const currentUserEmail = session?.user?.email;
   const services = await client.fetch(SERVICES_BY_AUTHOR_QUERY, { id });
-  console.log("SERVICES IN USERSERVICES.TSX:", services);
 
   return (
     <>

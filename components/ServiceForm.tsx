@@ -13,6 +13,7 @@ import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { createPitch, updateService } from "@/lib/actions";
+import { SelectForm } from "@/components/SelectForm";
 
 interface ServiceFormProps {
   initialData?: {
@@ -66,6 +67,13 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleCategoryChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      category: value,
     }));
   };
 
@@ -196,20 +204,11 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           <p className="startup-form_error">{errors.description}</p>
         )}
       </div>
-
       <div>
         <label htmlFor="category" className="startup-form_label">
           Category
         </label>
-        <Input
-          id="category"
-          name="category"
-          value={formData.category}
-          onChange={handleInputChange}
-          className="startup-form_input"
-          required
-          placeholder="Service Category (Home, Auto, Tech, Lawn & Garden...)"
-        />
+        <SelectForm value={formData.category} onChange={handleCategoryChange} />
         {errors.category && (
           <p className="startup-form_error">{errors.category}</p>
         )}

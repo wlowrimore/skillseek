@@ -152,6 +152,8 @@ export type Playlist = {
   }>;
 };
 
+export type Category = "Home Improvement" | "Lawn & Garden" | "Automotive Maintenance & Repair" | "Small Engine Maintenance & Repair" | "Child Care" | "Pet Care" | "Education & Tutoring" | "Music & Arts Lessons" | "Music Services" | "Wedding | Party Planning" | "Legal Services" | "Financial Advice" | "Electronics Repair" | "Transportation | Carpool" | "Housekeeping" | "Website & Software Services" | "Plumbing" | "Electrical Maintenance & Repair" | "HVAC Heating & Cooling" | "Pool Maintenance";
+
 export type Service = {
   _id: string;
   _type: "service";
@@ -167,7 +169,7 @@ export type Service = {
     [internalGroqTypeReferenceTo]?: "author";
   };
   description?: string;
-  category?: string;
+  category?: Category;
   image?: string;
   deleteToken?: string;
   pitch?: string;
@@ -198,5 +200,5 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | SanityAssetSourceData | Role | Playlist | Service | Author | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | SanityAssetSourceData | Role | Playlist | Category | Service | Author | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;

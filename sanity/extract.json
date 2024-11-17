@@ -810,6 +810,95 @@
     }
   },
   {
+    "name": "category",
+    "type": "type",
+    "value": {
+      "type": "union",
+      "of": [
+        {
+          "type": "string",
+          "value": "Home Improvement"
+        },
+        {
+          "type": "string",
+          "value": "Lawn & Garden"
+        },
+        {
+          "type": "string",
+          "value": "Automotive Maintenance & Repair"
+        },
+        {
+          "type": "string",
+          "value": "Small Engine Maintenance & Repair"
+        },
+        {
+          "type": "string",
+          "value": "Child Care"
+        },
+        {
+          "type": "string",
+          "value": "Pet Care"
+        },
+        {
+          "type": "string",
+          "value": "Education & Tutoring"
+        },
+        {
+          "type": "string",
+          "value": "Music & Arts Lessons"
+        },
+        {
+          "type": "string",
+          "value": "Music Services"
+        },
+        {
+          "type": "string",
+          "value": "Wedding | Party Planning"
+        },
+        {
+          "type": "string",
+          "value": "Legal Services"
+        },
+        {
+          "type": "string",
+          "value": "Financial Advice"
+        },
+        {
+          "type": "string",
+          "value": "Electronics Repair"
+        },
+        {
+          "type": "string",
+          "value": "Transportation | Carpool"
+        },
+        {
+          "type": "string",
+          "value": "Housekeeping"
+        },
+        {
+          "type": "string",
+          "value": "Website & Software Services"
+        },
+        {
+          "type": "string",
+          "value": "Plumbing"
+        },
+        {
+          "type": "string",
+          "value": "Electrical Maintenance & Repair"
+        },
+        {
+          "type": "string",
+          "value": "HVAC Heating & Cooling"
+        },
+        {
+          "type": "string",
+          "value": "Pool Maintenance"
+        }
+      ]
+    }
+  },
+  {
     "name": "service",
     "type": "document",
     "attributes": {
@@ -899,7 +988,8 @@
       "category": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "inline",
+          "name": "category"
         },
         "optional": true
       },

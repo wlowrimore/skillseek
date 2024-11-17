@@ -74,6 +74,14 @@ export const AUTHOR_BY_GOOGLE_ID_QUERY =
       "roles": roles[]->title
     }`);
 
+export const AUTHOR_BY_EMAIL_QUERY =
+  defineQuery(`*[_type == "author" && email == $email][0]{
+      _id,
+      name,
+      email,
+      image
+    }`);
+
 export const PLAYLIST_BY_SLUG_QUERY =
   defineQuery(`*[_type == "playlist" && slug.current == $slug][0]{
     _id,

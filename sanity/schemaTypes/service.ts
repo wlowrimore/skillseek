@@ -34,9 +34,7 @@ export const service = defineType({
     defineField({
       name: "category",
       title: "Category",
-      type: "string",
-      validation: (Rule) =>
-        Rule.min(1).max(20).required().error("Please enter a category"),
+      type: "category",
     }),
     defineField({
       name: "image",

@@ -1,10 +1,27 @@
 import { auth } from "@/auth";
+import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
 import { signInBtn as SignInBtn } from "./AuthButtons";
+import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
+
+// const AUTHOR_BY_EMAIL_QUERY = `*[_type == "author" && email == $email][0]{
+//   _id,
+//   name,
+//   email,
+//   image
+// }`;
 
 const Navbar = async () => {
   const session = await auth();
+  let authorId = null;
+
+  if (session?.user?.email) {
+    const author = await client.fetch(AUTHOR_BY_EMAIL_QUERY, {
+      email: session.user.email,
+    });
+    authorId = author?._id;
+  }
 
   return (
     <header className="px-8 py-2 sticky top-0 z-50 bg-white border-b border-gray-200 shadow shadow-neutral-100">
@@ -19,26 +36,31 @@ const Navbar = async () => {
           />
         </Link>
 
-        <section className="flex-between gap-6">
-          {/* <Link href="/service/create" className="hover:text-blue-500">
-            <span className="p-2">Create</span>
-          </Link> */}
-
-          {session && session.user ? (
+        <section className="flex-between gap-2">
+          {session?.user ? (
             <>
-              <Link href="/service/create" className="hover:text-blue-500">
+              <Link
+                href={authorId && `/user/${authorId}`}
+                className="hover:bg-[#4D99A6] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
+              >
+                <span className="p-2">My Services</span>
+              </Link>
+              <Link
+                href="/service/create"
+                className="hover:bg-[#4D99A6] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
+              >
                 <span className="p-2">Create</span>
               </Link>
               <Link
                 href="/signout"
-                className="text-primary hover:text-blue-500 transition duration-200"
+                className="hover:bg-[#F29072] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
               >
                 SignOut
               </Link>
               <div className="flex flex-col justify-center items-center p-0.5 border-2 border-[#072454] rounded-full">
                 <Image
-                  src={session.user.image as string}
-                  alt={session.user.name as string}
+                  src={session.user.image || ""}
+                  alt={session.user.name || ""}
                   width={40}
                   height={40}
                   className="rounded-full"
