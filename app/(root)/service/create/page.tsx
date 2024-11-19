@@ -9,10 +9,10 @@ const page = async () => {
   return (
     <>
       <section className="blue_container bg-swirl-pattern">
-        <h1 className="heading">How Can You Help?</h1>
+        <h1 className="heading">Share Your Service with the comminity</h1>
       </section>
 
-      <ServiceForm />
+      <ServiceForm authorEmail={session?.user?.email} />
     </>
   );
 };

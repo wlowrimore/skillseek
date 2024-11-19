@@ -20,21 +20,21 @@ export const SERVICES_QUERY =
 
 export const SERVICE_BY_ID_QUERY =
   defineQuery(`*[_type == "service" && _id == $id][0]{
-    _id,
-    title,
-    slug,
-    _createdAt,
-    author -> {
       _id,
-      name,
+      title,
+      slug,
+      _createdAt,
+      author->{
+        _id,
+        name,
+        image,
+        email
+      },
+      description,
+      category,
       image,
-      email
-    },
-    description,
-    category,
-    image,
-    pitch,
-    contact,
+      pitch,
+      contact
     }`);
 
 export const SERVICES_BY_AUTHOR_QUERY =

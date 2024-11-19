@@ -121,7 +121,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         toast({
           title: "Validation Error",
           description: "Please enter a valid email address",
-          variant: "destructive",
+          variant: "destructive" as unknown as undefined,
         });
         return {
           ...prevState,
@@ -192,7 +192,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         toast({
           title: "Validation Error",
           description: "Please check the form fields and try again",
-          variant: "destructive",
+          variant: "destructive" as unknown as undefined,
         });
 
         return {
@@ -205,7 +205,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
       toast({
         title: "Error",
         description: "An unexpected error has occurred",
-        variant: "destructive",
+        variant: "destructive" as unknown as undefined,
       });
 
       return {

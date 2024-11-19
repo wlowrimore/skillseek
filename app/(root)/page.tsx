@@ -25,7 +25,7 @@ export default async function Home({
           <h1 className="">Find help. Save money.</h1>
           <p className="">Support your community.</p>
           <div className="sub-heading">
-            <h2>The marketplace for all your services.</h2>
+            <h2>The marketplace for all your services</h2>
           </div>
         </div>
         <SearchForm query={query} />

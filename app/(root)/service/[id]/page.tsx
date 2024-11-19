@@ -29,6 +29,8 @@ const page = async ({
     client.fetch(PLAYLIST_BY_SLUG_QUERY, { slug: "editor-picks" }),
   ]);
 
+  console.log("Full post data:", JSON.stringify(post, null, 2));
+
   const editorPosts = playlist?.select || [];
   console.log("PLAYLIST QUERY RESULT:", playlist);
   console.log("EDITOR POSTS", editorPosts);
@@ -102,12 +104,13 @@ const page = async ({
               </div>
             </Link>
             <span className="flex flex-col items-center w-fit mr-6">
-              <p className="text-lg font-semibold">Contact Me</p>
+              <p className="text-lg font-semibold">Let&apos;s connect</p>
               <Link
                 href={`mailto:${post.contact}`}
                 className="text-sm text-cyan-800 hover:underline"
               >
                 {post.contact}
+                {console.log("POST CONTACT:", post.contact)}
               </Link>
             </span>
             <p className="category-tag">{post.category}</p>

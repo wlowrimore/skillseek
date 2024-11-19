@@ -62,6 +62,8 @@ export const createPitch = async (state: any, form: FormData) => {
   const { title, description, category, image, pitch, deleteToken, contact } =
     Object.fromEntries(form);
 
+  console.log("EXTRACTED CONTACT VALUES:", contact);
+
   const slug = slugify(title as string, { lower: true, strict: true });
 
   try {
@@ -139,6 +141,7 @@ export async function updateService(
     console.log("\n=== Update Service Debug Info ===");
     console.log("Service ID:", serviceId);
     console.log("Author Email:", authorEmail);
+    console.log("Update Data:", JSON.stringify(data, null, 2));
 
     // Get the existing service first
     const existingService = await client.fetch<ServiceWithAuthor | null>(
@@ -179,16 +182,30 @@ export async function updateService(
     }
 
     // Use the existing author reference for the update
-    const updatedData = {
-      ...data,
+    const updatedData: Partial<ServiceWithAuthorRef> = {
+      title: data.title,
+      description: data.description ?? existingService.description,
+      category: data.category ?? existingService.category,
+      ...(data.image && data.image !== "" ? { image: data.image } : {}),
+      pitch: data.pitch ?? existingService.pitch,
+      contact: data.contact ?? existingService.contact,
+      // ...data,
+      // author: {
+      //   _type: "reference",
+      //   _ref: existingService.author._id,
+      // },
+    };
+
+    console.log("\n=== Updated Data to Commit ===");
+    console.log(JSON.stringify(updatedData, null, 2));
+
+    const serviceUpdate = {
+      ...updatedData,
       author: {
         _type: "reference",
         _ref: existingService.author._id,
       },
     };
-
-    console.log("\n=== Updated Data to Commit ===");
-    console.log(JSON.stringify(updatedData, null, 2));
 
     const result = await writeClient.patch(serviceId).set(updatedData).commit();
 
