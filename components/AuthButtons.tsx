@@ -5,7 +5,6 @@ export async function SignInBtn() {
     <form
       action={async () => {
         "use server";
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         await signIn("google", { redirectTo: "/service/create" });
       }}
     >
@@ -24,7 +23,6 @@ export async function SignOutBtn() {
     <form
       action={async () => {
         "use server";
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         await signOut({ redirectTo: "/" });
       }}
     >
