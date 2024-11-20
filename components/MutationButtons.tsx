@@ -7,7 +7,6 @@ import { toast } from "@/hooks/use-toast";
 import cn from "clsx";
 import { ServiceTypeCard } from "@/components/ServiceCard";
 import { Blocks, PackageMinus } from "lucide-react";
-import { deleteCloudinaryImage } from "@/lib/cloudinary";
 
 interface MutationButtonsProps {
   service: ServiceTypeCard;
@@ -82,7 +81,6 @@ export function DeleteButton({
         title: "Error",
         description:
           error instanceof Error ? error.message : "Failed to delete service",
-        variant: "destructive",
       });
     } finally {
       setIsDeleting(false);

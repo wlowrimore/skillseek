@@ -1,5 +1,4 @@
-import { signOut } from "@/auth";
-import { signOutBtn as SignOutBtn } from "@/components/AuthButtons";
+import { SignOutBtn } from "@/components/AuthButtons";
 
 export default function SignOutPage() {
   return (

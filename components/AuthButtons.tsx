@@ -1,10 +1,11 @@
 import { signIn, signOut } from "@/auth";
 
-export async function signInBtn() {
+export async function SignInBtn() {
   return (
     <form
       action={async () => {
         "use server";
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         await signIn("google", { redirectTo: "/service/create" });
       }}
     >
@@ -18,11 +19,12 @@ export async function signInBtn() {
   );
 }
 
-export async function signOutBtn() {
+export async function SignOutBtn() {
   return (
     <form
-      action={async (formData: FormData) => {
+      action={async () => {
         "use server";
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         await signOut({ redirectTo: "/" });
       }}
     >

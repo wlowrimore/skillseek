@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
-import { signInBtn as SignInBtn } from "./AuthButtons";
+import { SignInBtn } from "./AuthButtons";
 import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
 
 // const AUTHOR_BY_EMAIL_QUERY = `*[_type == "author" && email == $email][0]{
