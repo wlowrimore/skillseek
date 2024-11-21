@@ -17,9 +17,9 @@ export const experimental_ppr = true;
 const page = async ({
   params,
 }: {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 }) => {
   const id = (await params).id;
   const session = await auth();
