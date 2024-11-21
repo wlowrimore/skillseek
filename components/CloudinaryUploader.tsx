@@ -28,7 +28,6 @@ const CloudinaryUploader = ({
   const [deleteToken, setDeleteToken] = useState<string | undefined>(
     currentImageUrl
   );
-  const path = usePathname();
 
   const { isUpdatePath } = useUpdatePath();
   const buttonText = isUpdatePath ? "Replace" : "Upload";
