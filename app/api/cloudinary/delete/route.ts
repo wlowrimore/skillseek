@@ -1,34 +1,10 @@
 import { v2 as cloudinary } from "cloudinary";
-import { NextResponse } from "next/server";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
-
-// export default async function handler(req: any, res: any) {
-//   if (req.method === "DELETE") {
-//     try {
-//       const { deleteToken } = req.body;
-//       console.log("DELETE TOKEN:", deleteToken);
-
-//       if (!deleteToken) {
-//         return res.status(400).json({ message: "Delete token is required" });
-//       }
-
-//       // Use the deleteToken to delete the Cloudinary image
-//       await cloudinary.uploader.destroy(deleteToken);
-
-//       res.status(200).json({ message: "Image deleted successfully" });
-//     } catch (error) {
-//       console.error("Error deleting Cloudinary image:", error);
-//       res.status(500).json({ message: "Failed to delete image" });
-//     }
-//   } else {
-//     res.status(405).json({ message: "Method not allowed" });
-//   }
-// }
 
 export async function DELETE(request: Request) {
   console.log("REQUEST:", request);

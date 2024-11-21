@@ -16,15 +16,6 @@ interface CloudinaryUploaderProps
   currentDeleteToken?: string;
 }
 
-interface CloudinaryUploadResult {
-  event: "success";
-  info: {
-    secure_url: string;
-    delete_token: string;
-    public_id: string;
-  };
-}
-
 const cloudPresetName = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME;
 
 const CloudinaryUploader = ({
@@ -34,7 +25,6 @@ const CloudinaryUploader = ({
   ...props
 }: CloudinaryUploaderProps) => {
   const [imageUrl, setImageUrl] = useState<string | undefined>("");
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [deleteToken, setDeleteToken] = useState<string | undefined>(
     currentImageUrl
   );
@@ -65,13 +55,11 @@ const CloudinaryUploader = ({
       toast({
         title: "Error",
         description: "No image or delete token available",
-        variant: "destructive",
       });
       return;
     }
 
     try {
-      setIsDeleting(true);
       await deleteCloudinaryImage(deleteToken);
 
       setImageUrl(undefined);
@@ -87,10 +75,7 @@ const CloudinaryUploader = ({
       toast({
         title: "Error",
         description: "Failed to remove image",
-        variant: "destructive",
       });
-    } finally {
-      setIsDeleting(false);
     }
   };
 
