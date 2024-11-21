@@ -3,15 +3,13 @@ import { client } from "@/sanity/lib/client";
 import ServiceForm from "@/components/ServiceForm";
 
 interface EditPageProps {
-  params?: {
+  params: {
     id: string;
   };
 }
 
 export default async function EditServicePage({ params }: EditPageProps) {
   const id = params?.id;
-
-  if (!id) return null;
 
   const service = await client.fetch(SERVICE_BY_ID_QUERY, {
     id,
