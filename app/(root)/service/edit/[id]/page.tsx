@@ -3,9 +3,7 @@ import { client } from "@/sanity/lib/client";
 import ServiceForm from "@/components/ServiceForm";
 
 interface EditPageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 
 export default async function EditServicePage({ params }: EditPageProps) {
