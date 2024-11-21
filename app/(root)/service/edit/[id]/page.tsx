@@ -9,7 +9,7 @@ interface EditPageProps {
 }
 
 export default async function EditServicePage({ params }: EditPageProps) {
-  const { id } = (await params) || {};
+  const id = params?.id;
 
   if (!id) return null;
 
