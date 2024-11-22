@@ -21,7 +21,7 @@ const page = async ({
     id: string;
   };
 }) => {
-  const id = (await params).id;
+  const id = params.id;
   const session = await auth();
 
   const [post, playlist] = await Promise.all([
