@@ -52,9 +52,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               await writeClient.createIfNotExists({
                 _type: "author",
                 _id: validId, // Using email as ID
-                name: user.name || "",
+                name: user.name,
                 email: user.email,
-                image: user.image || "",
+                image: user.image,
                 roles: [
                   {
                     _type: "reference",
