@@ -5,13 +5,6 @@ import Image from "next/image";
 import { SignInBtn } from "./AuthButtons";
 import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
 
-// const AUTHOR_BY_EMAIL_QUERY = `*[_type == "author" && email == $email][0]{
-//   _id,
-//   name,
-//   email,
-//   image
-// }`;
-
 const Navbar = async () => {
   const session = await auth();
   let authorId = null;
