@@ -14,7 +14,8 @@ export default async function EditServicePage({
   return (
     <>
       <section className="blue_container bg-swirl-pattern">
-        <h1 className="heading">Edit Service</h1>
+        <h1 className="heading">Edit</h1>
+        <h2 className="sub-heading">{service.title}</h2>
       </section>
       <ServiceForm initialData={service} authorEmail={service.author._ref} />
     </>
