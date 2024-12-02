@@ -5,10 +5,15 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: true, // Add this to bypass TypeScript errors during deployment
+    ignoreBuildErrors: true,
   },
   images: {
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/a/**",
+      },
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
@@ -17,7 +22,8 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
-      // Add other specific hostnames if needed
     ],
   },
 };
+
+export default nextConfig;
