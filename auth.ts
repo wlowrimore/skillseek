@@ -58,7 +58,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 roles: [
                   {
                     _type: "reference",
-                    _ref: "role-contributor",
+                    _ref: "contributor",
                   },
                 ],
               });
