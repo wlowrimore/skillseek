@@ -27,7 +27,7 @@ const createValidId = (email: string) => {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
-  debug: true,
+  debug: false,
   callbacks: {
     async signIn({ user, account, profile }) {
       if (!user?.email) {
