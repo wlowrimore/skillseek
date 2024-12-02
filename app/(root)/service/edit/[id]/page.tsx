@@ -14,8 +14,14 @@ export default async function EditServicePage({
   return (
     <>
       <section className="blue_container bg-swirl-pattern">
-        <h1 className="heading">Edit</h1>
-        <h2 className="sub-heading">{service.title}</h2>
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="heading">
+            Edit
+            <span className="sub-heading">
+              &quot;&nbsp;{service.title}&nbsp;&quot;
+            </span>
+          </h1>
+        </div>
       </section>
       <ServiceForm initialData={service} authorEmail={service.author._ref} />
     </>
