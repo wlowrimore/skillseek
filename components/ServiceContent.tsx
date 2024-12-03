@@ -37,7 +37,7 @@ const ServiceContent = ({
       </section>
 
       <section className="section_container">
-        <span className="relative">
+        <div className="relative">
           <Image
             src={post.image as string}
             alt="service image"
@@ -46,7 +46,7 @@ const ServiceContent = ({
             className="mx-auto max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
           />
           {isAuthor && (
-            <span className="absolute bottom-6 right-52 z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
+            <div className="absolute right-[15%] bottom-[2%] z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
               <UpdateButton
                 service={post}
                 deleteToken={post.deleteToken || ""}
@@ -55,9 +55,9 @@ const ServiceContent = ({
                 service={post}
                 deleteToken={post.deleteToken || ""}
               />
-            </span>
+            </div>
           )}
-        </span>
+        </div>
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
           <div className="flex justify-between items-center">

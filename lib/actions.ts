@@ -1,12 +1,13 @@
 "use server";
 
 import { auth } from "@/auth";
-import { parseServerActionResponse } from "@/lib/utils";
+import { extractPublicIdFromUrl, parseServerActionResponse } from "@/lib/utils";
 import slugify from "slugify";
 import { writeClient } from "@/sanity/lib/write-client";
 import { client } from "@/sanity/lib/client";
 import { revalidatePath } from "next/cache";
 import { deleteCloudinaryImage } from "@/lib/cloudinary";
+import { cloudinaryLoader } from "next-cloudinary";
 
 interface Author {
   _id: string;
@@ -134,7 +135,12 @@ export const createPitch = async (state: any, form: FormData) => {
 
 export async function updateService(
   serviceId: string,
-  data: Partial<Omit<ServiceWithAuthorRef, "author"> & { contact: string }>,
+  data: Partial<
+    Omit<ServiceWithAuthorRef, "author"> & {
+      contact: string;
+      imageDeleteToken?: string;
+    }
+  >,
   authorEmail: string
 ) {
   try {
@@ -181,12 +187,33 @@ export async function updateService(
       );
     }
 
+    let updatedImageUrl = existingService.image;
+    if (data.image && data.image !== existingService.image) {
+      if (existingService.image) {
+        try {
+          const publicId = extractPublicIdFromUrl(existingService.image);
+          if (publicId) {
+            await deleteCloudinaryImage(publicId);
+            console.log("Old image deleted from Cloudinary");
+          }
+        } catch (deleteError) {
+          console.error(
+            "Error deleting old image from Cloudinary:",
+            deleteError
+          );
+        }
+      }
+
+      updatedImageUrl = data.image;
+    }
+
     // Use the existing author reference for the update
     const updatedData: Partial<ServiceWithAuthorRef> = {
       title: data.title,
       description: data.description ?? existingService.description,
       category: data.category ?? existingService.category,
-      ...(data.image && data.image !== "" ? { image: data.image } : {}),
+      // ...(data.image && data.image !== "" ? { image: data.image } : {}),
+      image: updatedImageUrl,
       pitch: data.pitch ?? existingService.pitch,
       contact: data.contact ?? existingService.contact,
       // ...data,

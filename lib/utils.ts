@@ -28,3 +28,13 @@ export function parseServerActionResponse<T>(response: T) {
 export function timeLimit(time: number) {
   const timer = setTimeout(() => {});
 }
+
+export function extractPublicIdFromUrl(url: string) {
+  try {
+    const match = url.match(/https?:\/\/[^\/]+\/([^\/]+)/);
+    return match ? match[1] : null;
+  } catch (error) {
+    console.error("Error extracting public ID:", error);
+    return null;
+  }
+}

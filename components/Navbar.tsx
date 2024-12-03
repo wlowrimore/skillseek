@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SignInBtn } from "./AuthButtons";
 import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
+import AllServicesButton from "./AllServicesButton";
 
 const Navbar = async () => {
   const session = await auth();
@@ -32,6 +33,7 @@ const Navbar = async () => {
         <section className="flex-between gap-2">
           {session?.user ? (
             <>
+              <AllServicesButton />
               <Link
                 href={authorId && `/user/${authorId}`}
                 className="hover:bg-[#4D99A6] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
