@@ -5,12 +5,8 @@ import {
   SERVICE_BY_ID_QUERY,
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
-import { formatDate } from "@/lib/utils";
-import Link from "next/link";
-import Image from "next/image";
-import { UpdateButton, DeleteButton } from "@/components/MutationButtons";
 
-import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
+import ServiceContent from "@/components/ServiceContent";
 
 export const experimental_ppr = true;
 
@@ -21,7 +17,7 @@ const page = async ({
     id: string;
   };
 }) => {
-  const id = params.id;
+  const id = params?.id;
   const session = await auth();
 
   const [post, playlist] = await Promise.all([
@@ -40,114 +36,160 @@ const page = async ({
   console.log("POST IN SERVICE PAGE:", post);
 
   const authorEmail = post.author?.email;
-  const currentUserEmail = session?.user?.email;
+  const currentUserEmail = session?.user?.email || null;
   const isAuthor = Boolean(
     currentUserEmail && authorEmail && currentUserEmail === authorEmail
   );
 
   const createdUserName = post.author?.email?.split("@")[0];
-  const username = `@${createdUserName}`;
-
-  const parsedContent = post?.pitch || "";
 
   return (
     <>
-      <section className="sticky blue_container bg-swirl-pattern">
-        <p className="tag">{formatDate(post?._createdAt)}</p>
-
-        <h1 className="heading">{post.title}</h1>
-        <p className="text-black text-2xl font-semibold !max-w-5xl">
-          {post.description}
-        </p>
-      </section>
-
-      <section className="section_container">
-        <span className="relative">
-          <Image
-            src={post.image as string}
-            alt="service image"
-            width={1000}
-            height={1000}
-            className="mx-auto max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
-          />
-          {isAuthor && (
-            <span className="absolute bottom-6 right-52 z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
-              <UpdateButton
-                service={post}
-                deleteToken={post.deleteToken || ""}
-              />
-              <DeleteButton
-                service={post}
-                deleteToken={post.deleteToken || ""}
-              />
-            </span>
-          )}
-        </span>
-
-        <div className="space-y-5 mt-10 max-w-4xl mx-auto">
-          <div className="flex justify-between items-center">
-            <Link
-              href={`/user/${post.author?._id}`}
-              className="flex gap-2 items-center"
-            >
-              <Image
-                src={post.author.image}
-                alt="avatar"
-                width={64}
-                height={64}
-                className="rounded-full w-16 h-16 object-cover drop-shadow-lg"
-              />
-
-              <div className="leading-5">
-                <p className="text-xl font-semibold">{post.author.name}</p>
-                <p className="text-small">{username}</p>
-              </div>
-            </Link>
-            <span className="flex flex-col items-center w-fit mr-6">
-              <p className="text-lg font-semibold">Let&apos;s connect</p>
-              <Link
-                href={`mailto:${post.contact}`}
-                className="text-sm text-cyan-800 hover:underline"
-              >
-                {post.contact}
-                {console.log("POST CONTACT:", post.contact)}
-              </Link>
-            </span>
-            <p className="category-tag">{post.category}</p>
-          </div>
-
-          <h3 className="text-30-bold">Pitch Details</h3>
-          {parsedContent ? (
-            <article
-              className="text-black max-w-4xl font-work-sans"
-              dangerouslySetInnerHTML={{ __html: parsedContent }}
-            />
-          ) : (
-            <p className="no-result">No details provided</p>
-          )}
-
-          <hr className="divider" />
-
-          {editorPosts?.length > 0 && (
-            <div className="max-w-4xl mx-auto">
-              <p className="text-30-semibold">Editor Picks</p>
-
-              <ul className="mt-7 card_grid-sm">
-                {editorPosts.map((post: ServiceTypeCard, i: number) => (
-                  <ServiceCard
-                    key={i}
-                    post={post}
-                    service={post}
-                    currentUserEmail={currentUserEmail}
-                  />
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </section>
+      <ServiceContent
+        post={post}
+        contact={post?.author?.contact || ""}
+        isAuthor={isAuthor}
+        currentUserEmail={currentUserEmail}
+        editorPosts={editorPosts}
+      />
     </>
   );
 };
+
+// const page = async ({
+//   params,
+// }: {
+//   params: {
+//     id: string;
+//   };
+// }) => {
+//   const id = params.id;
+//   const session = await auth();
+
+//   const [post, playlist] = await Promise.all([
+//     client.fetch(SERVICE_BY_ID_QUERY, { id }),
+//     client.fetch(PLAYLIST_BY_SLUG_QUERY, { slug: "editor-picks" }),
+//   ]);
+
+//   console.log("Full post data:", JSON.stringify(post, null, 2));
+
+//   const editorPosts = playlist?.select || [];
+//   console.log("PLAYLIST QUERY RESULT:", playlist);
+//   console.log("EDITOR POSTS", editorPosts);
+
+//   if (!post) return notFound();
+
+//   console.log("POST IN SERVICE PAGE:", post);
+
+//   const authorEmail = post.author?.email;
+//   const currentUserEmail = session?.user?.email;
+//   const isAuthor = Boolean(
+//     currentUserEmail && authorEmail && currentUserEmail === authorEmail
+//   );
+
+//   const createdUserName = post.author?.email?.split("@")[0];
+//   const username = `@${createdUserName}`;
+
+//   const parsedContent = post?.pitch || "";
+
+//   return (
+//     <>
+//       <section className="sticky blue_container bg-swirl-pattern">
+//         <p className="tag">{formatDate(post?._createdAt)}</p>
+
+//         <h1 className="heading">{post.title}</h1>
+//         <p className="text-black text-2xl font-semibold !max-w-5xl">
+//           {post.description}
+//         </p>
+//       </section>
+
+//       <section className="section_container">
+//         <span className="relative">
+//           <Image
+//             src={post.image as string}
+//             alt="service image"
+//             width={1000}
+//             height={1000}
+//             className="mx-auto max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
+//           />
+//           {isAuthor && (
+//             <span className="absolute bottom-6 right-52 z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
+//               <UpdateButton
+//                 service={post}
+//                 deleteToken={post.deleteToken || ""}
+//               />
+//               <DeleteButton
+//                 service={post}
+//                 deleteToken={post.deleteToken || ""}
+//               />
+//             </span>
+//           )}
+//         </span>
+
+//         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
+//           <div className="flex justify-between items-center">
+//             <Link
+//               href={`/user/${post.author?._id}`}
+//               className="flex gap-2 items-center"
+//             >
+//               <Image
+//                 src={post.author.image}
+//                 alt="avatar"
+//                 width={64}
+//                 height={64}
+//                 className="rounded-full w-16 h-16 object-cover drop-shadow-lg"
+//               />
+
+//               <div className="leading-5">
+//                 <p className="text-xl font-semibold">{post.author.name}</p>
+//                 <p className="text-small">{username}</p>
+//               </div>
+//             </Link>
+//             <span className="flex flex-col items-center w-fit mr-6">
+//               <p className="text-lg font-semibold">Let&apos;s connect</p>
+//               <Link
+//                 href={`mailto:${post.contact}`}
+//                 className="text-sm text-cyan-800 hover:underline"
+//               >
+//                 {post.contact}
+//                 {console.log("POST CONTACT:", post.contact)}
+//               </Link>
+//             </span>
+//             <p className="category-tag">{post.category}</p>
+//           </div>
+
+//           <h3 className="text-30-bold">Pitch Details</h3>
+//           {parsedContent ? (
+//             <article
+//               className="text-black max-w-4xl font-work-sans"
+//               dangerouslySetInnerHTML={{ __html: parsedContent }}
+//             />
+//           ) : (
+//             <p className="no-result">No details provided</p>
+//           )}
+
+//           <hr className="divider" />
+
+//           {editorPosts?.length > 0 && (
+//             <div className="max-w-4xl mx-auto">
+//               <p className="text-30-semibold">Editor Picks</p>
+
+//               <ul className="mt-7 card_grid-sm">
+//                 {editorPosts.map((post: ServiceTypeCard, i: number) => (
+//                   <ServiceCard
+//                     key={i}
+//                     post={post}
+//                     service={post}
+//                     currentUserEmail={currentUserEmail}
+//                   />
+//                 ))}
+//               </ul>
+//             </div>
+//           )}
+//         </div>
+//       </section>
+//     </>
+//   );
+// };
 
 export default page;
