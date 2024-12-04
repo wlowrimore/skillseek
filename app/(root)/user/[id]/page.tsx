@@ -41,7 +41,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
 
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">
-          <p className="text-30-bold">{isAuthor ? "Your" : "All"} Startups</p>
+          <p className="text-30-bold">{isAuthor ? "Your" : "All"} Services</p>
           <ul className="card_grid-sm">
             <Suspense fallback={<ServiceCardSkeleton />}>
               <UserServices id={id} />
