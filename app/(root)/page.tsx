@@ -32,7 +32,7 @@ export default async function Home({
       </section>
 
       <section className="section_container">
-        <p className="text-30-semibold">
+        <p className="text-30-semibold text-center md:text-start">
           {query ? `Search results for "${query}"` : "All Listed Services"}
         </p>
 

@@ -43,7 +43,7 @@ const ServiceContent = ({
             alt="service image"
             width={1000}
             height={1000}
-            className="mx-auto max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
+            className="mx-auto max-w-[rem] md:max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
           />
           {isAuthor && (
             <div className="absolute right-[15%] bottom-[2%] z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
@@ -60,7 +60,7 @@ const ServiceContent = ({
         </div>
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col md:flex-row justify-between items-center">
             <Link
               href={`/user/${post.author?._id}`}
               className="flex gap-2 items-center"
@@ -70,15 +70,15 @@ const ServiceContent = ({
                 alt="avatar"
                 width={64}
                 height={64}
-                className="rounded-full w-16 h-16 object-cover drop-shadow-lg"
+                className="rounded-full w-12 h-12 md:w-16 md:h-16 object-cover drop-shadow-lg"
               />
 
               <div className="leading-5">
-                <p className="text-xl font-semibold">{post?.author?.name}</p>
-                <p className="text-small">{username}</p>
+                <p className="md:text-xl font-semibold">{post?.author?.name}</p>
+                <p className="text-sm">{username}</p>
               </div>
             </Link>
-            <span className="flex flex-col items-center w-fit mr-6">
+            <span className="flex flex-col items-center w-fit md:mr-6">
               <p className="text-lg font-semibold">Let&apos;s connect</p>
               <Link
                 href={`mailto:${contact || ""}`}
@@ -90,7 +90,9 @@ const ServiceContent = ({
             <p className="category-tag">{post.category}</p>
           </div>
 
-          <h3 className="text-30-bold">Pitch Details</h3>
+          <h3 className="text-30-bold text-center md:text-start">
+            Service Details
+          </h3>
           {parsedContent ? (
             <article
               className="text-black max-w-4xl font-work-sans"

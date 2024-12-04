@@ -99,7 +99,7 @@ const ServiceCard = ({
 
       <div className="flex-between gap-3 mt-5">
         <Link href={`/?query=${category?.toLowerCase()}`}>
-          <p className="text-16-medium">{category}</p>
+          <p className="text-sm md:text-16-medium">{category}</p>
         </Link>
         <Button className="startup-card_btn" asChild>
           <Link href={`/service/${_id}`}>More...</Link>

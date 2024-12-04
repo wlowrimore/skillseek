@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
+import MobileNavbar from "@/components/MobileNavbar";
 
 export default function Layout({
   children,
@@ -7,6 +8,7 @@ export default function Layout({
   return (
     <main className="font-work-sans">
       <Navbar />
+      <MobileNavbar />
       {children}
     </main>
   );

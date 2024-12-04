@@ -18,7 +18,7 @@ const Navbar = async () => {
   }
 
   return (
-    <header className="px-8 py-2 sticky top-0 z-50 bg-white/40 backdrop-blur-[8px] border-b border-gray-200 shadow shadow-neutral-100">
+    <header className="hidden md:block px-8 py-2 sticky top-0 z-50 bg-white/40 backdrop-blur-[8px] border-b border-gray-200 shadow shadow-neutral-100">
       <nav className="flex flex-between gap-5 text-[#072454]">
         <Link href="/">
           <Image
@@ -38,7 +38,7 @@ const Navbar = async () => {
                 href={authorId && `/user/${authorId}`}
                 className="hover:bg-[#4D99A6] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
               >
-                <span className="p-2">My Services</span>
+                <span className="flex justify-center">My Services</span>
               </Link>
               <Link
                 href="/service/create"
