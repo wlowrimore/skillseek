@@ -43,6 +43,7 @@ const CloudinaryUploader = ({
       onImageUrlChange?.(newUrl, newToken);
 
       toast({
+        variant: "success",
         title: "Success",
         description: "Image uploaded successfully",
       });
@@ -52,6 +53,7 @@ const CloudinaryUploader = ({
   const handleRemoveImage = async () => {
     if (!imageUrl || !deleteToken) {
       toast({
+        variant: "destructive",
         title: "Error",
         description: "No image or delete token available",
       });
@@ -66,12 +68,14 @@ const CloudinaryUploader = ({
       onImageUrlChange?.("", "");
 
       toast({
+        variant: "success",
         title: "Success",
         description: "Image removed successfully",
       });
     } catch (error) {
       console.error("Error deleting image:", error);
       toast({
+        variant: "destructive",
         title: "Error",
         description: "Failed to remove image",
       });

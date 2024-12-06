@@ -28,7 +28,7 @@ export default async function Home({
 
   return (
     <>
-      <section className="blue_container bg-swirl-pattern">
+      <section className="blue_container bg-swirl-pattern mt-16">
         <div className="heading">
           <h1 className="">Find help. Save money.</h1>
           <p className="">Support your community.</p>

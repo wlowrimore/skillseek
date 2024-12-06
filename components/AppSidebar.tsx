@@ -1,7 +1,12 @@
 "use client";
 
 import { useSidebar } from "@/hooks/useSidebar";
-import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
+import {
+  ArrowLeftCircle,
+  ArrowRightCircle,
+  CircleArrowLeft,
+  CircleArrowRight,
+} from "lucide-react";
 import Link from "next/link";
 
 const categories = [
@@ -47,39 +52,43 @@ export function AppSidebar() {
       <button
         onClick={toggleSidebar}
         title="Quick Search"
-        className={`w-full z-100 absolute top-14 flex justify-end ${isOpen ? "right-8" : "left-5"}`}
+        className={`w-full z-100 absolute top-14 flex justify-end ${isOpen ? "" : "left-5"}`}
       >
         {isOpen ? (
           <CircleArrowLeft
-            className={`hidden md:block w-8 h-8 mt-4 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : ""}`}
+            className={`hidden md:block w-8 h-8 mt-4 mr-3 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : ""}`}
           />
         ) : (
           <CircleArrowRight
-            className={`hidden md:block w-8 h-8 mt-4 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : ""}`}
+            className={`hidden md:block w-8 h-8 mt-4 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : "ml-[-1.5rem]"}`}
           />
         )}
       </button>
       <button
         onClick={toggleSidebar}
         title="Quick Search"
-        className={`w-full z-100 absolute flex justify-end ${isOpen ? "right-24 md:right-4" : "right-1 bottom-[2.7rem]"} md:hidden`}
+        className={`w-full z-100 absolute flex justify-end ${isOpen ? "right-32 md:right-4" : "right-10 bottom-[2.5rem]"} md:hidden`}
       >
         <span
-          className={`md:hidden flex items-center justify-center w-fit h-8 mr-[-5.4rem] text-xs text-black bg-[#F29072] hover:text-black rounded-lg px-2 cursor-pointer transition duration-300 shadow-sm shadow-slate-400 ${isOpen ? "bg-[#F29072] text-white hover:bg-[#51819C]" : "text-white"}`}
+          className={`md:hidden flex items-center justify-center w-fit h-8 mr-[-5.4rem] text-xs text-black rounded-lg px-2 cursor-pointer transition duration-300 ${isOpen ? " text-white" : "text-white"}`}
         >
-          {isOpen ? "Close Panel" : "Quick Search"}
+          {isOpen ? (
+            <ArrowLeftCircle className="w-8 h-8 -mr-6 bg-[#51819C] rounded-full" />
+          ) : (
+            <ArrowRightCircle className="w-8 h-8 ml-2 bg-[#51819C] rounded-full" />
+          )}
         </span>
       </button>
 
       <div
-        className={`flex flex-col gap-2 transition-all duration-300 ${isOpen ? "bg-white" : "bg-transparent"}`}
+        className={`w-[100vw] md:w-full flex flex-col gap-2 transition-all duration-300 ease-in ${isOpen ? "bg-white w-[100vw] md:w-full" : "bg-transparent w-full ml-[-3rem] md:ml-0"}`}
       >
         <div className="flex flex-col gap-2">
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold py-6 mt-12 pl-10">Categories</h1>
+            <h1 className="text-2xl font-bold pt-6 mt-12 pl-10">Categories</h1>
           </div>
           <hr className="flex-grow w-[80%] mx-auto border-neutral-300 border-b-0" />
-          <div className="flex flex-col px-6 gap-2">
+          <div className="flex flex-col px-6 py-6 gap-2">
             {categories.map((c) => (
               <Link
                 key={c.name}

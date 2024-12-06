@@ -18,7 +18,7 @@ const Navbar = async () => {
   }
 
   return (
-    <header className="hidden md:block px8 py-2 sticky top-0 z-50 bg-white/40 backdrop-blur-[8px] border-b border-gray-200 shadow shadow-neutral-100">
+    <header className="hidden md:block w-full px-8 py-2 fixed top-0 z-50 bg-white/40 backdrop-blur-[8px] shadow-md shadow-zinc-300/40">
       <nav className="flex flex-between gap-5 text-[#072454]">
         <div className="flex items-center gap-3">
           <Link href="/">

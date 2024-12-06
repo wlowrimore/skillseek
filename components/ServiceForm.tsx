@@ -119,9 +119,9 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           contact: "Please enter a valid email address",
         }));
         toast({
+          variant: "destructive",
           title: "Validation Error",
           description: "Please enter a valid email address",
-          variant: "destructive" as unknown as undefined,
         });
         return {
           ...prevState,
@@ -138,7 +138,6 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
             title: formDataSubmit.get("title") as string,
             description: formDataSubmit.get("description") as string,
             category: formDataSubmit.get("category") as string,
-            // image: formDataSubmit.get("image") as string,
             image: formData.image,
             contact: formDataSubmit.get("contact") as string,
             pitch: formDataSubmit.get("pitch") as string,
@@ -148,6 +147,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
 
         if (result) {
           toast({
+            variant: "success",
             title: "Success",
             description: "Service updated successfully",
           });
@@ -175,6 +175,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
 
         if (result.status === "SUCCESS" && formData.image) {
           toast({
+            variant: "success",
             title: "Success",
             description: "Your service has been successfully created",
           });
@@ -191,9 +192,9 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         setErrors(fieldErrors as unknown as Record<string, string>);
 
         toast({
+          variant: "destructive",
           title: "Validation Error",
           description: "Please check the form fields and try again",
-          variant: "destructive" as unknown as undefined,
         });
 
         return {
@@ -204,9 +205,9 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
       }
 
       toast({
+        variant: "destructive",
         title: "Error",
         description: "An unexpected error has occurred",
-        variant: "destructive" as unknown as undefined,
       });
 
       return {

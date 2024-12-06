@@ -6,6 +6,7 @@ import Image from "next/image";
 import UserServices from "@/components/UserServices";
 import { Suspense } from "react";
 import { ServiceCardSkeleton } from "@/components/ServiceCard";
+import Link from "next/link";
 
 export const experimental_ppr = true;
 
@@ -23,7 +24,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <section className="profile_container">
+      <section className="profile_container mt-10">
         <div className="profile_card">
           <div className="profile_title">
             <h3 className="text-24-black uppercase text-center line-clamp-1">
@@ -38,6 +39,14 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             height={1000}
             className="w-44 h-44 object-cover object-center rounded-2xl"
           />
+          <div className="flex flex-col justify-center items-center mt-6">
+            <p className="font-bold text-lg mb-[-0.5rem]">Email To Connect</p>
+            <Link href={`mailto:${user.email}`} className="text-center">
+              <span className="text-sm font-[600] hover:underline p-2">
+                {user.email}
+              </span>
+            </Link>
+          </div>
         </div>
 
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">

@@ -13,11 +13,11 @@ export default async function EditServicePage({
 
   return (
     <>
-      <section className="blue_container bg-swirl-pattern">
+      <section className="blue_container bg-swirl-pattern mt-16">
         <div className="heading">
-          <h1 className="">Edit</h1>
+          <h1 className="">Edit Your Service</h1>
           <h2 className="sub-heading">
-            &quot;&nbsp;{service.title}&nbsp;&quot;
+            {service.title} by {service.author.name}
           </h2>
         </div>
       </section>
