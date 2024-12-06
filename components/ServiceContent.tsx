@@ -18,7 +18,6 @@ const ServiceContent = ({
   currentUserEmail,
   editorPosts,
 }: ServiceContentProps) => {
-  const authorEmail = post.author?.email;
   const createdUserName = post.author?.email?.split("@")[0];
   const username = `@${createdUserName}`;
   const contact = post?.author?.email;
@@ -46,7 +45,7 @@ const ServiceContent = ({
             className="mx-auto max-w-[rem] md:max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
           />
           {isAuthor && (
-            <div className="absolute right-[15%] bottom-[2%] z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
+            <div className="absolute right-[3%] md:right-[15%] bottom-[2%] z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">
               <UpdateButton
                 service={post}
                 deleteToken={post.deleteToken || ""}
@@ -59,7 +58,7 @@ const ServiceContent = ({
           )}
         </div>
 
-        <div className="space-y-5 mt-10 max-w-4xl mx-auto">
+        <div className="space-y-5 mt-6 md:mt-10 max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <Link
               href={`/user/${post.author?._id}`}
@@ -78,7 +77,7 @@ const ServiceContent = ({
                 <p className="text-sm">{username}</p>
               </div>
             </Link>
-            <span className="flex flex-col items-center w-fit md:mr-6">
+            <span className="flex flex-col items-center w-fit my-6 md:my-0 md:mr-6">
               <p className="text-lg font-semibold">Let&apos;s connect</p>
               <Link
                 href={`mailto:${contact || ""}`}

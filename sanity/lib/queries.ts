@@ -1,8 +1,18 @@
 import { defineQuery } from "next-sanity";
 
-export const SERVICES_QUERY =
-  defineQuery(`*[_type == "service" && defined(slug.current) && !defined($search) || title match $search || category match $search || author->name match $search] | order(_createdAt desc) 
-    {
+export const SERVICES_QUERY = defineQuery(`
+  *[_type == "service" && defined(slug.current) && 
+    (
+      !defined($search) || 
+      title match $search || 
+      category match $search || 
+      author->name match $search
+    ) && 
+    (
+      !defined($category) || 
+      category match $category
+    )
+  ] | order(_createdAt desc) {
     _id,
     title,
     slug,
@@ -16,7 +26,7 @@ export const SERVICES_QUERY =
     description,
     category,
     image,
-    }`);
+  }`);
 
 export const SERVICE_BY_ID_QUERY =
   defineQuery(`*[_type == "service" && _id == $id][0]{

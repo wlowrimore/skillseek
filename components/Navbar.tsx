@@ -18,17 +18,19 @@ const Navbar = async () => {
   }
 
   return (
-    <header className="hidden md:block px-8 py-2 sticky top-0 z-50 bg-white/40 backdrop-blur-[8px] border-b border-gray-200 shadow shadow-neutral-100">
+    <header className="hidden md:block px8 py-2 sticky top-0 z-50 bg-white/40 backdrop-blur-[8px] border-b border-gray-200 shadow shadow-neutral-100">
       <nav className="flex flex-between gap-5 text-[#072454]">
-        <Link href="/">
-          <Image
-            src="/brand-logo.png"
-            alt="brand logo"
-            width={1000}
-            height={1000}
-            className="w-44 h-auto border-l-2 border-r-2 border-primary px-2 py-1 rounded-xl"
-          />
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link href="/">
+            <Image
+              src="/brand-logo.png"
+              alt="brand logo"
+              width={1000}
+              height={1000}
+              className="w-44 h-auto border-l-2 border-r-2 border-primary px-2 py-1 rounded-xl"
+            />
+          </Link>
+        </div>
 
         <section className="flex-between gap-2">
           {session?.user ? (

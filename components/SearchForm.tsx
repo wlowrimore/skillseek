@@ -8,7 +8,7 @@ const SearchForm = ({ query }: { query: string }) => {
       <input
         name="query"
         defaultValue={query}
-        className="search-input"
+        className="search-input placeholder:text-[0.85rem] placeholder:md:text-xl mb-2 md:mb-0"
         placeholder="Search by Service, Author, or Category"
       />
 

@@ -1,35 +1,24 @@
-import { auth, signIn } from "@/auth";
+import { auth } from "@/auth";
 import { client } from "@/sanity/lib/client";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { MobileSignInBtn, MobileSignOutBtn } from "./AuthButtons";
+import { MobileSignInBtn } from "./AuthButtons";
 import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
-import AllServicesButton from "./AllServicesButton";
 
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import {
-  Eye,
   LayoutPanelTop,
-  Square,
   Plus,
-  Table,
   UserRoundX,
-  View,
   Menu,
-  MenuSquare,
   Info,
-  ShieldQuestion,
   MessageCircleQuestion,
   Mail,
 } from "lucide-react";
@@ -49,9 +38,11 @@ const MobileNavbar = async () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="ghost">
-          <Menu style={{ width: 44, height: 28, fontWeight: "bold" }} />
-        </Button>
+        <div className="w-full flex justify-end">
+          <Button variant="ghost">
+            <Menu style={{ width: 44, height: 28, fontWeight: "bold" }} />
+          </Button>
+        </div>
       </DrawerTrigger>
 
       <DrawerContent>
@@ -139,17 +130,6 @@ const MobileNavbar = async () => {
                 <MessageCircleQuestion size={28} />
                 <span>FAQ</span>
               </Link>
-
-              {/* <div className="flex flex-col justify-center items-center text-neutral-400 text-center text-sm w-full mt-3">
-                <div className="flex justify-center items-center gap-10">
-                  <h2 className="border border-neutral-500 rounded-lg py-1 px-2">
-                    Contact Us
-                  </h2>
-                  <h2 className="border border-neutral-500 rounded-lg py-1 px-2">
-                    About Us
-                  </h2>
-                </div>
-              </div> */}
             </div>
           </div>
           <DrawerFooter>
@@ -164,9 +144,6 @@ const MobileNavbar = async () => {
                 &nbsp;
                 <span className="text-neutral-400">All rights reserved</span>
                 <br />
-                {/* <span className="text-neutral-400">Terms of Service</span>
-                <span className="mx-2 font-bold">|</span>
-                <span className="text-neutral-400">Privacy Policy</span> */}
               </div>
             </section>
           </DrawerFooter>

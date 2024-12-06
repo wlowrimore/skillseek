@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { AppSidebar } from "@/components/AppSidebar";
+import { CatProvider } from "@/contexts/CategoryContext";
 
 const workSans = localFont({
   src: [
@@ -68,8 +70,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={workSans.variable}>
-        {children}
-        <Toaster />
+        <CatProvider>
+          <AppSidebar />
+          {children}
+          <Toaster />
+        </CatProvider>
       </body>
     </html>
   );
