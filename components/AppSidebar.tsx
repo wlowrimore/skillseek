@@ -1,7 +1,7 @@
 "use client";
 
 import { useSidebar } from "@/hooks/useSidebar";
-import { Grip } from "lucide-react";
+import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const categories = [
@@ -47,16 +47,22 @@ export function AppSidebar() {
       <button
         onClick={toggleSidebar}
         title="Quick Search"
-        className={`w-full z-100 absolute top-14 flex justify-end ${isOpen ? "right-4" : "right-1"}`}
+        className={`w-full z-100 absolute top-14 flex justify-end ${isOpen ? "right-8" : "left-5"}`}
       >
-        <Grip
-          className={`hidden md:block w-8 h-8 mt-4 mr-[-0.8rem] bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C]" : ""}`}
-        />
+        {isOpen ? (
+          <CircleArrowLeft
+            className={`hidden md:block w-8 h-8 mt-4 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : ""}`}
+          />
+        ) : (
+          <CircleArrowRight
+            className={`hidden md:block w-8 h-8 mt-4 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : ""}`}
+          />
+        )}
       </button>
       <button
         onClick={toggleSidebar}
         title="Quick Search"
-        className={`w-full z-100 absolute flex justify-end ${isOpen ? "right-24 md:right-4" : "right-1 bottom-[2.7rem]"}`}
+        className={`w-full z-100 absolute flex justify-end ${isOpen ? "right-24 md:right-4" : "right-1 bottom-[2.7rem]"} md:hidden`}
       >
         <span
           className={`md:hidden flex items-center justify-center w-fit h-8 mr-[-5.4rem] text-xs text-black bg-[#F29072] hover:text-black rounded-lg px-2 cursor-pointer transition duration-300 shadow-sm shadow-slate-400 ${isOpen ? "bg-[#F29072] text-white hover:bg-[#51819C]" : "text-white"}`}
