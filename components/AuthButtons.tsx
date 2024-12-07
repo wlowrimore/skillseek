@@ -11,6 +11,7 @@ export async function SignInBtn() {
     >
       <button
         type="submit"
+        aria-label="Sign In"
         className="text-[#072454] hover:text-blue-500 rounded"
       >
         <span>SignIn</span>
@@ -29,6 +30,7 @@ export async function SignOutBtn() {
     >
       <button
         type="submit"
+        aria-label="Sign Out"
         className="text-white font-normal w-full text-[1.3rem] bg-black/80 px-5 py-2 mt-4 rounded-xl hover:bg-black transition-hover duration-200"
       >
         <span>Yes, Sign Me Out</span>
@@ -52,6 +54,7 @@ export async function MobileSignInBtn() {
     >
       <button
         type="submit"
+        aria-label="Sign In"
         className="text-neutral-300 bg-[#51819C] py-2 px-4 border border-neutral-300 rounded-xl flex flex-col justify-center items-center w-full mt-16"
       >
         <UserRoundPlus size={28} />

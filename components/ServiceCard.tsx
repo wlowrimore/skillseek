@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteService } from "@/lib/actions";
 import { cn, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -101,7 +100,11 @@ const ServiceCard = ({
         <Link href={`/?query=${category?.toLowerCase()}`}>
           <p className="text-sm md:text-16-medium">{category}</p>
         </Link>
-        <Button className="startup-card_btn" asChild>
+        <Button
+          className="startup-card_btn"
+          aria-label="Service Details"
+          asChild
+        >
           <Link href={`/service/${_id}`}>More...</Link>
         </Button>
       </div>

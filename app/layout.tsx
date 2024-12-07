@@ -60,6 +60,9 @@ const workSans = localFont({
 export const metadata: Metadata = {
   title: "SkillSeek",
   description: "Trade skills with neighbors",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

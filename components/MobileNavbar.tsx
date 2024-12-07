@@ -40,7 +40,7 @@ const MobileNavbar = async () => {
       <div className="fixed z1 bg-white w-full flex justiy-center py-1 pr-4 items-center">
         <DrawerTrigger asChild>
           <div className="w-full flex justify-end items-center">
-            <Button variant="ghost">
+            <Button variant="ghost" aria-label="Open Menu">
               <Menu
                 style={{
                   width: 44,
@@ -152,9 +152,9 @@ const MobileNavbar = async () => {
           <DrawerFooter>
             <section className="absolute bottom-3 max-w-sm flex flex-col items-center mx-auto w-[90%]">
               <div className="flex justify-center items-center text-xs text-neutral-400">
-                <h5>Terms of Service</h5>
+                <h1>Terms of Service</h1>
                 <span className="mx-2">|</span>
-                <h5>Privacy Policy</h5>
+                <h2>Privacy Policy</h2>
               </div>
               <div className="text-neutral-400 text-center text-xs">
                 <span className="text-neutral-400">&copy; 2023 SkillSeek</span>

@@ -3,7 +3,6 @@
 import { CldUploadButton, type CldUploadButtonProps } from "next-cloudinary";
 import { useState } from "react";
 import { useUpdatePath } from "@/hooks/useUpdatePath";
-import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { deleteCloudinaryImage } from "@/lib/cloudinary";
 import { toast } from "@/hooks/use-toast";
@@ -101,6 +100,7 @@ const CloudinaryUploader = ({
         <Button
           type="button"
           onClick={handleRemoveImage}
+          aria-label="Remove Image"
           disabled={!imageUrl}
           className={`${
             !imageUrl

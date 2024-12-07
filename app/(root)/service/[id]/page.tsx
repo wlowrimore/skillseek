@@ -41,8 +41,6 @@ const page = async ({
     currentUserEmail && authorEmail && currentUserEmail === authorEmail
   );
 
-  const createdUserName = post.author?.email?.split("@")[0];
-
   return (
     <>
       <ServiceContent

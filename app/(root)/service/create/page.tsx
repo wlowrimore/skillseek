@@ -6,6 +6,7 @@ const page = async () => {
   const session = await auth();
 
   if (!session) redirect("/");
+
   return (
     <div className="md:mt-16">
       <section className="blue_container bg-swirl-pattern">

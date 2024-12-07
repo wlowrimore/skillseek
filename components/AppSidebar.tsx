@@ -52,6 +52,7 @@ export function AppSidebar() {
       <button
         onClick={toggleSidebar}
         title="Quick Search"
+        aria-label="Toggle Sidebar"
         className={`w-full z-100 absolute top-14 flex justify-end ${isOpen ? "" : "left-5"}`}
       >
         {isOpen ? (
@@ -67,6 +68,7 @@ export function AppSidebar() {
       <button
         onClick={toggleSidebar}
         title="Quick Search"
+        aria-label="Toggle Sidebar"
         className={`w-full z-100 absolute flex justify-end ${isOpen ? "right-28 md:right-4" : "right-4 top-[0.2rem]"} md:hidden`}
       >
         <span

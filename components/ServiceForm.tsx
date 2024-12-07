@@ -30,7 +30,7 @@ export type Service = {
   image: string;
   category: string;
   pitch: string;
-  contact: string; // Add this field
+  contact: string;
   author: Author;
 };
 
@@ -235,6 +235,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           value={formData.title}
           onChange={handleInputChange}
           className="startup-form_input"
+          aria-label="Service Title"
           required
           placeholder="Service Title"
         />
@@ -251,6 +252,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           value={formData.description}
           onChange={handleInputChange}
           className="startup-form_textarea"
+          aria-label="Service Description"
           required
           placeholder="Service Description"
         />
@@ -306,6 +308,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           value={formData.pitch}
           onChange={handleInputChange}
           className="startup-form_textarea h-32"
+          aria-label="Briefly describe your services and how you can help others"
           required
           placeholder="Briefly describe your services and how you can help others"
         />
@@ -322,6 +325,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           value={formData.contact}
           onChange={handleInputChange}
           className="startup-form_input"
+          aria-label="Contact Email"
           required
           placeholder="Get Connected"
         />
@@ -332,6 +336,8 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
 
       <Button
         type="submit"
+        aria-label="Submit Your Service"
+        name="submit"
         className="startup-form_btn"
         disabled={isPending || !formData.image}
       >
