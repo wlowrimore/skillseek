@@ -7,7 +7,7 @@ const page = async () => {
 
   if (!session) redirect("/");
   return (
-    <div className="mt-16">
+    <div className="md:mt-16">
       <section className="blue_container bg-swirl-pattern">
         <h1 className="heading">Share Your Service with the comminity</h1>
       </section>

@@ -37,14 +37,31 @@ const MobileNavbar = async () => {
 
   return (
     <Drawer>
-      <DrawerTrigger asChild>
-        <div className="w-full flex justify-end">
-          <Button variant="ghost">
-            <Menu style={{ width: 44, height: 28, fontWeight: "bold" }} />
-          </Button>
-        </div>
-      </DrawerTrigger>
-
+      <div className="fixed z1 bg-white w-full flex justiy-center py-1 pr-4 items-center">
+        <DrawerTrigger asChild>
+          <div className="w-full flex justify-end items-center">
+            <Button variant="ghost">
+              <Menu
+                style={{
+                  width: 44,
+                  height: 28,
+                  fontWeight: "bold",
+                  marginRight: "-0.5rem",
+                  marginTop: "0.3rem",
+                }}
+              />
+            </Button>
+          </div>
+        </DrawerTrigger>
+        <Image
+          src={session?.user?.image || ""}
+          alt={session?.user?.name || ""}
+          width={34}
+          height={34}
+          className="rounded-full p-0.5 border-2 border-black"
+          unoptimized
+        />
+      </div>
       <DrawerContent>
         <div className="mx-auto w-full text-neutral-300">
           <div className="flex justify-start pl-2">
