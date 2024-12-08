@@ -43,13 +43,15 @@ const page = async ({
 
   return (
     <>
-      <ServiceContent
-        post={post}
-        contact={post?.author?.contact || ""}
-        isAuthor={isAuthor}
-        currentUserEmail={currentUserEmail}
-        editorPosts={editorPosts}
-      />
+      <div className="flex flex-col justify-center items-center h-screen">
+        <ServiceContent
+          post={post}
+          contact={post?.author?.contact || ""}
+          isAuthor={isAuthor}
+          currentUserEmail={currentUserEmail}
+          editorPosts={editorPosts}
+        />
+      </div>
     </>
   );
 };

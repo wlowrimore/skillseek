@@ -49,6 +49,12 @@ const Navbar = async () => {
                 <span className="p-2">Create</span>
               </Link>
               <Link
+                href="/service/create"
+                className="hover:bg-[#4D99A6] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
+              >
+                <span className="p-2">FAQ</span>
+              </Link>
+              <Link
                 href="/signout"
                 className="hover:bg-[#F29072] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
               >

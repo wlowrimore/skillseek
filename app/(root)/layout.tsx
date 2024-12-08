@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import MobileNavbar from "@/components/MobileNavbar";
+import Footer from "@/components/Footer";
 
 export default function Layout({
   children,
@@ -14,6 +15,9 @@ export default function Layout({
         <MobileNavbar />
       </div>
       {children}
+      <div className="hidden md:block">
+        <Footer />
+      </div>
     </main>
   );
 }
