@@ -26,7 +26,7 @@ const ServiceContent = ({
 
   return (
     <>
-      <section className="sticky blue_container bg-swirl-pattern mt-16">
+      <section className="blue_container bg-swirl-pattern md:mt-16">
         <p className="tag">{formatDate(post?._createdAt ?? "")}</p>
 
         <h1 className="heading">{post.title}</h1>

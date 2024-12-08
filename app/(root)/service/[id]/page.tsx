@@ -43,7 +43,7 @@ const page = async ({
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center h-screen">
+      <div className="flex flex-col justify-center items-center">
         <ServiceContent
           post={post}
           contact={post?.author?.contact || ""}
