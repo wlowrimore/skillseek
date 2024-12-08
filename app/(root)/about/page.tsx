@@ -4,9 +4,9 @@ const About = () => {
   return (
     <>
       <section className="container mx-auto blue_container md:mt-16">
-        <h1 className="w-full font-bold text-3xl pb-4 border-b">About Us</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 py-24">
-          <div className="flex justify-center items-start">
+        <h1 className="w-full font-bold text-3xl pb-4 border-b ">About Us</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 py-10 md:py-24">
+          <div className="flex justify-center items-start pb-10 md:pb-0">
             <img
               src="/community_sharing.webp"
               alt="community sharing"

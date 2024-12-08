@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
 import { MobileSignInBtn } from "./AuthButtons";
+import MobileSignOutBtn from "./mobileNavLinks/MobileSignOutBtn";
 import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
 
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,12 @@ import {
   Mail,
   House,
 } from "lucide-react";
-import MobileAllServicesBtn from "./MobileAllServicesBtn";
+import MobileAllServicesBtn from "./mobileNavLinks/MobileAllServicesBtn";
+import MobileAboutBtn from "./mobileNavLinks/MobileAboutBtn";
+import MobileMyServicesBtn from "./mobileNavLinks/MobileMyServicesBtn";
+import MobileCreateBtn from "./mobileNavLinks/MobileCreateBtn";
+import MobileHomeBtn from "./mobileNavLinks/MobileHomeBtn";
+import MobileContactBtn from "./mobileNavLinks/MobileContactBtn";
 
 const MobileNavbar = async () => {
   const session = await auth();
@@ -82,64 +88,16 @@ const MobileNavbar = async () => {
               {session?.user ? (
                 <>
                   <MobileAllServicesBtn />
-                  <a
-                    href={authorId && `/user/${authorId}`}
-                    className="text-neutral-300 py-2 px-4 border border-neutral-300 rounded-xl flex flex-col justify-center items-center"
-                  >
-                    <span>
-                      <LayoutPanelTop size={28} />
-                    </span>
-                    My Services
-                  </a>
-                  <a
-                    href="/service/create"
-                    className="text-neutral-300 py-2 px-4 border border-neutral-300 rounded-xl flex-1 flex flex-col justify-center items-center"
-                  >
-                    <span>
-                      <Plus size={28} />
-                    </span>
-                    Create
-                  </a>
-
-                  <a
-                    href={authorId && `/user/${authorId}`}
-                    className="text-neutral-300 py-2 px-4 border border-neutral-300 rounded-xl flex-1 flex flex-col justify-center items-center"
-                  >
-                    <span>
-                      <House size={28} />
-                    </span>
-                    Home
-                  </a>
-                  <a
-                    href="/service/create"
-                    className="text-neutral-300 py-2 px-4 border border-neutral-300 rounded-xl flex flex-1 flex-col justify-center items-center"
-                  >
-                    <span>
-                      <Mail size={28} />
-                    </span>
-                    Contact
-                  </a>
-
-                  <a
-                    href="/signout"
-                    className="text-neutral-300 bg-[#F06D5E] py-2 px-4 border border-neutral-300 rounded-xl flex flex-col justify-center items-center w-full"
-                  >
-                    <span>
-                      <UserRoundX size={28} />
-                    </span>
-                    SignOut
-                  </a>
+                  <MobileMyServicesBtn authorId={authorId} />
+                  <MobileCreateBtn />
+                  <MobileHomeBtn />
+                  <MobileContactBtn />
+                  <MobileSignOutBtn />
                 </>
               ) : (
                 MobileSignInBtn()
               )}
-              <Link
-                href="/"
-                className="text-neutral-300 py-2 px-4 flex flex-reverse gap-2 justify-center items-center w-fit border border-neutral-300 rounded-xl"
-              >
-                <Info size={28} />
-                <span>About Us</span>
-              </Link>
+              <MobileAboutBtn />
 
               <Link
                 href="/"
@@ -151,7 +109,7 @@ const MobileNavbar = async () => {
             </div>
           </div>
           <DrawerFooter>
-            <section className="absolute bottom-3 max-w-sm flex flex-col items-center mx-auto w-[90%]">
+            <section className="absolute bottom-3 max-w-sm flex flex-col items-center mx-auto w-[100%]">
               <div className="flex justify-center items-center text-xs text-neutral-400">
                 <h1>Terms of Service</h1>
                 <span className="mx-2">|</span>
