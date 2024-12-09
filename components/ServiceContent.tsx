@@ -27,10 +27,12 @@ const ServiceContent = ({
   return (
     <>
       <section className="blue_container bg-swirl-pattern md:mt-16">
-        <p className="tag">{formatDate(post?._createdAt ?? "")}</p>
+        <p className="tag-mobile md:tag">
+          {formatDate(post?._createdAt ?? "")}
+        </p>
 
         <h1 className="heading">{post.title}</h1>
-        <p className="text-black text-2xl font-semibold !max-w-5xl">
+        <p className="text-black text-xl px-4 py-2 bg-white/70 rounded-xl md:rounded-none md:py-0 md:px-0 md:text-2xl font-semibold !max-w-5xl">
           {post.description}
         </p>
       </section>
