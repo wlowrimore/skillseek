@@ -30,7 +30,7 @@ const About = () => {
               bridge that connects local talent with local needs.
             </p>
 
-            <p className="text-xl pt-4">
+            <p className="text-lg leading-6 pt-4">
               Beyond individual skill-sharing, we're committed to empowering
               local businesses that are the heartbeat of our communities. By
               creating strategic partnerships with small, local enterprises,
@@ -42,7 +42,7 @@ const About = () => {
               users.
             </p>
 
-            <p className="text-xl pt-4">
+            <p className="text-lg leading-6 pt-4">
               Technology today often disconnects us, but SkillSeek is different.
               We're building more than just an app—we're cultivating a movement
               of mutual support, learning, and genuine human connection. In a

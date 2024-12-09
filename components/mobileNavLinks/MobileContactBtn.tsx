@@ -9,7 +9,7 @@ interface MobileContactBtnProps {
 }
 
 const MobileContactBtn: React.FC<MobileContactBtnProps> = ({
-  className = "text-neutral-300 py-2 px-4 border border-neutral-300 rounded-xl flex flex-col justify-center items-center",
+  className = "text-neutral-300 py-2 px-4 border border-neutral-300 rounded-xl flex flex-1 flex-col justify-center items-center",
 }) => {
   return (
     <DrawerClose asChild>

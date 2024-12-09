@@ -14,7 +14,7 @@ const MobileAllServicesBtn = () => {
     <DrawerClose asChild>
       <Link
         href="/"
-        className="text-neutral-300 py-2 px-4 border border-neutral-300 rounded-xl flex flex-col justify-center items-center"
+        className="text-neutral-300 py-2 px-4 border border-neutral-300 rounded-xl flex flex-1 flex-col justify-center items-center"
       >
         <span className="flex justify-center">
           <Table size={28} />

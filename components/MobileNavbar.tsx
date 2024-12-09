@@ -47,27 +47,32 @@ const MobileNavbar = async () => {
       <div className="fixed z1 bg-white w-full flex justiy-center py-1 pr-4 items-center">
         <DrawerTrigger asChild>
           <div className="w-full flex justify-end items-center">
-            <Button variant="ghost" aria-label="Open Menu">
+            <Button
+              variant="ghost"
+              aria-label="Open Menu"
+              className={`${session?.user ? "-mr-2.5" : "-mr-[1.6rem]"}`}
+            >
               <Menu
                 style={{
                   width: 44,
                   height: 28,
                   fontWeight: "bold",
-                  marginRight: "-0.5rem",
                   marginTop: "0.3rem",
                 }}
               />
             </Button>
           </div>
         </DrawerTrigger>
-        <Image
-          src={session?.user?.image || ""}
-          alt={session?.user?.name || ""}
-          width={34}
-          height={34}
-          className="rounded-full p-0.5 border-2 border-black"
-          unoptimized
-        />
+        {session?.user ? (
+          <Image
+            src={session?.user?.image || ""}
+            alt={session?.user?.name || ""}
+            width={34}
+            height={34}
+            className="rounded-full p-0.5 border-2 border-black"
+            unoptimized
+          />
+        ) : null}
       </div>
       <DrawerContent>
         <div className="mx-auto w-full text-neutral-300">
@@ -87,12 +92,11 @@ const MobileNavbar = async () => {
             <div className="relative flex flex-wrap text-center px-6 gap-5 w-full max-w-sm mt-4">
               {session?.user ? (
                 <>
+                  <MobileHomeBtn />
+                  <MobileCreateBtn />
                   <MobileAllServicesBtn />
                   <MobileMyServicesBtn authorId={authorId} />
-                  <MobileCreateBtn />
-                  <MobileHomeBtn />
                   <MobileContactBtn />
-                  <MobileSignOutBtn />
                 </>
               ) : (
                 MobileSignInBtn()
@@ -106,10 +110,11 @@ const MobileNavbar = async () => {
                 <MessageCircleQuestion size={28} />
                 <span>FAQ</span>
               </Link>
+              <MobileSignOutBtn />
             </div>
           </div>
           <DrawerFooter>
-            <section className="absolute bottom-3 max-w-sm flex flex-col items-center mx-auto w-[100%]">
+            <section className="absolute bottom-3 right-0 left-0 flex flex-col items-center mx-auto w-[100%]">
               <div className="flex justify-center items-center text-xs text-neutral-400">
                 <h1>Terms of Service</h1>
                 <span className="mx-2">|</span>

@@ -1,11 +1,13 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { useSidebar } from "@/hooks/useSidebar";
 import {
   ArrowLeftCircle,
   ArrowRightCircle,
   CircleArrowLeft,
   CircleArrowRight,
+  Option,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -43,6 +45,7 @@ const categories = [
 ];
 
 export function AppSidebar() {
+  const { data: session } = useSession();
   const { isOpen, toggleSidebar } = useSidebar();
 
   return (
@@ -51,7 +54,7 @@ export function AppSidebar() {
     >
       <button
         onClick={toggleSidebar}
-        title="Quick Search"
+        title="Category Filter"
         aria-label="Toggle Sidebar"
         className={`w-full z-100 absolute top-14 flex justify-end ${isOpen ? "" : "left-5"}`}
       >
@@ -60,8 +63,8 @@ export function AppSidebar() {
             className={`hidden md:block w-8 h-8 mt-4 mr-3 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C]" : ""}`}
           />
         ) : (
-          <CircleArrowRight
-            className={`hidden md:block w-8 h-8 mt-4 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : "ml-[-1.5rem]"}`}
+          <Option
+            className={`hidden md:block w-8 h-8 mt-4 bg-neutral-800 text-white rounded-full p-1.5 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : "ml-[-1.5rem]"}`}
           />
         )}
       </button>
@@ -77,7 +80,7 @@ export function AppSidebar() {
           {isOpen ? (
             <ArrowLeftCircle className="w-8 h-8 -mr-6 mt-1.5 bg-[#51819C] rounded-full" />
           ) : (
-            <ArrowRightCircle className="w-8 h-8 ml-2 bg-[#51819C] rounded-full" />
+            <Option className="w-7 h-7 bg-black/80 p-1 rounded-full" />
           )}
         </span>
       </button>
