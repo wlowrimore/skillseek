@@ -30,6 +30,7 @@ import MobileMyServicesBtn from "./mobileNavLinks/MobileMyServicesBtn";
 import MobileCreateBtn from "./mobileNavLinks/MobileCreateBtn";
 import MobileHomeBtn from "./mobileNavLinks/MobileHomeBtn";
 import MobileContactBtn from "./mobileNavLinks/MobileContactBtn";
+import MobileFAQBtn from "./mobileNavLinks/MobileFAQBtn";
 
 const MobileNavbar = async () => {
   const session = await auth();
@@ -89,7 +90,7 @@ const MobileNavbar = async () => {
           </div>
 
           <div className="p-4 pb-0 flex items-center justify-center text-neutral-300">
-            <div className="relative flex flex-wrap text-center px-6 gap-5 w-full max-w-sm my-10">
+            <div className="relative flex flex-wrap text-center px-6 gap-5 w-full max-w-sm mt-20">
               {session?.user ? (
                 <>
                   <MobileHomeBtn />
@@ -97,24 +98,21 @@ const MobileNavbar = async () => {
                   <MobileAllServicesBtn />
                   <MobileMyServicesBtn authorId={authorId} />
                   <MobileContactBtn />
+                  <MobileAboutBtn />
+                  <MobileFAQBtn />
+                  <MobileSignOutBtn />
                 </>
               ) : (
-                MobileSignInBtn()
+                <>
+                  <MobileSignInBtn />
+                  <MobileFAQBtn />
+                  <MobileAboutBtn />
+                </>
               )}
-              <MobileAboutBtn />
-
-              <Link
-                href="/"
-                className="text-neutral-300 py-2 px-4 flex flex-1 flex-reverse gap-2 justify-center items-center w-fit border border-neutral-300 rounded-xl"
-              >
-                <MessageCircleQuestion size={28} />
-                <span>FAQ</span>
-              </Link>
-              <MobileSignOutBtn />
             </div>
           </div>
           <DrawerFooter>
-            <section className="absolute bottom-7 right-0 left-0 flex flex-col items-center mx-auto w-[100%]">
+            <section className="absolute bottom-2 right-0 left-0 flex flex-col items-center mx-auto w-[100%]">
               <div className="flex justify-center items-center text-xs text-neutral-400">
                 <h1>Terms of Service</h1>
                 <span className="mx-2">|</span>

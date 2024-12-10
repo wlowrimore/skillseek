@@ -50,12 +50,12 @@ export async function MobileSignInBtn() {
         "use server";
         await signIn("google", { redirectTo: "/" });
       }}
-      className="w-full"
+      className="w-full mt-10"
     >
       <button
         type="submit"
         aria-label="Sign In"
-        className="text-neutral-300 bg-[#51819C] py-2 px-4 border border-neutral-300 rounded-xl flex flex-col justify-center items-center w-full mt-16"
+        className="text-neutral-300 bg-[#51819C] py-2 px-4 border border-neutral-300 rounded-xl flex flex-col justify-center items-center w-full"
       >
         <UserRoundPlus size={28} />
         <span>SignIn</span>

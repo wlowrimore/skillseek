@@ -6,7 +6,7 @@ import { SocialIcon } from "react-social-icons";
 const Contact = () => {
   return (
     <>
-      <section className="container mx-auto bg-contact blue_container md:mt-16">
+      <section className="container md:mx-auto bg-contact blue_container md:mt-16">
         <h1 className="w-full font-bold text-3xl pb-4 mt-12 md:mt-0 border-b ">
           Contact Us
         </h1>
@@ -15,7 +15,7 @@ const Contact = () => {
             <div className="hidden md:flex flex-col items-center m mt-4 md:-mt-20">
               <ContactForm />
             </div>
-            <div className="flex flex-col items-end md:items-start w-[22rem] mt-14 md:-mt-10">
+            <div className="flex flex-col items-end md:items-start w-[23rem] md:w-[22rem] mt-14 md:-mt-10">
               <img
                 src="/contact-right.webp"
                 alt="community sharing"
@@ -23,7 +23,7 @@ const Contact = () => {
                 height={1000}
                 className="w-full h-1/4 md:h-1/2 object-cover rounded-xl border-[3px] border-black opacity-90 shadow-lg shadow-neutral-800"
               />
-              <div className="md:hidden flex flex-col items-center m mt-4 md:-mt-20">
+              <div className="md:hidden flex flex-col items-center mt-4 md:-mt-20">
                 <ContactForm />
               </div>
               <div className="pt-10 md:pt-4 ">
