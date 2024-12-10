@@ -4,15 +4,17 @@ const About = () => {
   return (
     <>
       <section className="container mx-auto blue_container md:mt-16">
-        <h1 className="w-full font-bold text-3xl pb-4 border-b ">About Us</h1>
+        <h1 className="w-full font-bold text-3xl mt-12 md:mt-0 pb-4 border-b ">
+          About Us
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 py-10 md:py-24">
-          <div className="flex justify-center items-start pb-10 md:pb-0">
+          <div className="flex justify-center items-start pr-2 md:pr-0 pb-10 md:pb-0">
             <img
               src="/community_sharing.webp"
               alt="community sharing"
               width={1000}
               height={1000}
-              className="w-4/5 h-auto rounded-full border border-neutral-600 opacity-90 shadow-xl shadow-neutral-800"
+              className="w-full md:w-4/5 h-auto rounded-full border border-neutral-600 opacity-90 shadow-xl shadow-neutral-800"
             />
           </div>
           <div className="flex-1 flex flex-col md:h-[37.8rem] overflow-y-auto p-3">

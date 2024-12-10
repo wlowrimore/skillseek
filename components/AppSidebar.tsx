@@ -80,7 +80,7 @@ export function AppSidebar() {
           {isOpen ? (
             <ArrowLeftCircle className="w-8 h-8 -mr-6 mt-1.5 bg-[#51819C] rounded-full" />
           ) : (
-            <Option className="w-7 h-7 bg-black/80 p-1 rounded-full" />
+            <Option className="w-7 h-7 bg-black/80 p-1 mt-[-0.5rem] rounded-full" />
           )}
         </span>
       </button>

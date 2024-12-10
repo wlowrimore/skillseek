@@ -44,7 +44,7 @@ const MobileNavbar = async () => {
 
   return (
     <Drawer>
-      <div className="fixed z1 bg-white w-full flex justiy-center py-1 pr-4 items-center">
+      <div className="fixed z-1 bg-white w-full flex justiy-center pr-4 items-center">
         <DrawerTrigger asChild>
           <div className="w-full flex justify-end items-center">
             <Button
@@ -89,7 +89,7 @@ const MobileNavbar = async () => {
           </div>
 
           <div className="p-4 pb-0 flex items-center justify-center text-neutral-300">
-            <div className="relative flex flex-wrap text-center px-6 gap-5 w-full max-w-sm mt-4">
+            <div className="relative flex flex-wrap text-center px-6 gap-5 w-full max-w-sm my-10">
               {session?.user ? (
                 <>
                   <MobileHomeBtn />
@@ -114,7 +114,7 @@ const MobileNavbar = async () => {
             </div>
           </div>
           <DrawerFooter>
-            <section className="absolute bottom-3 right-0 left-0 flex flex-col items-center mx-auto w-[100%]">
+            <section className="absolute bottom-7 right-0 left-0 flex flex-col items-center mx-auto w-[100%]">
               <div className="flex justify-center items-center text-xs text-neutral-400">
                 <h1>Terms of Service</h1>
                 <span className="mx-2">|</span>
