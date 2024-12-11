@@ -6,16 +6,16 @@ import { SocialIcon } from "react-social-icons";
 const Contact = () => {
   return (
     <>
-      <section className="container md:mx-auto bg-contact blue_container py-3 md:mt-16">
-        <h1 className="w-full font-bold text-3xl pb-4 mt-12 md:mt-0 border-b">
+      <section className="container w-full mx-auto bg-contact contact_container py-3 md:mt-16">
+        <h1 className="mx-4 font-bold text-3xl pb-4 mt-20 md:mt-0 border-b">
           Contact Us
         </h1>
         <div className="flex justify-center items-start mx-auto pb-10 md:pb-0">
-          <div className="grid grid-cols-1 gap-20 w-full mx-auto place-self-center md:pr-0 md:pl-6 xl:pl-36 md:grid-cols-2 justify-end md:gap-52 lg:gap-20 md:mt-24">
-            <div className="hidden md:flex flex-col items-center m mt-4 md:-mt-20">
+          <div className="grid grid-cols-1 gap-20 w-full mx-auto md:place-self-center md:pr-0 md:pl-6 xl:pl-36 md:grid-cols-2 justify-end md:gap-52 lg:gap-20 md:mt-24">
+            <div className="hidden md:flex flex-col items-center mt-4 md:-mt-20">
               <ContactForm />
             </div>
-            <div className="flex flex-col items-end md:items-start w-[24rem] md:w-[22rem] mt-16 md:mt-4">
+            <div className="flex flex-col items-end md:items-start w-full px-4 md:px-0 md:w-[22rem] mt-12 md:mt-4">
               <img
                 src="/contact-right.webp"
                 alt="community sharing"
@@ -23,12 +23,12 @@ const Contact = () => {
                 height={1000}
                 className="w-full h-1/4 md:h-1/2 object-cover rounded-xl border-[3px] border-black opacity-90 shadow-lg shadow-neutral-800"
               />
-              <div className="md:hidden w-[25rem] flex flex-col items-centert md:-mt-20">
+              <div className="md:hidden w-full flex flex-col items-center md:-mt-20">
                 <ContactForm />
               </div>
 
               {/* Social Media Icons */}
-              <section className="mt-24 py-8 md:py-0 md:mt-8 w-full bg-slate-700/90 rounded-xl border-[3px] border-black shadow-lg shadow-black">
+              <section className="mt-12 py-8 md:py-0 md:mt-8 w-full bg-slate-700/90 rounded-xl border-[3px] border-black shadow-lg shadow-black">
                 <div className="w-full px-6 md:px-0 flex justify-around items-center pt-3">
                   <div className="p-1 border border-white rounded-full">
                     <SocialIcon
@@ -93,7 +93,7 @@ const Contact = () => {
                   </Link>{" "}
                 </div>
               </section>
-              <div className="-mb-52 mt-24 px-4 md:px-2 py-2 md:py-0 md:pt-4 md:mt-3 md:mb-0 bg-neutral-950/70 md:bg-transparent md:bg-none md:rounded-none rounded-xl text-white md:text-black">
+              <div className="-mb-52 mt-12 px-4 md:px-2 py-2 md:py-0 md:pt-4 md:mt-3 md:mb-0 bg-neutral-950/70 md:bg-transparent md:bg-none md:rounded-none rounded-xl text-white md:text-black">
                 <h2 className="font-bold text-blue-300 md:text-slate-900">
                   We Respect Your Privacy
                 </h2>

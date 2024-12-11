@@ -45,7 +45,7 @@ const MobileNavbar = async () => {
 
   return (
     <Drawer>
-      <div className="fixed z-1 bg-white w-full flex justiy-center pr-4 py-2 items-center">
+      <div className="fixed z-10 bg-white/40 backdrop-blur-[8px] shadow-md shadow-zinc-300/40 w-full flex justiy-center pr-3 py-2 items-center">
         <DrawerTrigger asChild>
           <div className="w-full flex justify-end items-center">
             <Button
