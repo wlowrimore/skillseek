@@ -15,7 +15,7 @@ const Contact = () => {
             <div className="hidden md:flex flex-col items-center mt-4 md:-mt-20">
               <ContactForm />
             </div>
-            <div className="flex flex-col items-end md:items-start w-full px-4 md:px-0 md:w-[22rem] mt-12 md:mt-4">
+            <div className="flex flex-col items-end md:items-start w-full px-4 md:px-0 md:w-[22rem] mt-12 md:-mt-8">
               <img
                 src="/contact-right.webp"
                 alt="community sharing"
