@@ -68,6 +68,7 @@ interface ServiceFormData {
 
 const ServiceForm = ({ initialData }: ServiceFormProps) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const router = useRouter();
   const [formData, setFormData] = useState<ServiceFormData>({
     title: initialData?.title || "",
     description: initialData?.description || "",
@@ -78,7 +79,6 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
     contact: initialData?.contact || "",
   });
   const { toast } = useToast();
-  const router = useRouter();
   const { isUpdatePath } = useUpdatePath();
   const showSuccess = useTimeLimit(formData.image);
 

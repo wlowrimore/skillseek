@@ -2,16 +2,22 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteService } from "@/lib/actions";
-import { toast } from "@/hooks/use-toast";
-import cn from "clsx";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { ServiceTypeCard } from "@/components/ServiceCard";
+import { deleteService } from "@/lib/actions"; // adjust import path
+import { cn } from "@/lib/utils";
 import { Blocks, PackageMinus } from "lucide-react";
-
-interface MutationButtonsProps {
-  service: ServiceTypeCard;
-  deleteToken: ServiceTypeCard;
-}
+import { toast } from "@/hooks/use-toast";
 
 export function UpdateButton({
   service,
@@ -44,17 +50,11 @@ export function DeleteButton({
 }) {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleDelete = async (e: React.MouseEvent<SVGSVGElement>) => {
-    e.preventDefault();
-
+  const handleDelete = async () => {
     try {
-      if (!window.confirm("Are you sure you want to delete this service?")) {
-        return;
-      }
-
       setIsDeleting(true);
-
       console.log("Attempting to delete service:", {
         serviceId: service._id,
         serviceDetails: service,
@@ -65,10 +65,12 @@ export function DeleteButton({
 
       if (result.status === "SUCCESS") {
         toast({
+          variant: "success",
           title: "Success",
           description: "Service deleted successfully",
         });
         router.refresh();
+        router.push("/"); // Optional: redirect after deletion
       } else {
         throw new Error(result.message);
       }
@@ -78,12 +80,14 @@ export function DeleteButton({
         error instanceof Error ? error.message : error
       );
       toast({
+        variant: "destructive",
         title: "Error",
         description:
           error instanceof Error ? error.message : "Failed to delete service",
       });
     } finally {
       setIsDeleting(false);
+      setIsOpen(false);
     }
   };
 
@@ -92,14 +96,36 @@ export function DeleteButton({
   }
 
   return (
-    <span title="Delete">
-      <PackageMinus
-        onClick={handleDelete}
-        className={cn(
-          "size-6 text-red-600 cursor-pointer",
-          isDeleting && "opacity-50 cursor-not-allowed"
-        )}
-      />
-    </span>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialogTrigger asChild>
+        <span title="Delete">
+          <PackageMinus
+            className={cn(
+              "size-6 text-red-600 cursor-pointer",
+              isDeleting && "opacity-50 cursor-not-allowed"
+            )}
+          />
+        </span>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete the
+            service "{service.title}".
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={handleDelete}
+            disabled={isDeleting}
+            className="bg-red-600 hover:bg-red-700"
+          >
+            {isDeleting ? "Deleting..." : "Delete"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
