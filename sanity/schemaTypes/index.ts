@@ -1,9 +1,9 @@
 import { type SchemaTypeDefinition } from "sanity";
-import { service } from "@/sanity/schemaTypes/service";
-import { author } from "@/sanity/schemaTypes/author";
-import { playlist } from "@/sanity/schemaTypes/playlist";
-import { role } from "@/sanity/schemaTypes/role";
-import { category } from "@/sanity/schemaTypes/category";
+import { service } from "./service";
+import { author } from "./author";
+import { playlist } from "./playlist";
+import { role } from "./role";
+import { category } from "./category";
 
 export const schema = {
   types: [service, author, category, playlist, role] as SchemaTypeDefinition[],

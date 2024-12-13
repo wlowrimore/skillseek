@@ -51,6 +51,7 @@ interface ServiceFormProps {
     image: string;
     contact: string;
     pitch: string;
+    role: string;
   };
   authorEmail: string;
 }
@@ -130,7 +131,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         };
       }
 
-      if (initialData) {
+      if (initialData && initialData.role === "administrator") {
         const result = await updateService(
           initialData._id,
           {

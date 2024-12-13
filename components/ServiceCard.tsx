@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { cn, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -20,6 +19,7 @@ export type ServiceTypeCard = {
   category: string;
   image: string;
   pitch: string;
+  contact: string;
   deleteToken?: string;
   author?: {
     _id: string;
@@ -39,10 +39,19 @@ const ServiceCard = ({
   post: ServiceTypeCard;
   service: ServiceTypeCard;
   currentUserEmail?: string;
+  contact: ServiceTypeCard["contact"];
 }) => {
-  const { _createdAt, author, title, category, _id, image, description } = post;
+  const {
+    _createdAt,
+    author,
+    title,
+    category,
+    _id,
+    contact,
+    image,
+    description,
+  } = post;
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const router = useRouter();
   const { toast } = useToast();
   const isAuthor = Boolean(
     currentUserEmail && author?.email && currentUserEmail === author.email

@@ -15,7 +15,7 @@ const MobileMyServicesBtn: React.FC<MobileMyServicesBtnProps> = ({
 }) => {
   return (
     <DrawerClose asChild>
-      <Link href={authorId ? `/user/${authorId}` : "#"} className={className}>
+      <Link href={authorId ? `/user/${authorId}` : "/"} className={className}>
         <span>
           <LayoutPanelTop size={28} />
         </span>

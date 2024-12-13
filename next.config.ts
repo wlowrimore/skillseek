@@ -1,4 +1,6 @@
 import type { NextConfig } from "next";
+import path from "path";
+``;
 
 const nextConfig: NextConfig = {
   eslint: {
@@ -23,6 +25,13 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
       },
     ],
+  },
+  webpack: (config: any) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@": path.resolve("auth.ts"),
+    };
+    return config;
   },
 };
 

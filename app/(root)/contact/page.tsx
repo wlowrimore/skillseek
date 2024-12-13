@@ -85,9 +85,6 @@ const Contact = () => {
                       <p>901.568.7941</p>
                     </div>
                   </div>
-                  {/* <span className="hidden md:block">
-                    <Dot />
-                  </span>{" "} */}
                   <Link href="mailto:skillseekapp@gmail.com">
                     <p>skillseekapp@gmail.com</p>
                   </Link>{" "}

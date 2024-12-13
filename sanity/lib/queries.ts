@@ -26,6 +26,7 @@ export const SERVICES_QUERY = defineQuery(`
     description,
     category,
     image,
+    contact,
   }`);
 
 export const SERVICE_BY_ID_QUERY =
@@ -63,7 +64,8 @@ export const SERVICES_BY_AUTHOR_QUERY =
   category,
   image,
   deleteToken,  // Make sure this is included if you need it for mutations
-  pitch
+  pitch,
+  contact
     }`);
 
 export const AUTHOR_BY_ID_QUERY =

@@ -4,6 +4,7 @@ import type { SanityDocument, User } from "@sanity/types";
 
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
+import { sanityConfig } from "./lib/utils";
 import { structureTool } from "sanity/structure";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
@@ -20,6 +21,7 @@ export default defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
+  // apiVersion,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
   plugins: [
@@ -40,7 +42,11 @@ export default defineConfig({
       {
         operation: "create",
         allow: ({ identity }: AccessControlContext) => {
-          return identity !== null;
+          console.log("Create Permission Check:", {
+            identity: identity?.email,
+            hasIdentity: !!identity,
+          });
+          return !!identity;
         },
         permission: "create",
       },

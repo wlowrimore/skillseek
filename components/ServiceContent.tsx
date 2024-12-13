@@ -20,7 +20,7 @@ const ServiceContent = ({
 }: ServiceContentProps) => {
   const createdUserName = post.author?.email?.split("@")[0];
   const username = `@${createdUserName}`;
-  const contact = post?.author?.email;
+  const contact = post?.contact;
 
   const parsedContent = post?.pitch || "";
 
@@ -32,7 +32,7 @@ const ServiceContent = ({
         </p>
 
         <h1 className="heading">{post.title}</h1>
-        <p className="text-black text-xl px-4 py-2 bg-white/70 rounded-xl md:rounded-none md:py-0 md:px-0 md:text-2xl font-semibold !max-w-5xl">
+        <p className="text-black text-xl px-4 py-2 bg-white/70 rounded-xl md:rounded-xl md:py-4 md:px-8 md:text-2xl font-semibold !max-w-5xl">
           {post.description}
         </p>
       </section>
@@ -114,6 +114,7 @@ const ServiceContent = ({
                   <ServiceCard
                     key={i}
                     post={post}
+                    contact={contact}
                     service={post}
                     currentUserEmail={currentUserEmail || ""}
                   />

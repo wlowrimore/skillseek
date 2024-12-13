@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { client } from "@/sanity/lib/client";
-import { writeClient } from "@/sanity/lib/write-client";
-import { AUTHOR_BY_GOOGLE_ID_QUERY } from "@/sanity/lib/queries";
+import { client } from "./sanity/lib/client";
+import { writeClient } from "./sanity/lib/write-client";
+import { AUTHOR_BY_GOOGLE_ID_QUERY } from "./sanity/lib/queries";
 
 declare module "next-auth" {
   interface Session {
@@ -58,7 +58,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 roles: [
                   {
                     _type: "reference",
-                    _ref: "contributor",
+                    _ref: "administrator",
                   },
                 ],
               });
@@ -87,22 +87,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           if (author) {
             token.id = author._id;
-            token.roles = author.roles || ["contributor"]; // Default to contributor if no roles found
+            token.roles = author.roles || ["administrator"]; // Default to administrator if no roles found
           } else {
             token.id = createValidId(user.email);
-            token.roles = ["contributor"];
+            token.roles = ["administrator"];
           }
         }
       } catch (error) {
         console.error("Error in JWT callback:", error);
-        token.roles = token.roles || ["contributor"];
+        token.roles = token.roles || ["administrator"];
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user && token) {
         session.user.id = token.id as string;
-        session.user.roles = (token.roles as string[]) || ["contributor"];
+        session.user.roles = (token.roles as string[]) || ["administrator"];
       }
       return session;
     },
