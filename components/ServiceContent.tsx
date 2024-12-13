@@ -107,7 +107,9 @@ const ServiceContent = ({
 
           {editorPosts?.length > 0 && (
             <div className="max-w-4xl mx-auto">
-              <p className="text-30-semibold">Editor Picks</p>
+              <p className="text-30-semibold text-center md:text-start">
+                Editor Picks
+              </p>
 
               <ul className="mt-7 card_grid-sm">
                 {editorPosts.map((post: ServiceTypeCard, i: number) => (

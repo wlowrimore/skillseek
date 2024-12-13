@@ -28,7 +28,7 @@ export default async function Home({
 
   return (
     <>
-      <section className="blue_container bg-swirl-pattern pt-2 md:mt-16">
+      <section className="blue_container bg-swirl-pattern pt-2 mt-12 md:mt-16">
         <div className="heading">
           <h1 className="">Find help. Save money.</h1>
           <p className="">Support your community.</p>
@@ -51,6 +51,7 @@ export default async function Home({
                 key={post?._id}
                 post={post}
                 service={post}
+                contact={post?.contact}
                 currentUserEmail={session?.user?.email as string | undefined}
               />
             ))
