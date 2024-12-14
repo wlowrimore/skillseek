@@ -292,7 +292,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
             <img
               src={formData.image}
               alt="Uploaded preview"
-              className="mt-2 max-w-xs rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
+              className="mt-2 md:max-w-xs rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
             />
           </div>
         )}

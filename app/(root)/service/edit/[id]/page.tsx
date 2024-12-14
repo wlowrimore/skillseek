@@ -13,7 +13,7 @@ export default async function EditServicePage({
 
   return (
     <>
-      <section className="section_container bg-swirl-pattern mt-12 md:mt-16">
+      <section className="blue_container bg-swirl-pattern mt-12 md:mt-16">
         <div className="heading">
           <h1 className="">Edit Your Service</h1>
           <h2 className="sub-heading">
