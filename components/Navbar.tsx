@@ -1,3 +1,5 @@
+import React from "react";
+import type { HTMLAttributes } from "react";
 import { auth } from "@/auth";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
@@ -5,6 +7,45 @@ import Image from "next/image";
 import { SignInBtn } from "./AuthButtons";
 import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
 import AllServicesButton from "./AllServicesButton";
+import { cn } from "@/lib/utils";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+
+import { Work_Sans as WorkSans } from "next/font/google";
+const work = WorkSans({ subsets: ["latin"], weight: "500" });
+
+const ServicesSubmenu = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuLink>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuLink>
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 p-2 rounded-md leading-none no-underline outline-none transition-all duration-300 hover:bg-[#08B6D4]/70 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...(props as HTMLAttributes<HTMLAnchorElement>)}
+        >
+          <div className="text-base font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ServicesSubmenu.displayName = "ServicesSubmenu";
 
 const Navbar = async () => {
   const session = await auth();
@@ -35,32 +76,92 @@ const Navbar = async () => {
         <section className="flex-between gap-2 pr-4">
           {session?.user ? (
             <>
-              <AllServicesButton />
-              <Link
-                href={`/user/${authorId}`}
-                className="hover:bg-[#4D99A6] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
-              >
-                <span className="flex justify-center">My Services</span>
-              </Link>
-              <Link
-                href="/service/create"
-                className="hover:bg-[#4D99A6] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
-              >
-                <span className="p-2">Create</span>
-              </Link>
-              <Link
-                href="/service/create"
-                className="hover:bg-[#4D99A6] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
-              >
-                <span className="p-2">FAQ</span>
-              </Link>
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="font-work-sans text-[1.1rem]">
+                      Services
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[200px] gap-3 px-2 py-4">
+                        <ServicesSubmenu href="/" title="All Services">
+                          View and search all services{" "}
+                        </ServicesSubmenu>
+                        <ServicesSubmenu
+                          href={`/user/${authorId}`}
+                          title="My Services"
+                        >
+                          View and manage your existing services
+                        </ServicesSubmenu>
+
+                        <ServicesSubmenu
+                          href="/service/create"
+                          title="Create Service"
+                        >
+                          Create a new service offering
+                        </ServicesSubmenu>
+
+                        <ServicesSubmenu href="/faq" title="FAQ">
+                          Frequently asked questions
+                        </ServicesSubmenu>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="font-work-sans text-[1.1rem]">
+                      Navigation
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[200px] gap-3 px-2 py-4">
+                        <ServicesSubmenu href="/about" title="About Us">
+                          Learn more about SkillSeek and our mission to empower
+                          individuals and businesses to find the right service
+                          provider.
+                        </ServicesSubmenu>
+                        <ServicesSubmenu href="/contact" title="Contact Us">
+                          Get in touch with us for any inquiries, suggestions,
+                          or feedback.
+                        </ServicesSubmenu>
+                        <ServicesSubmenu href="/faq" title="FAQ">
+                          Find answers to the most frequently asked questions.
+                          If you can&apos;t find the answer you&apos;re looking
+                          for, feel free to contact us.
+                        </ServicesSubmenu>
+
+                        <ServicesSubmenu
+                          href="/terms-of-service"
+                          title="Terms of Service"
+                        >
+                          Read our terms of service to understand our policies
+                          and guidelines.
+                        </ServicesSubmenu>
+                        <ServicesSubmenu
+                          href="/privacy-policy"
+                          title="Privacy Policy"
+                        >
+                          Our privacy policy outlines how we collect, use, and
+                          protect your personal information. Your security is
+                          our top priority.
+                        </ServicesSubmenu>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+
               <Link
                 href="/signout"
-                className="hover:bg-[#F29072] hover:text-white px-2 py-1 rounded-full w-[8rem] text-center transition duration-300"
+                className={`hover:bg-[#F29072] hover:text-white px-2 py-1 rounded-full w-[6rem] text-center transition duration-300 ${work.className} font-[600] text-[1.1rem]`}
               >
                 SignOut
               </Link>
-              <div className="flex flex-col justify-center items-center p-0.5 border-2 border-[#072454] rounded-full">
+
+              <div className="flex flex-col justify-center items-center p-0.5 ml-2 border-2 border-[#072454] rounded-full">
                 <Image
                   src={session.user.image || ""}
                   alt={session.user.name || ""}

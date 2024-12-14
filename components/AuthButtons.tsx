@@ -1,7 +1,13 @@
 import { signIn, signOut } from "@/auth";
 import { User, UserRoundPlus, UserRoundX } from "lucide-react";
+import { Work_Sans as WorkSans } from "next/font/google";
+const work = WorkSans({ subsets: ["latin"], weight: "500" });
 
-export async function SignInBtn() {
+interface SignInBtnProps {
+  className?: string;
+}
+
+export async function SignInBtn({ className, ...props }: SignInBtnProps) {
   return (
     <form
       action={async () => {
@@ -12,7 +18,8 @@ export async function SignInBtn() {
       <button
         type="submit"
         aria-label="Sign In"
-        className="text-[#072454] hover:text-blue-500 rounded"
+        {...props}
+        className={`hover:bg-[#08B6D4]/70 hover:text-white px-2 py-1 rounded-full w-[6rem] text-center transition duration-300 ${work.className} font-[600] text-[0.98rem]`}
       >
         <span>SignIn</span>
       </button>

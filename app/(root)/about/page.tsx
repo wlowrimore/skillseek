@@ -3,8 +3,8 @@ import React from "react";
 const About = () => {
   return (
     <>
-      <section className="container mx-auto blue_container md:mt-16">
-        <h1 className="w-full font-bold text-3xl mt-12 md:mt-0 pb-4 border-b ">
+      <section className="container px-4 w-full md:mx-auto md:h-screen mt-12 flex flex-col justify-center items-center bg-slate-100">
+        <h1 className="w-full font-bold text-3xl mt-8 md:mt-4 pb-4 border-b ">
           About Us
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 py-10 md:py-24">
@@ -17,7 +17,7 @@ const About = () => {
               className="w-full md:w-4/5 h-auto rounded-full border border-neutral-600 opacity-90 shadow-xl shadow-neutral-800"
             />
           </div>
-          <div className="flex-1 flex flex-col md:h-[37.8rem] overflow-y-auto p-3">
+          <div className="flex-1 flex flex-col md:h-[37.8rem] overflow-y-auto py-3 md:px-6">
             <p className="text-lg leading-6">
               <span className="text-xl font-semibold">
                 SkillSeek is 100% about community.{" "}

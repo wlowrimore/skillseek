@@ -12,19 +12,35 @@ const Footer = () => {
             <span className="">All rights reserved</span>
           </div>
           <div className="flex justify-center items-center">
-            <h1>Terms of Service</h1>
+            <Link href="/terms-of-service">
+              <span className="hover:text-blue-600 transition duration-200">
+                Terms of Service
+              </span>
+            </Link>
             <span className="mx-2">|</span>
-            <h2>Privacy Policy</h2>
+            <Link href="/privacy-policy">
+              <span className="hover:text-blue-600 transition duration-200">
+                Privacy Policy
+              </span>
+            </Link>
             <span className="mx-2">|</span>
             <Link href="/about">
-              <span>About Us</span>
+              <span className="hover:text-blue-600 transition duration-200">
+                About Us
+              </span>
             </Link>
             <span className="mx-2">|</span>
             <Link href="/contact">
-              <span>Contact Us</span>
+              <span className="hover:text-blue-600 transition duration-200">
+                Contact Us
+              </span>
             </Link>
             <span className="mx-2">|</span>
-            <h2>FAQ</h2>
+            <Link href="/faq">
+              <span className="hover:text-blue-600 transition duration-200">
+                FAQ
+              </span>
+            </Link>
           </div>
           <div className="flex justify-center items-center">
             <h2>Site Design and Development by fakenamedev</h2>

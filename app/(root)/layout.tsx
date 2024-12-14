@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../../components/Navbar";
 import MobileNavbar from "@/components/MobileNavbar";
 import Footer from "@/components/Footer";
-import DiagnosticLink from "@/components/diagnostics/DiagnosticLink";
 
 export default function Layout({
   children,

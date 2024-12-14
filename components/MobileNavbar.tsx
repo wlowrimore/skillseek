@@ -9,6 +9,7 @@ import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerFooter,
   DrawerTitle,
@@ -31,6 +32,8 @@ import MobileCreateBtn from "./mobileNavLinks/MobileCreateBtn";
 import MobileHomeBtn from "./mobileNavLinks/MobileHomeBtn";
 import MobileContactBtn from "./mobileNavLinks/MobileContactBtn";
 import MobileFAQBtn from "./mobileNavLinks/MobileFAQBtn";
+import MobileTermsOfServiceBtn from "./mobileNavLinks/MobileTermsOfServiceBtn";
+import MobilePrivacyPolicyBtn from "./mobileNavLinks/MobilePrivacyPolicyBtn";
 
 const MobileNavbar = async () => {
   const session = await auth();
@@ -114,9 +117,9 @@ const MobileNavbar = async () => {
           <DrawerFooter>
             <section className="absolute bottom-2 right-0 left-0 flex flex-col items-center mx-auto w-[100%]">
               <div className="flex justify-center items-center text-xs text-neutral-400">
-                <h1>Terms of Service</h1>
+                <MobileTermsOfServiceBtn />
                 <span className="mx-2">|</span>
-                <h2>Privacy Policy</h2>
+                <MobilePrivacyPolicyBtn />
               </div>
               <div className="text-neutral-400 text-center text-xs">
                 <span className="text-neutral-400">&copy; 2023 SkillSeek</span>

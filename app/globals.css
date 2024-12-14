@@ -81,6 +81,17 @@
     background-repeat: no-repeat;
   }
 
+  .bg-faq {
+    background-image: url("/faq-background.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .faq-container {
+    @apply w-full mx-4 md:w-[36rem] md:max-w-xl md:ml-4 md:mx-auto bg-[#FCF2E4]/80 border-[3px] border-black rounded-xl space-y-4 p-4 shadow-lg shadow-black;
+  }
+
   .sign-out_container {
     @apply w-full bg-swirl-pattern min-h-screen pattern flex justify-center items-center flex-col py-10 px-6;
   }
