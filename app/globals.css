@@ -92,6 +92,20 @@
     @apply max-w-[23rem] md:w-[40rem] md:max-w-2xl md:ml-4 mx-auto bg-[#FCF2E4]/90 border-[3px] border-black rounded-xl space-y-4 px-3 shadow-lg shadow-black;
   }
 
+  .animated-sparkle {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: #EC945A;
+    border-radius: 50%;
+    padding: 0.15rem;
+    color: #46577E;
+  }
+
   .sign-out_container {
     @apply w-full bg-swirl-pattern min-h-screen pattern flex justify-center items-center flex-col py-10 px-6;
   }

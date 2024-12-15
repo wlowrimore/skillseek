@@ -1,11 +1,14 @@
 const FAQContent = () => {
   return (
-    <div className="faq-container w-full max-h-[50rem] md:max-h-[41rem] overflow-y-auto px-2 my-3 flex-1 flex flex-col rounded-xl border-[3px] border-black shadow-lg shadow-black mt-8 pb-3">
-      <div className="md:max-h-[45rem] mt-4 overflow-y-auto">
-        <h2 className="text-2xl mb-3 font-bold text-slate-900">
+    <div className="faq-container w-full max-h-[50rem] md:max-h-[65rem] overflow-y-auto px-2 my-3 flex-1 flex flex-col rounded-xl border-[3px] border-black shadow-lg shadow-black mt-[2.5rem] md:mt-2.5 pb-3">
+      <div className="md:max-h-[48rem] mt-4 overflow-y-auto">
+        <h2
+          id="getting-started"
+          className="text-2xl mb-3 font-bold text-slate-900"
+        >
           Getting Started
         </h2>
-        <article className=" w-full mb-3 text-slate-900">
+        <article className="w-full mb-3 text-slate-900">
           <h3 className="text-xl font-semibold">What is SkillSeek?</h3>
           <p>
             SkillSeek is a platform that connects skilled professionals with
@@ -43,7 +46,10 @@ const FAQContent = () => {
           </ul>
         </article>
 
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
+        <h2
+          id="for-service-providers"
+          className="text-2xl font-bold text-slate-900 mb-3"
+        >
           For Service Providers
         </h2>
         <article className="text-slate-900 mb-3">
@@ -103,7 +109,10 @@ const FAQContent = () => {
           </ol>
         </article>
 
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
+        <h2
+          id="for-service-seekers"
+          className="text-2xl font-bold text-slate-900 mb-3"
+        >
           For Service Seekers
         </h2>
         <h3 className="text-xl font-semibold">
@@ -148,7 +157,10 @@ const FAQContent = () => {
             </li>
           </ul>
         </article>
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
+        <h2
+          id="account--security"
+          className="text-2xl font-bold text-slate-900 mb-3"
+        >
           Account & Security
         </h2>
         <h3 className="text-xl font-semibold">
@@ -174,7 +186,10 @@ const FAQContent = () => {
             </li>
           </ul>
         </article>
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
+        <h2
+          id="pricing--payments"
+          className="text-2xl font-bold text-slate-900 mb-3"
+        >
           Pricing & Payments
         </h2>
         <h3 className="text-xl font-semibold">
@@ -197,8 +212,11 @@ const FAQContent = () => {
             <li>All fees are clearly communicated before service booking.</li>
           </ul>
         </article>
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
-          Tecnical Support
+        <h2
+          id="technical-support"
+          className="text-2xl font-bold text-slate-900 mb-3"
+        >
+          Technical Support
         </h2>
         <h3 className="text-xl font-semibold">How can I contact support?</h3>
         <article className="text-slate-900 mb-3">
@@ -241,7 +259,10 @@ const FAQContent = () => {
             <li>Designed to protect both service providers and seekers</li>
           </ul>
         </article>
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
+        <h2
+          id="troubleshooting"
+          className="text-2xl font-bold text-slate-900 mb-3"
+        >
           Troubleshooting
         </h2>
         <h3 className="text-xl font-semibold">
@@ -258,7 +279,10 @@ const FAQContent = () => {
           </ul>
         </article>
         <hr className="bg-black my-4"></hr>
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
+        <h2
+          id="still-have-questions"
+          className="text-2xl font-bold text-slate-900 mb-3"
+        >
           Still have questions?
         </h2>
         <article className="text-slate-900">

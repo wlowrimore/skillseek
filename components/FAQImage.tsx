@@ -1,8 +1,10 @@
 import React from "react";
+import FAQQuickLinks from "./FAQQuickLinks";
 
 const FAQImage = () => {
   return (
-    <div className="hidden md:flex flex-col items-end md:items-start h-full px-4 w-[27rem] mt-[4rem]">
+    <div className="hidden md:flex flex-col gap-8 items-end md:items-start h-full pr-4 w-[26rem] mt-[4rem]">
+      <FAQQuickLinks />
       <img
         src="/faq-thumb.webp"
         alt="community sharing"
