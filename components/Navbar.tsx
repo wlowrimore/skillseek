@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { SignInBtn } from "./AuthButtons";
 import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
-import AllServicesButton from "./AllServicesButton";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -31,7 +30,7 @@ const ServicesSubmenu = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 p-2 rounded-md leading-none no-underline outline-none transition-all duration-300 hover:bg-[#08B6D4]/70 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 p-2 rounded-md leading-none no-underline outline-none transition-all duration-300 hover:bg-[#08B6D4]/15 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
           {...(props as HTMLAttributes<HTMLAnchorElement>)}
@@ -99,10 +98,6 @@ const Navbar = async () => {
                           title="Create Service"
                         >
                           Create a new service offering
-                        </ServicesSubmenu>
-
-                        <ServicesSubmenu href="/faq" title="FAQ">
-                          Frequently asked questions
                         </ServicesSubmenu>
                       </ul>
                     </NavigationMenuContent>

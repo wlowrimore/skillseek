@@ -89,7 +89,7 @@
   }
 
   .faq-container {
-    @apply w-full mx-4 md:w-[36rem] md:max-w-xl md:ml-4 md:mx-auto bg-[#FCF2E4]/80 border-[3px] border-black rounded-xl space-y-4 p-4 shadow-lg shadow-black;
+    @apply max-w-[23rem] md:w-[40rem] md:max-w-2xl md:ml-4 mx-auto bg-[#FCF2E4]/90 border-[3px] border-black rounded-xl space-y-4 px-3 shadow-lg shadow-black;
   }
 
   .sign-out_container {

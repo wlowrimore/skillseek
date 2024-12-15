@@ -50,7 +50,7 @@ const MobileNavbar = async () => {
     <Drawer>
       <div className="fixed top-0 left-0 right-0 z-10 bg-white/40 backdrop-blur-[8px] shadow-md shadow-zinc-300/40 w-full flex justiy-center pr-3 py-2 items-center">
         <DrawerTrigger asChild>
-          <div className="w-full flex justify-end items-center">
+          <div className="flex justify-end ml-auto items-center">
             <Button
               variant="ghost"
               aria-label="Open Menu"
