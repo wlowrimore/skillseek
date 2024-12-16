@@ -3,21 +3,32 @@ import React from "react";
 const About = () => {
   return (
     <>
-      <section className="container px-4 w-full md:mx-auto md:h-screen mt-12 flex flex-col justify-center items-center bg-slate-100">
-        <h1 className="w-full font-bold text-3xl mt-8 md:mt-4 pb-4 border-b ">
+      <section className="container px-4 w-full md:mx-auto mt-12 flex flex-col justify-center items-center bg-slate-100">
+        <h1 className="w-full font-bold text-3xl mt-8 md:mt-12 lg:pt-32 pb-4 border-b ">
           About Us
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 py-10 md:py-24">
-          <div className="flex justify-center items-start pr-2 md:pr-0 pb-10 md:pb-0">
+        <div className="grid grid-cols-1 md:flex flex-col lg:grid-cols-2 py-10 md:py-12">
+          {/* <div className="md:hidden lg:flex flex justify-center items-start pr-2 md:pr-0 pb-10 md:pb-0">
             <img
               src="/community_sharing.webp"
               alt="community sharing"
               width={1000}
               height={1000}
-              className="w-full md:w-4/5 h-auto rounded-full border border-neutral-600 opacity-90 shadow-xl shadow-neutral-800"
+              className="w-full md:w-full h-auto rounded-full border border-neutral-600 opacity-90 shadow-xl shadow-neutral-800"
+            />
+          </div> */}
+
+          <div className="w-full mx-auto pb-1 flex md:px-6">
+            <img
+              src="/community_sharing_flat.webp"
+              alt="community sharing"
+              width={1000}
+              height={1000}
+              className="w-full max-h-[15rem] opacity-90 object-cover rounded-xl border-[3px] border-black"
             />
           </div>
-          <div className="flex-1 flex flex-col md:h-[37.8rem] overflow-y-auto py-3 md:px-6">
+
+          <div className="flex flex-col overflow-y-auto py-3 md:px-6">
             <p className="text-lg leading-6">
               <span className="text-xl font-semibold">
                 SkillSeek is 100% about community.{" "}

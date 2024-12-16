@@ -11,11 +11,11 @@ const Contact = () => {
           Contact Us
         </h1>
         <div className="flex justify-center items-start mx-auto pb-10 md:pb-0">
-          <div className="grid grid-cols-1 gap-20 w-full mx-auto md:place-self-center md:pr-0 md:pl-6 xl:pl-36 md:grid-cols-2 justify-end md:gap-52 lg:gap-20 md:mt-24">
+          <div className="grid grid-cols-1 gap-20 w-full mx-auto lg:place-self-center md:pr-0 md:pl-6 xl:pl-36 lg:grid-cols-2 justify-end md:gap-16 lg:gap-20 md:mt-24">
             <div className="hidden md:flex flex-col items-center mt-4 md:-mt-20">
               <ContactForm />
             </div>
-            <div className="flex flex-col items-end md:items-start w-full px-4 md:px-0 md:w-[22rem] mt-12 md:-mt-8">
+            <div className="flex flex-col items-end lg:items-start w-full px-4 md:items-center md:w-[38rem] md:h-[45rem] mt-12 md:-mt-8">
               <img
                 src="/contact-right.webp"
                 alt="community sharing"
@@ -75,7 +75,7 @@ const Contact = () => {
                     />
                   </div>
                 </div>
-                <div className="w-full tracking-wide mt-6 md:mt-0 md:pt-2 pb-1.5 text-white text-sm md:text-xs flex flex-col justify-center items-center">
+                <div className="w-full tracking-wide mt-6 md:mt-0 md:py-4 pb-1.5 text-white text-sm md:text-xs flex flex-col justify-center items-center">
                   <div className="flex flex-col items-center">
                     <div className="flex flex-col items-center md:flex-row justify-center">
                       <h3>Nashville, TN</h3>

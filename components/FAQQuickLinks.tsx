@@ -3,7 +3,7 @@ import { Sparkle } from "lucide-react";
 
 const FAQQuickLinks = () => {
   return (
-    <div className="hidden bg-[#FCF2E4]/90 md:flex flex-col items-start h-[26rem] px-3 pt-4 w-[25rem] border-[3px] border-black rounded-xl shadow-lg shadow-black">
+    <div className="hidden bg-[#FCF2E4]/90 md:flex flex-col items-start h-[26.4rem] px-3 pt-5 w-[20rem] border-[3px] border-black rounded-xl shadow-lg shadow-black">
       <h1 className="text-2xl font-bold text-slate-900 mb-1">
         FAQ Quick Links
       </h1>
