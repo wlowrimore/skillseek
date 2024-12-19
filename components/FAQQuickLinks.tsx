@@ -3,13 +3,13 @@ import { Sparkle } from "lucide-react";
 
 const FAQQuickLinks = () => {
   return (
-    <div className="hidden bg-[#FCF2E4]/90 md:flex flex-col items-start h-[26.4rem] px-3 pt-5 w-[20rem] border-[3px] border-black rounded-xl shadow-lg shadow-black">
-      <h1 className="text-2xl font-bold text-slate-900 mb-1">
+    <div className="hidden bg-[#FCF2E4]/90 md:flex flex-col items-start h-[26.4rem] lg:h-[25.5rem] lg:-mt-2 px-3 pt-5  w-[20rem] border-[3px] border-black rounded-xl shadow-lg shadow-black">
+      <h1 className="text-2xl font-bold text-slate-900 mb-1.5">
         FAQ Quick Links
       </h1>
       <Link
         href="#getting-started"
-        className="group w-4/5 p-2 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="group w-4/5 px-2 py-1 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />
@@ -18,7 +18,7 @@ const FAQQuickLinks = () => {
       </Link>
       <Link
         href="#for-service-providers"
-        className="group w-4/5 p-2 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />
@@ -27,7 +27,7 @@ const FAQQuickLinks = () => {
       </Link>
       <Link
         href="#for-service-seekers"
-        className="group w-4/5 p-2 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />
@@ -36,7 +36,7 @@ const FAQQuickLinks = () => {
       </Link>
       <Link
         href="#account--security"
-        className="group w-4/5 p-2 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />
@@ -45,7 +45,7 @@ const FAQQuickLinks = () => {
       </Link>
       <Link
         href="#pricing--payments"
-        className="group w-4/5 p-2 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />
@@ -54,7 +54,7 @@ const FAQQuickLinks = () => {
       </Link>
       <Link
         href="#technical-support"
-        className="group w-4/5 p-2 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />
@@ -63,7 +63,7 @@ const FAQQuickLinks = () => {
       </Link>
       <Link
         href="#troubleshooting"
-        className="group w-4/5 p-2 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />
@@ -72,7 +72,7 @@ const FAQQuickLinks = () => {
       </Link>
       <Link
         href="#still-have-questions"
-        className="group w-4/5 p-2 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />

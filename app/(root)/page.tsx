@@ -1,8 +1,10 @@
-import SearchForm from "@/components/SearchForm";
-import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
-import { SERVICES_QUERY } from "@/sanity/lib/queries";
+import { Suspense } from "react";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { auth } from "@/auth";
+import { SERVICES_QUERY } from "@/sanity/lib/queries";
+import SearchForm from "@/components/SearchForm";
+import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
+import LoadingBar from "@/components/ui/LoadingBar";
 
 export default async function Home({
   searchParams,
@@ -27,7 +29,7 @@ export default async function Home({
       : "All Listed Services";
 
   return (
-    <>
+    <Suspense fallback={<LoadingBar />}>
       <section className="blue_container bg-swirl-pattern pt-2 mt-12 md:mt-16">
         <div className="heading">
           <h1 className="">Find help. Save money.</h1>
@@ -62,6 +64,6 @@ export default async function Home({
       </section>
 
       <SanityLive />
-    </>
+    </Suspense>
   );
 }

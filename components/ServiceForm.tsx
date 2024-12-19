@@ -226,6 +226,11 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
 
   return (
     <form action={formAction} className="startup-form">
+      <h1 className="text-2xl font-bold text-white bg-slate-600 rounded-lg px-4 py-2 text-center">
+        {isUpdatePath
+          ? "Use the form below to update your service"
+          : "Fill out the form below to create your service."}
+      </h1>
       <div>
         <label htmlFor="title" className="startup-form_label">
           Title
