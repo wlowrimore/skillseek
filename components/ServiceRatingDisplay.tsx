@@ -2,14 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { Button } from "./ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { formatDistanceToNow } from "date-fns";
 import { StarRating } from "./ui/StarRatingComponent";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-// import RatingAndReviewComponent from "./RatingAndReviewComponent";
+import { calculateAverageRating } from "@/lib/utils";
+import { getServiceData } from "@/app/(root)/service/[id]/ServiceContentServer";
 
 export interface RatingData {
   rating: number | null;
@@ -18,7 +17,7 @@ export interface RatingData {
     providerId: string;
   };
   ratingKey: string | undefined;
-  comment: string;
+  review: string;
   createdAt: string;
   user: {
     id: string;
@@ -34,6 +33,7 @@ export interface ServiceRatingProps {
   providerId: string;
   currentUserRating?: RatingData;
   ratingKey?: string | undefined;
+  review?: string;
 }
 
 const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
@@ -41,17 +41,25 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
   providerId,
   currentUserRating,
 }) => {
-  const { data: session } = useSession();
-  const { toast } = useToast();
-  const searchParams = useSearchParams();
-  const ratingKey = searchParams.get("ratingKey");
-
-  const [rating, setRating] = useState(currentUserRating?.rating || 0);
-  const [comment, setComment] = useState(currentUserRating?.comment || "");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [review, setReview] = useState(currentUserRating?.review || "");
   const [ratings, setRatings] = useState<RatingData[]>([]);
   const [averageRating, setAverageRating] = useState(0);
-  const [isValidRatingKey, setIsValidRatingKey] = useState(false);
+
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const { ratings, averageRating } = await getServiceData(serviceId);
+        setRatings(ratings);
+        const calculatedAverageRating = calculateAverageRating(ratings);
+        setAverageRating(await calculatedAverageRating);
+        setReview(currentUserRating?.review || "");
+      } catch (error) {
+        console.error("Error fetching ratings:", error);
+      }
+    };
+
+    fetchRatings();
+  }, []);
 
   return (
     <div className="space-y-8">
@@ -64,7 +72,7 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
           size={24}
         />
         <span className="text-sm text-muted-foreground">
-          {averageRating.toFixed(1)} out of 5 ({ratings.length} ratings)
+          {averageRating?.toFixed(1)} out of 5 ({ratings.length} ratings)
         </span>
       </div>
       <div className="space-y-4">
@@ -99,9 +107,9 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
                   showText={false}
                   size={16}
                 />
-                {rating.comment && (
-                  <p className="text-sm mt-2">{rating.comment}</p>
-                )}
+                <p className="text-sm mt-2">
+                  {rating.review || "Be the first to comment"}
+                </p>
               </div>
             ))}
           </div>

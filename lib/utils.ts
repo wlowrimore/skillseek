@@ -40,6 +40,19 @@ export function extractPublicIdFromUrl(url: string) {
   }
 }
 
+// CALCULATE AVERAGE RATING
+
+export async function calculateAverageRating(ratings: any[]) {
+  try {
+    if (!ratings || ratings.length === 0) return 0;
+    const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
+    return sum / ratings.length;
+  } catch (error) {
+    console.error("Error calculating average rating:", error);
+    return 0;
+  }
+}
+
 // CREATE USER UTILITY FUNCTION
 
 export const createValidId = (email: string) => {

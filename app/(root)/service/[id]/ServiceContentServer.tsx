@@ -7,6 +7,7 @@ export async function getServiceData(id: string) {
       "ratings": *[_type == "rating" && service._ref == ^._id]{
         _id,
         rating,
+        averageRating,
         review,
         createdAt,
         "user": user->{

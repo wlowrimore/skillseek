@@ -4,7 +4,7 @@ import { UpdateButton, DeleteButton } from "@/components/MutationButtons";
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
-import { RatingData } from "./ServiceRatingComponent";
+import { RatingData } from "./ServiceRatingDisplay";
 import ServiceRating, { ServiceRatingProps } from "./ServiceRatingComponent";
 import ServiceRatingDisplay from "./ServiceRatingDisplay";
 import ServiceEmailButton, {
@@ -27,6 +27,7 @@ interface User {
 
 export interface ServiceContentProps {
   post: ServiceTypeCard;
+  review: RatingData;
   service: {
     _id: string;
     title: string;
@@ -57,12 +58,6 @@ export interface ServiceContentProps {
   contact: Contact;
 }
 
-const calculateAverageRating = (ratings: any[]) => {
-  if (!ratings || ratings.length === 0) return 0;
-  const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
-  return sum / ratings.length;
-};
-
 const ServiceContent: React.FC<ServiceContentProps> = async ({
   user,
   post,
@@ -80,31 +75,19 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   const username = `@${createdUserName}`;
   const userId = { userId: session?.user?.id };
 
+  // const postRatings = post.ratings || [];
+
+  // const calculateAverageRating = (postRatings: any[]) => {
+  //   if (!postRatings || postRatings.length === 0) return 0;
+  //   const sum = postRatings.reduce((acc, rating) => acc + rating.rating, 0);
+  //   return sum / postRatings.length;
+  // };
+  const review = currentUserRating?.review;
   const parsedContent = post?.pitch || "";
 
   return (
     <>
       <section className="blue_container bg-swirl-pattern mt-[3.4rem] md:mt-16">
-        <p className="tag-mobile md:tag">
-          {formatDate(post?._createdAt ?? "")}
-        </p>
-
-        <h1 className="heading">{post.title}</h1>
-
-        {/* Rating Summary */}
-        {post.ratings && post.ratings.length > 0 && (
-          <div className="flex items-center gap-2 bg-white/70 px-4 py-2 rounded-xl mb-4 w-fit">
-            <Star className="w-5 h-5 text-yellow-400" />
-            <span className="text-lg font-semibold">
-              {calculateAverageRating(post.ratings).toFixed(1)}
-            </span>
-            <span className="text-sm text-gray-600">
-              ({post.ratings.length}{" "}
-              {post.ratings.length === 1 ? "review" : "reviews"})
-            </span>
-          </div>
-        )}
-
         <p className="text-black text-xl px-4 py-2 bg-white/70 rounded-xl md:rounded-xl md:py-4 md:px-8 md:text-2xl font-semibold !max-w-5xl">
           {post.description}
         </p>
@@ -169,9 +152,11 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
             <ServiceRatingDisplay
               userId={userId.userId}
               serviceId={post._id}
+              review={review}
               providerId={providerId || ""}
               currentUserRating={{
                 ...currentUserRating,
+                review: currentUserRating?.review || "",
                 user: {
                   ...currentUserRating?.user,
                   email: post.author?.email ?? "",
@@ -181,7 +166,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
           </div>
 
           {/* Detailed Reviews Section */}
-          {post.ratings && post.ratings.length > 0 && (
+          {/* {post.ratings && post.ratings.length > 0 && (
             <div className="mt-8">
               <h3 className="text-30-bold text-center md:text-start mb-6">
                 Customer Reviews
@@ -228,7 +213,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
                 ))}
               </div>
             </div>
-          )}
+          )} */}
 
           <h3 className="text-30-bold text-center md:text-start">
             Service Details

@@ -4,7 +4,13 @@ import {
   PLAYLIST_BY_SLUG_QUERY,
   SERVICE_BY_ID_QUERY,
 } from "@/sanity/lib/queries";
+import { RatingData } from "../../../../components/ServiceRatingDisplay";
 import { notFound } from "next/navigation";
+import ServiceRatingDisplay from "@/components/ServiceRatingDisplay";
+
+type sParams = {
+  id: string;
+};
 
 import ServiceContent, {
   ServiceContentProps,
@@ -12,16 +18,8 @@ import ServiceContent, {
 
 export const experimental_ppr = true;
 
-const page = async ({
-  params,
-}: {
-  params: {
-    id: string;
-  };
-  user: any;
-}) => {
-  const id = params?.id;
-  console.log("ID:", id);
+const page = async ({ params }: { params: sParams }, review: RatingData) => {
+  const { id } = params;
 
   const session = await auth();
 
@@ -46,17 +44,13 @@ const page = async ({
     currentUserEmail && authorEmail && currentUserEmail === authorEmail
   );
 
-  // const user = {
-  //   ...session?.user,
-  //   user: session?.user,
-  // };
-
   return (
     <>
       <div className="flex flex-col justify-center items-center">
         <ServiceContent
           user={session?.user}
           post={post}
+          review={review}
           service={post}
           contact={post?.author?.contact || ""}
           isAuthor={isAuthor}
