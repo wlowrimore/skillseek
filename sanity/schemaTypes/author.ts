@@ -11,6 +11,7 @@ export const author = defineType({
       name: "id",
       title: "ID",
       type: "string",
+      hidden: true,
       description: "Author ID (email)",
     }),
     defineField({
@@ -36,10 +37,50 @@ export const author = defineType({
       type: "array",
       of: [{ type: "reference", to: { type: "role" } }],
     }),
+
+    defineField({
+      name: "serviceRatings",
+      title: "Service Ratings",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "service",
+              title: "Service",
+              type: "reference",
+              to: [{ type: "service" }],
+              validation: (Rule: any) => Rule.required(),
+            }),
+            defineField({
+              name: "averageRating",
+              title: "Average Rating",
+              type: "number",
+              validation: (Rule: any) => Rule.precision(2).min(0).max(5),
+              initialValue: 0,
+            }),
+            defineField({
+              name: "totalRatings",
+              title: "Total Ratings",
+              type: "number",
+              initialValue: 0,
+            }),
+          ],
+        },
+      ],
+    }),
   ],
   preview: {
     select: {
       title: "name",
+      email: "email",
+    },
+    prepare({ title, email }) {
+      return {
+        title,
+        subtitle: email,
+      };
     },
   },
 });

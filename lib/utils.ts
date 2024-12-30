@@ -1,4 +1,5 @@
 import { auth } from "../auth";
+import { client } from "@/sanity/lib/client";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -38,6 +39,58 @@ export function extractPublicIdFromUrl(url: string) {
     return null;
   }
 }
+
+// CREATE USER UTILITY FUNCTION
+
+export const createValidId = (email: string) => {
+  return `author-${email.replace(/[@.]/g, "-")}`;
+};
+
+export const createOrUpdateUser = async (userData: {
+  email: string;
+  name: string;
+  image?: string;
+}) => {
+  const userId = createValidId(userData.email);
+
+  try {
+    // Check if user exists
+    const existingUser = await client.fetch(
+      `*[_type == "author" && _id == $userId][0]`,
+      { userId }
+    );
+
+    if (!existingUser) {
+      // Create new user
+      const newUser = {
+        _id: userId,
+        _type: "author",
+        name: userData.name,
+        email: userData.email,
+        image: userData.image || "",
+        roles: ["user"],
+      };
+
+      console.log("Creating new user:", newUser);
+      await client.createIfNotExists(newUser);
+      return newUser;
+    }
+
+    // Update existing user
+    const updatedUser = {
+      ...existingUser,
+      name: userData.name,
+      image: userData.image || existingUser.image,
+    };
+
+    console.log("Updating existing user:", updatedUser);
+    await client.patch(userId).set(updatedUser).commit();
+    return updatedUser;
+  } catch (error) {
+    console.error("Error in createOrUpdateUser:", error);
+    throw error;
+  }
+};
 
 // ENVIRONMENT VARIABLES CONFIGURATION
 

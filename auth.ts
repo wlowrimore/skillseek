@@ -2,7 +2,10 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { client } from "./sanity/lib/client";
 import { writeClient } from "./sanity/lib/write-client";
-import { AUTHOR_BY_GOOGLE_ID_QUERY } from "./sanity/lib/queries";
+import {
+  AUTHOR_BY_GOOGLE_ID_QUERY,
+  VERIFY_USER_REFERENCES,
+} from "./sanity/lib/queries";
 
 declare module "next-auth" {
   interface Session {
@@ -21,7 +24,7 @@ declare module "next-auth" {
   }
 }
 
-const createValidId = (email: string) => {
+export const createValidId = (email: string) => {
   return `author-${email.replace(/[@.]/g, "-")}`;
 };
 
@@ -49,6 +52,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           if (!existingAuthor) {
             const validId = createValidId(user.email);
             try {
+              const adminRole = await client.fetch(
+                `*[_type == "role" && code == "administrator"][0]`
+              );
+
+              if (!adminRole) {
+                const roleDoc = await writeClient.create({
+                  _type: "role",
+                  name: "Administrator",
+                  code: "administrator",
+                });
+                console.log("Created administrator role:", roleDoc);
+              }
+
               await writeClient.createIfNotExists({
                 _type: "author",
                 _id: validId, // Using email as ID
@@ -58,7 +74,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 roles: [
                   {
                     _type: "reference",
-                    _ref: "administrator",
+                    _ref: adminRole || "administrator",
                   },
                 ],
               });
@@ -87,7 +103,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           if (author) {
             token.id = author._id;
-            token.roles = author.roles || ["administrator"]; // Default to administrator if no roles found
+            token.roles = author.roles?.map(
+              (role: { code: string }) => role.code
+            ) || ["administrator"];
           } else {
             token.id = createValidId(user.email);
             token.roles = ["administrator"];

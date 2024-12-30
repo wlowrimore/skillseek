@@ -6,7 +6,9 @@ import {
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 
-import ServiceContent from "@/components/ServiceContent";
+import ServiceContent, {
+  ServiceContentProps,
+} from "@/components/ServiceContent";
 
 export const experimental_ppr = true;
 
@@ -16,8 +18,11 @@ const page = async ({
   params: {
     id: string;
   };
+  user: any;
 }) => {
   const id = params?.id;
+  console.log("ID:", id);
+
   const session = await auth();
 
   const [post, playlist] = await Promise.all([
@@ -41,15 +46,25 @@ const page = async ({
     currentUserEmail && authorEmail && currentUserEmail === authorEmail
   );
 
+  // const user = {
+  //   ...session?.user,
+  //   user: session?.user,
+  // };
+
   return (
     <>
       <div className="flex flex-col justify-center items-center">
         <ServiceContent
+          user={session?.user}
           post={post}
+          service={post}
           contact={post?.author?.contact || ""}
           isAuthor={isAuthor}
           currentUserEmail={currentUserEmail}
           editorPosts={editorPosts}
+          providerId={post.author._id}
+          currentUserRating={post.currentUserRating}
+          contactEmail={post?.author?.contact || ""}
         />
       </div>
     </>

@@ -6,6 +6,12 @@ export const service = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "id",
+      title: "ID",
+      type: "string",
+      hidden: true,
+    }),
+    defineField({
       name: "title",
       title: "Title",
       type: "string",

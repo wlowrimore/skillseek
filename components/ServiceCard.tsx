@@ -8,9 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Author, Service } from "@/sanity/types";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Blocks, Delete } from "lucide-react";
+import { Blocks, Delete, Star } from "lucide-react";
 import { PackageMinus } from "lucide-react";
 import { UpdateButton, DeleteButton } from "./MutationButtons";
+import { Contact } from "./ServiceContent";
 
 export type ServiceTypeCard = {
   _id: string;
@@ -20,6 +21,17 @@ export type ServiceTypeCard = {
   image: string;
   pitch: string;
   contact: string;
+  ratings?: Array<{
+    _id: string;
+    rating: number;
+    review?: string;
+    createdAt: string;
+    user: {
+      _id: string;
+      name: string;
+      image?: string;
+    };
+  }>;
   deleteToken?: string;
   author?: {
     _id: string;
@@ -31,6 +43,12 @@ export type ServiceTypeCard = {
   _createdAt?: string;
 };
 
+const calculateAverageRating = (ratings: ServiceTypeCard["ratings"]) => {
+  if (!ratings || ratings.length === 0) return 0;
+  const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
+  return sum / ratings.length;
+};
+
 const ServiceCard = ({
   post,
   service,
@@ -39,7 +57,7 @@ const ServiceCard = ({
   post: ServiceTypeCard;
   service: ServiceTypeCard;
   currentUserEmail?: string;
-  contact: ServiceTypeCard["contact"];
+  contact: Contact;
 }) => {
   const {
     _createdAt,
@@ -50,6 +68,7 @@ const ServiceCard = ({
     contact,
     image,
     description,
+    ratings,
   } = post;
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const { toast } = useToast();
@@ -77,6 +96,18 @@ const ServiceCard = ({
           <Link href={`/service/${_id}`}>
             <h3 className="text-26-semibold line-clamp-1 mb-2">{title}</h3>
           </Link>
+
+          {/* Rating display */}
+          {ratings && ratings.length > 0 && (
+            <div className="flex items-center gap-2 mb-3">
+              <Star className="w-4 h-4 text-yellow-400" />
+              <span className="text-sm text-muted-foreground">
+                {calculateAverageRating(ratings).toFixed(1)} ({ratings.length}{" "}
+                {ratings.length === 1 ? "review" : "reviews"})
+              </span>
+            </div>
+          )}
+
           <Link
             href={`/user/${author?._id}`}
             className="flex gap-3 items-center mb-5"

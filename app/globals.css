@@ -62,6 +62,10 @@
     @apply w-full bg-primary min-h-[275px] md:max-h-[530px] md:min-h-[530px] pattern flex justify-center items-center flex-col py-10 px-4 md:px-6;
   }
 
+  .rate-service_container {
+    @apply w-full bg-primary min-h-[275px] md:max-h-[530px] md:min-h-[530px] lg:min-h-[810px] pattern flex flex-col py-10 px-4 md:px-6;
+  }
+
   .contact_container,
   .about_container {
     @apply w-full flex flex-col;
