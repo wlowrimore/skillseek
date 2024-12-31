@@ -6,7 +6,6 @@ import {
 } from "@/sanity/lib/queries";
 import { RatingData } from "../../../../components/ServiceRatingDisplay";
 import { notFound } from "next/navigation";
-import ServiceRatingDisplay from "@/components/ServiceRatingDisplay";
 
 type sParams = {
   id: string;
