@@ -93,7 +93,7 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
         </div>
 
         {/* Small Screen Caraousel */}
-        <div className="md:hidden w-full h-[2.5rem] flex items-center bg-[#275975] rounded-lg absolute top-[90%] left-0 z-0">
+        <div className="md:hidden max-w-4xl w-full h-[2.5rem] flex items-center bg-[#275975] rounded-lg absolute top-[90%] left-0 z-0">
           <div className="md:hidden border border-white rounded-full absolute top-[50%] left-[25%] md:top-1/2 md:left-[6%] -translate-y-1/2 z-10">
             <Button
               variant="ghost"
@@ -119,7 +119,7 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
         <div className="overflow-hidden md:px-36">
           <div className="transition-transform duration-300 ease-in-out">
             <Card className="mb-12 md:mb-0 md:p-6">
-              <div className="flex items-center gap-2">
+              <div className="w-fullflex items-center gap-2">
                 <img
                   src={
                     ratings[currentIndex].user.image || "/default-avatar.png"
