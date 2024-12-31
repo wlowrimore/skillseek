@@ -10,7 +10,6 @@ import ServiceRatingDisplay from "./ServiceRatingDisplay";
 import ServiceEmailButton, {
   ServiceEmailButtonProps,
 } from "./ui/ServiceEmailButton";
-import { Star } from "lucide-react";
 
 export interface Contact {
   email: string;
