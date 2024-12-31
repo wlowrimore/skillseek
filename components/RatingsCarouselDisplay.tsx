@@ -67,21 +67,21 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
   };
 
   return (
-    <div className="relative w-[56rem] mx-auto">
+    <div className="relative w-[22.9rem] md:w-[56rem] mx-auto">
       {/* Carousel Navigation */}
-      <div className="bg-gray-800 text-white rounded-lg">
-        <div className="absolute top-1/2 left-[6%] -translate-y-1/2 z-10">
+      <div className="md:bg-gray-800 md:text-white rounded-lg">
+        <div className="hidden md:block absolute left-[20%] md:top-1/2 md:left-[6%] -translate-y-1/2 z-10">
           <Button
             variant="outline"
             size="icon"
             className="rounded-full bg-white/90 text-black"
             onClick={prevSlide}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-8 w-4" />
           </Button>
         </div>
 
-        <div className="absolute top-1/2 right-[6%] -translate-y-1/2 z-10">
+        <div className="hidden md:block absolute right-[20%] md:top-1/2 md:right-[6%] -translate-y-1/2 z-10">
           <Button
             variant="outline"
             size="icon"
@@ -92,10 +92,33 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
           </Button>
         </div>
 
+        {/* Small Screen Caraousel */}
+        <div className="md:hidden w-full h-[2.5rem] flex items-center bg-[#275975] rounded-lg absolute top-[90%] left-0 z-0">
+          <div className="md:hidden border border-white rounded-full absolute top-[50%] left-[25%] md:top-1/2 md:left-[6%] -translate-y-1/2 z-10">
+            <Button
+              variant="ghost"
+              className="py-[1rem] px-0.5 border-8 border-[#275975] rounded-full bg-white/90 text-black"
+              onClick={prevSlide}
+            >
+              <ChevronLeft className="bg-amber-400 p-1 rounded-full" />
+            </Button>
+          </div>
+
+          <div className="md:hidden border border-white rounded-full absolute top-[50%] right-[25%] md:top-1/2 md:right-[6%] -translate-y-1/2 z-10">
+            <Button
+              variant="ghost"
+              className="py-[1rem] px-0.5 border-8 border-[#275975] rounded-full bg-white/90 text-black"
+              onClick={nextSlide}
+            >
+              <ChevronRight className="bg-amber-400 p-1 rounded-full" />
+            </Button>
+          </div>
+        </div>
+
         {/* Current Rating Card */}
-        <div className="overflow-hidden px-36">
+        <div className="overflow-hidden md:px-36">
           <div className="transition-transform duration-300 ease-in-out">
-            <Card className="p-6">
+            <Card className="mb-12 md:mb-0 md:p-6">
               <div className="flex items-center gap-2">
                 <img
                   src={

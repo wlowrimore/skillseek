@@ -65,7 +65,7 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
   return (
     <div className="space-y-8">
       {/* Average Rating Display */}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col md:inline-flex items-center md:gap-4 mt-6">
         <StarRating
           rating={averageRating}
           disabled={true}
@@ -76,11 +76,11 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
           {averageRating?.toFixed(1)} out of 5 ({ratings.length} ratings)
         </span>
       </div>
-      <div className="pt-8">
+      <div className="pt-3 md:pt-8">
         <h3 className="text-lg font-medium">Client Reviews</h3>
         <hr className="small_divider" />
       </div>
-      <div className="space-y-4 w-[44rem]">
+      <div className="space-y-4 w-[21rem] md:w-[44rem]">
         {ratings.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             Be the first to rate this service!

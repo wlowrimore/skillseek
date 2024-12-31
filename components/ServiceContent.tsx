@@ -91,7 +91,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
             alt="service image"
             width={1000}
             height={1000}
-            className="mx-auto max-w-[6rem] md:max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
+            className="mx-auto max-w-[23rem] md:max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
           />
 
           {isAuthor && (
@@ -158,7 +158,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
 
           {/* Service Details & Editor Picks Section */}
 
-          <h3 className="text-30-bold text-center md:text-start pt-5">
+          <h3 className="text-30-bold text-center md:text-start pt-12 md:pt-5">
             Service Details
           </h3>
           {parsedContent ? (
