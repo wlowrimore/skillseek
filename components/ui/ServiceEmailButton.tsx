@@ -241,16 +241,27 @@ Regards,
 ${session.user.name}
 ${session.user.email}
 
---- Note to service provider: Please include the following "Rate My Service" link in an email to allow the customer to rate your service:
+--- Note to service provider ---
+
+!!! DO NOT RESPOND TO THIS EMAIL WITHIN THIS EMAIL WINDOW AS IT WILL SEND THE RATING LINK WITH IT !!! 
+
+ONLY RESPOND DIRECTLY TO ${session.user.email}, OR BY CLICKING THE USER'S/CLIENT'S EMAIL ADDRESS SHOWN IN THEIR SIGNATURE. 
+
+--- Rate My Service Link ---
+
+When you are ready to provide the user/client with the rating link, please copy and paste the following link inside an email to the user/client:
 
 ${process.env.NEXT_PUBLIC_APP_URL}/rate/${ratingKey.key}
-${console.log("Rating key:", ratingKey.key)}
 
-This rating option will expire in 90 days.
+This link carries with it a unique key that will allow the user/client to rate your service.
 
-DO NOT RESPOND TO THE CLIENT WITHIN THIS EMAIL WINDOW! If you need to contact the user, please send an email to ${session.user.email}, or by clicking the client's email address shown in their signature. 
+--- Please note the following: ---
 
-!!! PLEASE BE SURE TO INCLUDE THE "RATE MY SERVICE" LINK IN YOUR RESPONSE EMAIL. !!!`;
+1. The user/client will have 90 days to rate your service.
+2. Only send this link when you are ready for the user/client to rate your service.
+3. The unique key needed to access this link is a one-time use key so once the user/client has rated your service, the link will no longer be valid.
+
+The rating request will expire in 90 days.`;
 
       window.location.href = `mailto:${service.contact}?subject=Service Inquiry - ${
         service.title

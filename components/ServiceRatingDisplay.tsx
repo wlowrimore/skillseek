@@ -75,14 +75,22 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
           {averageRating?.toFixed(1)} out of 5 ({ratings.length} ratings)
         </span>
       </div>
+      <div className="pt-8">
+        <h3 className="text-base font-medium">Client Reviews:</h3>
+        <hr className="small_divider" />
+      </div>
       <div className="space-y-4">
-        <h3 className="font-medium">Reviews</h3>
         {ratings.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No reviews yet</p>
+          <p className="text-sm text-muted-foreground">
+            Be the first to rate this service!
+          </p>
         ) : (
           <div className="space-y-4">
             {ratings.map((rating, index) => (
-              <div key={index} className="border rounded-lg p-4 space-y-2">
+              <div
+                key={index}
+                className="rounded-lg bg-black/5 p-4 -mt-4 space-y-3"
+              >
                 <div className="flex items-center gap-2">
                   <Image
                     src={rating.user.image || "/default-avatar.png"}

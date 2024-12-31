@@ -74,14 +74,6 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   const createdUserName = post.author?.email?.split("@")[0];
   const username = `@${createdUserName}`;
   const userId = { userId: session?.user?.id };
-
-  // const postRatings = post.ratings || [];
-
-  // const calculateAverageRating = (postRatings: any[]) => {
-  //   if (!postRatings || postRatings.length === 0) return 0;
-  //   const sum = postRatings.reduce((acc, rating) => acc + rating.rating, 0);
-  //   return sum / postRatings.length;
-  // };
   const review = currentUserRating?.review;
   const parsedContent = post?.pitch || "";
 
@@ -117,7 +109,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
           )}
         </div>
 
-        <div className="space-y-5 mt-6 md:mt-10 max-w-4xl mx-auto">
+        <div className="space-y-2 mt-6 md:mt-10 max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <Link
               href={`/user/${post.author?._id}`}
@@ -131,7 +123,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
                 className="rounded-full w-12 h-12 md:w-16 md:h-16 object-cover drop-shadow-lg"
               />
 
-              <div className="leading-5">
+              <div>
                 <p className="md:text-xl font-semibold">{post?.author?.name}</p>
                 <p className="text-sm">{username}</p>
               </div>
@@ -165,57 +157,9 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
             />
           </div>
 
-          {/* Detailed Reviews Section */}
-          {/* {post.ratings && post.ratings.length > 0 && (
-            <div className="mt-8">
-              <h3 className="text-30-bold text-center md:text-start mb-6">
-                Customer Reviews
-              </h3>
-              <div className="space-y-6">
-                {post.ratings.map((rating: any) => (
-                  <div
-                    key={rating._id}
-                    className="bg-white p-6 rounded-xl shadow-sm"
-                  >
-                    <div className="flex items-center gap-4 mb-4">
-                      {rating.user?.image && (
-                        <Image
-                          src={rating.user.image}
-                          alt={rating.user.name}
-                          width={48}
-                          height={48}
-                          className="rounded-full"
-                        />
-                      )}
-                      <div>
-                        <p className="font-semibold">{rating.user?.name}</p>
-                        <p className="text-sm text-gray-500">
-                          {formatDate(rating.createdAt)}
-                        </p>
-                      </div>
-                      <div className="ml-auto flex gap-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${
-                              i < rating.rating
-                                ? "text-yellow-400"
-                                : "text-gray-200"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    {rating.review && (
-                      <p className="text-gray-700">{rating.review}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )} */}
+          {/* Service Details & Editor Picks Section */}
 
-          <h3 className="text-30-bold text-center md:text-start">
+          <h3 className="text-30-bold text-center md:text-start pt-5">
             Service Details
           </h3>
           {parsedContent ? (
@@ -231,7 +175,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
 
           {editorPosts?.length > 0 && (
             <div className="max-w-4xl mx-auto">
-              <p className="text-30-semibold text-center md:text-start">
+              <p className="text-30-semibold text-center md:text-start pt-5">
                 Editor Picks
               </p>
 
