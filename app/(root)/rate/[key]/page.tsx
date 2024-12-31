@@ -82,15 +82,6 @@ export default function RatingPage() {
 
         const data: ApiResponse = await response.json();
 
-        // Check if rating request is approved
-        if (data.status !== "approved") {
-          throw new Error(
-            data.status === "pending"
-              ? "This rating request is pending approval from the service provider."
-              : "This rating request has been rejected or is no longer valid."
-          );
-        }
-
         // Validate the required fields are present
         if (!data.service?._id || !data.serviceProvider?._id) {
           throw new Error(

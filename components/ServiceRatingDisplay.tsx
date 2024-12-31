@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { calculateAverageRating } from "@/lib/utils";
 import { getServiceData } from "@/app/(root)/service/[id]/ServiceContentServer";
+import RatingsCarousel from "./RatingsCarouselDisplay";
 
 export interface RatingData {
   rating: number | null;
@@ -76,51 +77,16 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
         </span>
       </div>
       <div className="pt-8">
-        <h3 className="text-base font-medium">Client Reviews:</h3>
+        <h3 className="text-lg font-medium">Client Reviews</h3>
         <hr className="small_divider" />
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 w-[44rem]">
         {ratings.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             Be the first to rate this service!
           </p>
         ) : (
-          <div className="space-y-4">
-            {ratings.map((rating, index) => (
-              <div
-                key={index}
-                className="rounded-lg bg-black/5 p-4 -mt-4 space-y-3"
-              >
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={rating.user.image || "/default-avatar.png"}
-                    alt={rating.user.name}
-                    width={40}
-                    height={40}
-                    className="rounded-full"
-                  />
-                  <div>
-                    <p className="font-medium">{rating.user.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {formatDistanceToNow(new Date(rating.createdAt), {
-                        addSuffix: true,
-                      })}
-                    </p>
-                  </div>
-                </div>
-                <StarRating
-                  rating={rating.rating || 0}
-                  maxRating={5}
-                  disabled={true}
-                  showText={false}
-                  size={16}
-                />
-                <p className="text-sm mt-2">
-                  {rating.review || "Be the first to comment"}
-                </p>
-              </div>
-            ))}
-          </div>
+          <RatingsCarousel ratings={ratings} />
         )}
       </div>
     </div>
