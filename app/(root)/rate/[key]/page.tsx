@@ -1,15 +1,16 @@
+//
+
 "use client";
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import RatingAndReviewComponent, {
-  RatingAndReviewProps,
-} from "../../../../components/RatingAndReviewComponent";
+import RatingAndReviewComponent from "../../../../components/RatingAndReviewComponent";
 
 interface ApiResponse {
   expiresAt: string;
   isUsed: boolean;
+  status: "pending" | "approved" | "rejected";
   _id: string;
   key: string;
   service: {
@@ -29,6 +30,7 @@ interface ApiResponse {
 
 export interface RatingData {
   rating: number;
+  status: "pending" | "approved" | "rejected";
   ratingInfo: {
     service: string;
     user: string;
@@ -72,7 +74,6 @@ export default function RatingPage() {
         }
 
         const response = await fetch(`/api/rating-key/${ratingKey}`);
-        console.log("API Response status:", response.status);
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}));
@@ -82,7 +83,15 @@ export default function RatingPage() {
         }
 
         const data: ApiResponse = await response.json();
-        console.log("Raw API response data:", data);
+
+        // Check if rating request is approved
+        if (data.status !== "approved") {
+          throw new Error(
+            data.status === "pending"
+              ? "This rating request is pending approval from the service provider."
+              : "This rating request has been rejected or is no longer valid."
+          );
+        }
 
         // Validate the required fields are present
         if (!data.service?._id || !data.serviceProvider?._id) {
@@ -92,7 +101,8 @@ export default function RatingPage() {
         }
 
         const transformedData: RatingData = {
-          rating: 0, // Default value for new ratings
+          rating: 0,
+          status: data.status,
           ratingInfo: {
             service: data.service._id,
             user: data._id,
@@ -111,15 +121,14 @@ export default function RatingPage() {
             serviceProvider: {
               _id: data.serviceProvider._id,
               name: data.serviceProvider.name,
-              description: "", // Since this isn't in the API response, defaulting to empty
-              email: "", // Since this isn't in the API response, defaulting to empty
+              description: "",
+              email: "",
               image: data.serviceProvider.image || "",
               contact: data.serviceProvider.contact || "",
             },
           },
         };
 
-        console.log("Transformed data:", transformedData);
         setRatingData(transformedData);
       } catch (error) {
         const errorMessage =
@@ -169,11 +178,8 @@ export default function RatingPage() {
           image: ratingData.service.image,
           _id: ratingData.service._id,
           provider: {
-            // description: ratingData.service.serviceProvider.description || "",
             name: ratingData.service.serviceProvider.name,
-            // title: ratingData.service.serviceProvider.name,
             image: ratingData.service.serviceProvider.image,
-            // contact: ratingData.service.serviceProvider.contact || "",
             _id: ratingData.service.serviceProvider._id,
           },
         },
