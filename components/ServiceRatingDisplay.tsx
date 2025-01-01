@@ -43,6 +43,7 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
   currentUserRating,
 }) => {
   const [review, setReview] = useState(currentUserRating?.review || "");
+  const [hasReviews, setHasReviews] = useState(false);
   const [ratings, setRatings] = useState<RatingData[]>([]);
   const [averageRating, setAverageRating] = useState(0);
 
@@ -51,6 +52,7 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
       try {
         const { ratings, averageRating } = await getServiceData(serviceId);
         setRatings(ratings);
+        setHasReviews(ratings.length > 0);
         const calculatedAverageRating = calculateAverageRating(ratings);
         setAverageRating(await calculatedAverageRating);
         setReview(currentUserRating?.review || "");
@@ -65,25 +67,31 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
   return (
     <div className="space-y-8">
       {/* Average Rating Display */}
-      <div className="flex flex-col md:inline-flex items-center md:gap-4 mt-6">
-        <StarRating
-          rating={averageRating}
-          disabled={true}
-          showText={false}
-          size={24}
-        />
-        <span className="text-sm text-muted-foreground">
-          {averageRating?.toFixed(1)} out of 5 ({ratings.length} ratings)
-        </span>
-      </div>
+      {ratings.length > 0 ? (
+        <div className="flex flex-col md:inline-flex items-center md:gap-4 mt-6">
+          <StarRating
+            rating={averageRating}
+            disabled={true}
+            showText={false}
+            size={24}
+          />
+          <span className="text-sm text-muted-foreground">
+            {averageRating?.toFixed(1)} out of 5 ({ratings.length} ratings)
+          </span>
+        </div>
+      ) : (
+        <div className="pt-6 text-sm md:pl-14 text-center text-muted-foreground">
+          <p>No ratings available</p>
+        </div>
+      )}
       <div className="pt-3 md:pt-8">
         <h3 className="text-lg font-medium">Client Reviews</h3>
         <hr className="small_divider" />
       </div>
-      <div className="space-y-4w-[44rem]">
+      <div className="space-y-4 flex flex-col items-center mx-auto">
         {ratings.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Be the first to rate this service!
+          <p className="text-sm md:pl-14 text-muted-foreground text-center">
+            This service has not yet been reviewed
           </p>
         ) : (
           <RatingsCarousel ratings={ratings} />

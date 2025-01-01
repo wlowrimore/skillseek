@@ -122,7 +122,7 @@ const MobileNavbar = async () => {
                 <MobilePrivacyPolicyBtn />
               </div>
               <div className="text-neutral-400 text-center text-xs">
-                <span className="text-neutral-400">&copy; 2023 SkillSeek</span>
+                <span className="text-neutral-400">&copy; 2024 SkillSeek</span>
                 &nbsp;
                 <span className="text-neutral-400">All rights reserved</span>
                 <br />
