@@ -41,7 +41,7 @@ ServicesSubmenu.displayName = "ServicesSubmenu";
 
 const MobileFAQQuickLinks = () => {
   return (
-    <header className="mx-auto md:hidden rounded-bl-lg rounded-tr-xl border-l-2 border-b-2 border-cyan-700/40 w-fit bg-[#A3D2E6] brightness-125 text-sm">
+    <header className="mx-auto md:hidden rounded-bl-lg rounded-tr-xl border-l-2 border-b-2 border-cyan-700 w-fit bg-cyan-900 text-white text-sm">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>

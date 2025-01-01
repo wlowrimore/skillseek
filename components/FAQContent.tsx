@@ -3,7 +3,7 @@ import MobileFAQQuickLinks from "./MobileFAQQuickLinks";
 const FAQContent = () => {
   return (
     <>
-      <div className="relative mt-8 faq-container w-full md:w-[24rem] lg:w-[30rem] xl:w-[40rem] max-h-[44.5rem] md:max-h-[65rem] flex-1 flex flex-col rounded-xl border-[3px] border-black shadow-lg shadow-black mb-10 lg:mb-0 md:mt-2.5 lg:mt-0">
+      <div className="relative mt-4 faq-container w-full md:w-[24rem] lg:w-[30rem] xl:w-[40rem] max-h-[44.5rem] md:max-h-[65rem] flex-1 flex flex-col rounded-xl border-t md:border-[3px] border-black md:shadow-lg md:shadow-black mb-10 lg:mb-0 md:mt-2.5 lg:mt-0">
         <div className="md:max-h-[48rem] lg:max-h-[34rem] w-full overflow-y-auto py-6 lg:py-5">
           <div className="absolute right-0 pr-0 top-0 flex justify-end">
             <MobileFAQQuickLinks />
