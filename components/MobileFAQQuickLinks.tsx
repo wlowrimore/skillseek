@@ -45,11 +45,11 @@ const MobileFAQQuickLinks = () => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="font-work-sans text-[0.9rem]">
+            <NavigationMenuTrigger className="font-work-sans text-[0.9rem] text-white">
               Quick Links
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[200px] gap-3 py-4">
+              <ul className="grid w-[11.5rem] gap-3 py-4 text-black">
                 <ServicesSubmenu
                   href="#getting-started"
                   title="Getting Started"
