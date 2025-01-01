@@ -80,7 +80,7 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
         <h3 className="text-lg font-medium">Client Reviews</h3>
         <hr className="small_divider" />
       </div>
-      <div className="space-y-4 w-[21rem] md:w-[44rem]">
+      <div className="space-y-4w-[44rem]">
         {ratings.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             Be the first to rate this service!

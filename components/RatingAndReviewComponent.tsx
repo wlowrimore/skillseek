@@ -214,11 +214,6 @@ const RatingAndReviewComponent = ({
           </button>
         ))}
       </div>
-      {/* <div className="mb-24">
-        <p className="text-sm text-gray-800">
-          Average Rating: {rating}/5 Stars
-        </p>
-      </div> */}
 
       <section className="flex flex-col items-center gap-4 mx-auto">
         {providerData && (
