@@ -93,7 +93,7 @@
   }
 
   .faq-container {
-    @apply  max-w-[100%] md:w-[40rem] md:max-w-2xl lg:ml-4 mx-auto bg-[#FCF2E4]/90 border-none md:border-[3px] border-black rounded-xl space-y-4 pl-2 md:px-3 md:shadow-lg shadow-black;
+    @apply  max-w-[100%] md:w-[40rem] md:max-w-2xl lg:ml-4 mx-auto bg-[#FCF2E4]/90 border-0 md:border-[3px] border-black rounded-xl space-y-4 pl-2 md:px-3 md:shadow-lg shadow-black;
   }
 
   .animated-sparkle {

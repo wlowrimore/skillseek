@@ -41,15 +41,15 @@ ServicesSubmenu.displayName = "ServicesSubmenu";
 
 const MobileFAQQuickLinks = () => {
   return (
-    <header className="mx-auto md:hidden rounded-bl-lg rounded-tr-xl border-l-2 border-b-2 border-cyan-700 w-fit bg-cyan-900 text-white text-sm">
+    <header className="mx-auto md:hidden rounded-t-xl border-l-2 border-b-2 border-cyan-700 flex-shrink w-full min-w-[18rem] max-w-[42rem] bg-cyan-900 text-white text-sm">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="font-work-sans text-[0.9rem] text-white">
-              Quick Links
+              FAQ Quick Links
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[11.5rem] gap-3 py-4 text-black">
+              <ul className="grid w-[11.6rem] gap-3 py-4 text-black">
                 <ServicesSubmenu
                   href="#getting-started"
                   title="Getting Started"

@@ -7,7 +7,7 @@ const FAQ = () => {
   return (
     <>
       <section className="container px-2 md:px-4 w-full mx-auto bg-faq mt-12 flex flex-col justify-center items-center md:mt-16">
-        <h1 className="w-full font-bold text-3xl mt-8 md:mt-4 md:pt-4 lg:pt-10 pb-6 border-b">
+        <h1 className="w-full font-bold text-3xl mt-8 md:mt-8 md:pt-4 lg:pt-10 pb-6 border-b">
           SkillSeek FAQ
         </h1>
         <div className="flex justify-center items-start mx-auto pb-0">
