@@ -21,7 +21,7 @@ const UserServices = async ({ id }: UserServicesProps) => {
             post={service}
             service={service}
             currentUserEmail={currentUserEmail}
-            contact={service.contact}
+            contact={{ email: service.contact }}
           />
         ))
       ) : (

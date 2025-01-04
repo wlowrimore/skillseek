@@ -4,7 +4,12 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { StarRating } from "./ui/StarRatingComponent";
 import { formatDistanceToNow } from "date-fns";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -93,26 +98,36 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
         </div>
 
         {/* Small Screen Caraousel */}
-        <div className="md:hidden w-full max-w-4xl h-[2.5rem] flex items-center bg-[#275975] rounded-lg absolute top-[90%] left-0 z-0">
-          <div className="md:hidden border border-white rounded-full absolute top-[50%] left-[25%] md:top-1/2 md:left-[6%] -translate-y-1/2 z-10">
+        <div className="md:hidden w-full max-w-4xl flex justify-end absolute top-[3.8rem] right-0 left-0 z-0">
+          <div className="md:hidden flex items-center border border-white rounded-full absolute top-[50%] right-0 -translate-y-1/2 z-10">
             <Button
               variant="ghost"
-              className="py-[1rem] px-0.5 border-8 border-[#275975] rounded-full bg-white/90 text-black"
+              className="py-[1rem] px-[0.7rem] border-[#275975] rounded-full bg-white/90 text-slate-600"
               onClick={prevSlide}
             >
-              <ChevronLeft className="bg-amber-400 p-1 rounded-full" />
+              <ChevronsLeft className="p-1" />
+            </Button>
+            <p className="text-xs text-slate-800 font-medium mt-0.5">
+              View All
+            </p>
+            <Button
+              variant="ghost"
+              className="py-[1rem] px-[0.7rem] border-[#275975] rounded-full bg-white/90 text-slate-600"
+              onClick={nextSlide}
+            >
+              <ChevronsRight className="p-1" />
             </Button>
           </div>
 
-          <div className="md:hidden border border-white rounded-full absolute top-[50%] right-[25%] md:top-1/2 md:right-[6%] -translate-y-1/2 z-10">
+          {/* <div className="md:hidden border border-white rounded-full absolute top-[50%] right-[25%] md:top-1/2 md:right-[6%] -translate-y-1/2 z-10">
             <Button
               variant="ghost"
-              className="py-[1rem] px-0.5 border-8 border-[#275975] rounded-full bg-white/90 text-black"
+              className="py-[1rem] px-0.5 border-[#275975] rounded-full bg-white/90 text-black"
               onClick={nextSlide}
             >
-              <ChevronRight className="bg-amber-400 p-1 rounded-full" />
+              <ChevronRight className="p-1 rounded-full" />
             </Button>
-          </div>
+          </div> */}
         </div>
 
         {/* Current Rating Card */}

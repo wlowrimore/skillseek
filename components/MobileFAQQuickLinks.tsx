@@ -49,7 +49,7 @@ const MobileFAQQuickLinks = () => {
               FAQ Quick Links
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[11.6rem] gap-3 py-4 text-black">
+              <ul className="grid w-[20.3rem] gap-3 py-4 text-black">
                 <ServicesSubmenu
                   href="#getting-started"
                   title="Getting Started"

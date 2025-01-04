@@ -53,7 +53,7 @@ export default async function Home({
                 key={post?._id}
                 post={post}
                 service={post}
-                contact={post?.contact}
+                contact={{ email: post?.contact }}
                 currentUserEmail={session?.user?.email as string | undefined}
               />
             ))
