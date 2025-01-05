@@ -217,14 +217,14 @@ const RatingAndReviewComponent = ({
 
       <section className="flex flex-col items-center gap-4 mx-auto">
         {providerData && (
-          <div className="flex w-full flex-1 items-center gap-3">
-            <div className="relative p-0.5 rounded-full border-2 border-black">
+          <div className="flex flex-col md:flex-row w-full flex-1 items-center gap-3">
+            <div className="relative p-0.5 rounded-xl md:rounded-full border-2 border-black">
               <Image
                 src={providerData?.image}
                 alt={providerData?.name as string}
                 width={400}
                 height={400}
-                className="w-14 h-14 rounded-full"
+                className="w-24 h-24 md:w-14 md:h-14 rounded-xl md:rounded-full"
               />
             </div>
             <div className="flex flex-col items-start py-4">
@@ -238,35 +238,59 @@ const RatingAndReviewComponent = ({
             <h1 className="text-4xl font-[600] mb-2 text-start">
               {serviceData?.title}
             </h1>
-            <div className="relative w-full bg-zinc-400 aspect-video border-[3px] border-zinc-300  rounded-xl shadow-lg shadow-black">
-              <Image
-                src={serviceData?.image as string}
-                alt={serviceData?.title as string}
-                width={700}
-                height={700}
-                className="rounded-xl border border-white"
-              />
+            <div className="relative flex flex-col md:grid md:grid-cols-2 w-full max-h-[500px] bg-zinc-400 md:bg-white aspect-video border border-zinc-300 md:border-none rounded-xl md:rounded-tl-xl md:rounded-bl-xl md:rounded-br-none md:rounded-tr-none shadow-lg shadow-black md:shadow-none">
+              <div className="md:flex gap-2 w-full md:pr-4 md:border-r-2 border-black">
+                <Image
+                  src={serviceData?.image as string}
+                  alt={serviceData?.title as string}
+                  width={700}
+                  height={700}
+                  className="rounded-xl md:rounded-tl-lg md:rounded-bl-lg md:rounded-tr-none md:rounded-br-none border border-white"
+                />
+              </div>
+              <div className="hidden md:flex flex-col md:ml-[1.15rem]">
+                <Textarea
+                  placeholder="Share your experience with this service (optional)"
+                  value={review}
+                  onChange={(e) => setReview(e.target.value)}
+                  className="w-full bg-slate-100 md:h-full border md:border-none rounded-lg md:rounded-tr-lg md:rounded-br-none md:rounded-bl-none md:rounded-tl-none outline-none focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                />
+
+                <Button
+                  className={`w-full py-2 px-4 mx-auto rounded-lg md:rounded-tr-none md:rounded-br-lg md:rounded-bl-none md:rounded-tl-none text-white transition-colors duration-200 mt-3 ${
+                    isSubmitting || rating === 0
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-cyan-700 hover:bg-cyan-600"
+                  }`}
+                  onClick={handleSubmitRating}
+                  disabled={isSubmitting || rating === 0}
+                >
+                  {isSubmitting ? "Submitting..." : "Submit Rating"}
+                </Button>
+              </div>
             </div>
           </div>
         )}
-        <Textarea
-          placeholder="Share your experience with this service (optional)"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          className="w-full min-h-[100px] p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <div className="md:hidden flex flex-col gap-2 w-full">
+          <Textarea
+            placeholder="Share your experience with this service (optional)"
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+            className="w-full min-h-[100px] p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
 
-        <Button
-          className={`w-full py-2 px-4 rounded-lg text-white transition-colors duration-200 mt-3 ${
-            isSubmitting || rating === 0
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-cyan-700 hover:bg-cyan-600"
-          }`}
-          onClick={handleSubmitRating}
-          disabled={isSubmitting || rating === 0}
-        >
-          {isSubmitting ? "Submitting..." : "Submit Rating"}
-        </Button>
+          <Button
+            className={`w-full py-2 px-4 rounded-lg text-white transition-colors duration-200 mt-3 ${
+              isSubmitting || rating === 0
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-cyan-700 hover:bg-cyan-600"
+            }`}
+            onClick={handleSubmitRating}
+            disabled={isSubmitting || rating === 0}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Rating"}
+          </Button>
+        </div>
       </section>
     </section>
   );

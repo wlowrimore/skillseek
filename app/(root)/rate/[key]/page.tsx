@@ -72,6 +72,11 @@ export default function RatingPage() {
         }
 
         const response = await fetch(`/api/rating-key/${ratingKey}`);
+        console.log("API: Fetch response:", response);
+
+        if (response.status === 403) {
+          setError("This Rating key has already been used");
+        }
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}));
@@ -87,6 +92,10 @@ export default function RatingPage() {
           throw new Error(
             "Invalid data structure: missing required service or provider data"
           );
+        }
+
+        if (data.isUsed === true) {
+          setError("This rating key has already been used");
         }
 
         const transformedData: RatingData = {

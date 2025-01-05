@@ -80,7 +80,7 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
           </span>
         </div>
       ) : (
-        <div className="pt-6 text-sm md:pl-14 text-center text-muted-foreground">
+        <div className="pt-6 text-sm md:pl-14 text-start text-muted-foreground">
           <p>No ratings available</p>
         </div>
       )}
@@ -88,9 +88,9 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
         <h3 className="text-lg font-medium">Client Reviews</h3>
         <hr className="small_divider" />
       </div>
-      <div className="space-y-4 flex flex-col items-center mx-auto">
+      <div className="space-y-4 flex flex-col mx-auto">
         {ratings.length === 0 ? (
-          <p className="text-sm md:pl-14 text-muted-foreground text-center">
+          <p className="text-sm md:pl-14 text-muted-foreground text-start">
             This service has not yet been reviewed
           </p>
         ) : (

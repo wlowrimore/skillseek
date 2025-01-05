@@ -67,6 +67,7 @@ export async function GET(req: NextRequest, { params }: { params: kParams }) {
       );
     }
 
+    // Check if key has already been used
     if (ratingKey.isUsed) {
       console.log("API: Rating key already used");
       return NextResponse.json(

@@ -18,7 +18,7 @@ import ServiceContent, {
 export const experimental_ppr = true;
 
 const page = async ({ params }: { params: sParams }, review: RatingData) => {
-  const { id } = params;
+  const { id } = await params;
 
   const session = await auth();
 
