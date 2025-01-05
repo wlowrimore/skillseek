@@ -93,7 +93,7 @@
   }
 
   .faq-container {
-    @apply  max-w-[100%] md:w-[40rem] md:max-w-2xl lg:ml-4 mx-auto bg-[#FCF2E4]/90 border-0 md:border-[3px] border-black rounded-xl space-y-4 pl-2 md:px-3 md:shadow-lg shadow-black;
+    @apply max-w-[100%] md:w-[40rem] md:max-w-2xl lg:ml-4 mx-auto bg-[#FCF2E4]/90 border-0 md:border-[3px] border-black rounded-xl space-y-4 pl-2 md:px-3 md:shadow-lg shadow-black;
   }
 
   .animated-sparkle {
@@ -128,7 +128,7 @@
   }
 
   .section_container {
-    @apply px-6 pt-16 pb-24 max-w-7xl w-full mx-auto;
+    @apply px-6 pt-4 md:pt-16 pb-24 max-w-7xl w-full mx-auto;
   }
 
   .card_grid {
@@ -236,7 +236,7 @@
   }
 
   .startup-card_desc {
-    @apply text-xs tracking-wide line-clamp-2 text-cyan-950 mt-1 px-2 font-semibold leading-4;
+    @apply text-xs tracking-wide line-clamp-2 text-cyan-950 mt-1 md:px-1 font-semibold leading-4;
   }
 
   .startup-card_img {
@@ -327,7 +327,7 @@
   }
 
   .category-tag {
-    @apply font-medium text-[16px] bg-primary-100 px-4 py-2 rounded-full;
+    @apply font-medium w-full md:w-fit text-center text-sm bg-[#F1C7A3]/40 md:bg-[#F1C7A3]/30 px-4 py-2 md:px-4 md:py-2.5 rounded-lg;
   }
 
   .tag-tri {

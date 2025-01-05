@@ -42,7 +42,7 @@ export default async function Home({
       </section>
 
       <section className="section_container">
-        <p className="text-30-semibold text-center md:text-start">
+        <p className="text-30-semibold text-center md:text-start h-[4.6rem]">
           {displayText}
         </p>
 

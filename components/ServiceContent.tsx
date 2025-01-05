@@ -79,11 +79,18 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   return (
     <>
       <section className="blue_container bg-swirl-pattern mt-[3.4rem] md:mt-16">
-        <p className="text-black text-xl px-4 py-2 bg-white/70 rounded-xl md:rounded-xl md:py-4 md:px-8 md:text-2xl font-semibold !max-w-5xl">
-          {post.description}
-        </p>
+        <div className="text-black max-w-[28rem] md:!max-w-[55rem] px-[1.15rem]  py-2 md:py-12 md:space-y-4  rounded-xl md:rounded-xl md:text-2xl font-semibold">
+          <h1 className="text-2xl md:text-5xl text-center md:text-start font-bold">
+            {post.title}
+          </h1>
+          <h2 className="text-gray-800 bg-slate-300/50 rounded-lg px-4 py-2 mt-3 leading-tight w-[17rem] md:w-[49.8rem] text-base md:mt-4 md:text-2xl md:max-w-[50rem]">
+            {post.description}
+          </h2>
+        </div>
       </section>
-
+      <div className="md:hidden w-full flex justify-start px-6 pt-4">
+        <p className="category-tag">{post.category}</p>
+      </div>
       <section className="section_container">
         <div className="relative">
           <Image
@@ -91,7 +98,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
             alt="service image"
             width={1000}
             height={1000}
-            className="mx-auto md:max-w-[55rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
+            className="mx-auto md:max-w-[56rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
           />
 
           {isAuthor && (
@@ -137,7 +144,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
                 contactEmail={contactEmail}
               />
             </span>
-            <p className="category-tag">{post.category}</p>
+            <p className="hidden md:block category-tag">{post.category}</p>
           </div>
           <div className="w-full h-full text-black">
             <ServiceRatingDisplay

@@ -49,6 +49,12 @@ const calculateAverageRating = (ratings: ServiceTypeCard["ratings"]) => {
   return sum / ratings.length;
 };
 
+const truncateDesc = (text: string, maxLength = 57) => {
+  if (!text) return "No description provided";
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + "...";
+};
+
 const ServiceCard = ({
   post,
   service,
@@ -133,12 +139,12 @@ const ServiceCard = ({
           alt={title}
           className="startup-card_img border border-neutral-300"
         />
-        <p className="startup-card_desc">{description}</p>
+        <p className="startup-card_desc">{truncateDesc(description)}</p>
       </Link>
 
       <div className="flex-between gap-3 mt-5">
-        <Link href={`/?query=${category?.toLowerCase()}`}>
-          <p className="text-sm md:text-16-medium">{category}</p>
+        <Link href={`/?query=${category.toLowerCase()}`}>
+          <p className="text-xs pr-4 md:text-16-medium">{category}</p>
         </Link>
         <Button
           className="startup-card_btn"
