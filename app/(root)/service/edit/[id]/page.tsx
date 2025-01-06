@@ -1,6 +1,8 @@
 import { SERVICE_BY_ID_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
 import ServiceForm from "@/components/ServiceForm";
+import { Suspense } from "react";
+import LoadingBar from "@/components/ui/LoadingBar";
 
 export default async function EditServicePage({
   params,
@@ -12,7 +14,7 @@ export default async function EditServicePage({
   });
 
   return (
-    <>
+    <Suspense fallback={<LoadingBar />}>
       <section className="blue_container bg-swirl-pattern mt-12 md:mt-16">
         <div className="heading">
           <h1 className="">Edit Your Service</h1>
@@ -22,6 +24,6 @@ export default async function EditServicePage({
         </div>
       </section>
       <ServiceForm initialData={service} authorEmail={service.author._ref} />
-    </>
+    </Suspense>
   );
 }

@@ -1,11 +1,12 @@
 import FAQContent from "@/components/FAQContent";
 import FAQImage from "@/components/FAQImage";
 import MobileFAQImage from "@/components/MobileFAQImage";
-import React from "react";
+import LoadingBar from "@/components/ui/LoadingBar";
+import React, { Suspense } from "react";
 
 const FAQ = () => {
   return (
-    <>
+    <Suspense fallback={<LoadingBar />}>
       <section className="container px-2 md:px-4 w-full mx-auto bg-faq mt-12 flex flex-col justify-center items-center md:mt-16">
         <h1 className="w-full font-bold text-3xl mt-8 md:mt-8 md:pt-4 lg:pt-10 pb-6 border-b">
           SkillSeek FAQ
@@ -17,7 +18,7 @@ const FAQ = () => {
           </div>
         </div>
       </section>
-    </>
+    </Suspense>
   );
 };
 

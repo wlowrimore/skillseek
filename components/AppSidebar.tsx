@@ -10,36 +10,38 @@ import {
   Option,
 } from "lucide-react";
 import Link from "next/link";
+import { dec } from "sanity";
+import { useEffect } from "react";
 
 const categories = [
   { name: "Home Improvement", value: "Home Improvement" },
   { name: "Lawn & Garden", value: "Lawn & Garden" },
   {
-    name: "Automotive Maintenance & Repair",
-    value: "Automotive Maintenance & Repair",
+    name: "Automotive Maintenance",
+    value: "Automotive Maintenance",
   },
   {
-    name: "Small Engine Maintenance & Repair",
-    value: "Small Engine Maintenance & Repair",
+    name: "Small Engine Maintenance",
+    value: "Small Engine Maintenance",
   },
   { name: "Child Care", value: "Child Care" },
   { name: "Pet Care", value: "Pet Care" },
   { name: "Education & Tutoring", value: "Education & Tutoring" },
-  { name: "Music & Arts Lessons", value: "Music & Arts Lessons" },
+  { name: "Music & Arts", value: "Music & Arts" },
   { name: "Music Services", value: "Music Services" },
-  { name: "Wedding | Party Planning", value: "Wedding | Party Planning" },
+  { name: "Party Planning", value: "Party Planning" },
   { name: "Legal Services", value: "Legal Services" },
   { name: "Financial Advice", value: "Financial Advice" },
   { name: "Electronics Repair", value: "Electronics Repair" },
-  { name: "Transportation | Carpool", value: "Transportation | Carpool" },
+  { name: "Rideshare", value: "Rideshare" },
   { name: "Housekeeping", value: "Housekeeping" },
-  { name: "Website & Software Services", value: "Website & Software Services" },
+  { name: "Website & Software", value: "Website & Software" },
   { name: "Plumbing", value: "Plumbing" },
   {
-    name: "Electrical Maintenance & Repair",
-    value: "Electrical Maintenance & Repair",
+    name: "Electrical Maintenance",
+    value: "Electrical Maintenance",
   },
-  { name: "HVAC Heating & Cooling", value: "HVAC Heating & Cooling" },
+  { name: "HVAC Service", value: "HVAC Service" },
   { name: "Pool Maintenance", value: "Pool Maintenance" },
   { name: "Other", value: "Other" },
 ];
@@ -47,6 +49,10 @@ const categories = [
 export function AppSidebar() {
   const { data: session } = useSession();
   const { isOpen, toggleSidebar } = useSidebar();
+
+  const sortedCategories = categories.sort((a, b) => {
+    return a.name.localeCompare(b.name);
+  });
 
   return (
     <main
@@ -103,15 +109,15 @@ export function AppSidebar() {
           </div>
           <hr className="flex-grow w-[80%] mx-auto border-neutral-300 border-b-0" />
           <div className="flex flex-col px-6 py-6 gap-2">
-            {categories.map((c) => (
+            {sortedCategories.map((c) => (
               <Link
                 key={c.name}
                 href={`/?category=${c.name}`}
                 onClick={toggleSidebar}
                 className="flex gap-2 items-center hover:bg-zinc-200 transition duration-100 cursor-pointer px-4 rounded-full"
               >
-                <div className="flex items-center w-full py-2 pr-4 gap-2 rounded-full">
-                  <div className="w-4 h-4 rounded-full bg-[#F29072] text-white"></div>
+                <div className="flex items-center w-full py-1 pr-4 gap-2 rounded-full">
+                  <div className="w-2 h-2 mb-0.5 rounded-full bg-[#F29072] text-white"></div>
                   <span className="text-[1rem] font-semibold">{c.name}</span>
                 </div>
               </Link>

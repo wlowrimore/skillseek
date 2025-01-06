@@ -128,15 +128,19 @@
   }
 
   .section_container {
-    @apply px-6 pt-4 md:pt-16 pb-24 max-w-7xl w-full mx-auto;
+    @apply px-4 lg:px-6 pt-4 md:pt-16 pb-24 max-w-7xl w-full mx-auto;
+  }
+
+  .no-results_container {
+    @apply px-6 pt-4 md:pt-12 text-xl md:text-2xl pb-24 max-w-7xl w-full mx-auto;
   }
 
   .card_grid {
-    @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5;
+    @apply grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:gap-3 gap-5;
   }
 
   .card_grid-sm {
-    @apply grid sm:grid-cols-2 gap-5;
+    @apply grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3;
   }
 
   .no-result {
@@ -327,7 +331,7 @@
   }
 
   .category-tag {
-    @apply font-medium w-full md:w-fit text-center text-sm bg-[#F1C7A3]/40 md:bg-[#F1C7A3]/30 px-4 py-2 md:px-4 md:py-2.5 rounded-lg;
+    @apply font-semibold md:font-medium w-full md:w-fit text-center text-sm bg-[#F1C7A3]/40 md:bg-[#F1C7A3]/30 px-4 py-2 md:px-4 md:py-2.5 rounded-lg;
   }
 
   .tag-tri {
@@ -390,12 +394,8 @@
   width: 0%;
   height: var(--height);
   overflow: hidden;
-  background: rgb(222, 74, 15);
-  background: linear-gradient(
-    0deg,
-    rgba(222, 74, 15, 1) 0%,
-    rgba(249, 199, 79, 1) 100%
-  );
+  background: #51819c;
+  background: linear-gradient(0deg, #51819c 0%, #a4deff 100%);
   border-radius: calc(var(--height) / 2);
   animation: loading 4s ease-out infinite;
 }

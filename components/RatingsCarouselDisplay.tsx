@@ -133,7 +133,7 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
         {/* Current Rating Card */}
         <div className="overflow-hidden md:px-36">
           <div className="transition-transform duration-300 ease-in-out">
-            <Card className="mb-12 md:mb-0 md:p-6">
+            <Card className="mb-5 md:mb-0 md:p-6">
               <div className="w-full flex items-center gap-2">
                 <img
                   src={

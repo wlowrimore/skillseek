@@ -14,6 +14,8 @@ type sParams = {
 import ServiceContent, {
   ServiceContentProps,
 } from "@/components/ServiceContent";
+import { Suspense } from "react";
+import LoadingBar from "@/components/ui/LoadingBar";
 
 export const experimental_ppr = true;
 
@@ -44,7 +46,7 @@ const page = async ({ params }: { params: sParams }, review: RatingData) => {
   );
 
   return (
-    <>
+    <Suspense fallback={<LoadingBar />}>
       <div className="flex flex-col justify-center items-center">
         <ServiceContent
           user={session?.user}
@@ -60,7 +62,7 @@ const page = async ({ params }: { params: sParams }, review: RatingData) => {
           contactEmail={post?.author?.contact || ""}
         />
       </div>
-    </>
+    </Suspense>
   );
 };
 

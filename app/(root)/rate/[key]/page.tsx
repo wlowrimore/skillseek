@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import RatingAndReviewComponent from "../../../../components/RatingAndReviewComponent";
+import LoadingBar from "@/components/ui/LoadingBar";
 
 interface ApiResponse {
   expiresAt: string;
@@ -165,40 +166,42 @@ export default function RatingPage() {
   }
 
   return (
-    <RatingAndReviewComponent
-      ratingKey={params.key as string}
-      ratingInfo={{
-        service: {
-          description: ratingData.service.description,
-          name: ratingData.service.serviceProvider.name,
-          title: ratingData.service.title,
-          category: ratingData.service.category,
-          image: ratingData.service.image,
-          _id: ratingData.service._id,
-          provider: {
+    <Suspense fallback={<LoadingBar />}>
+      <RatingAndReviewComponent
+        ratingKey={params.key as string}
+        ratingInfo={{
+          service: {
+            description: ratingData.service.description,
             name: ratingData.service.serviceProvider.name,
-            image: ratingData.service.serviceProvider.image,
-            _id: ratingData.service.serviceProvider._id,
+            title: ratingData.service.title,
+            category: ratingData.service.category,
+            image: ratingData.service.image,
+            _id: ratingData.service._id,
+            provider: {
+              name: ratingData.service.serviceProvider.name,
+              image: ratingData.service.serviceProvider.image,
+              _id: ratingData.service.serviceProvider._id,
+            },
           },
-        },
-        serviceId: ratingData.serviceId,
-        serviceTitle: ratingData.serviceTitle,
-      }}
-      serviceId={ratingData.serviceId}
-      providerId={ratingData.providerId}
-      serviceData={{
-        title: ratingData.service.title,
-        image: ratingData.service.image,
-        category: ratingData.service.category,
-        description: ratingData.service.description,
-      }}
-      providerData={{
-        name: ratingData.service.serviceProvider.name,
-        image: ratingData.service.serviceProvider.image,
-        contact: {
-          email: ratingData.service.serviceProvider.email || "",
-        },
-      }}
-    />
+          serviceId: ratingData.serviceId,
+          serviceTitle: ratingData.serviceTitle,
+        }}
+        serviceId={ratingData.serviceId}
+        providerId={ratingData.providerId}
+        serviceData={{
+          title: ratingData.service.title,
+          image: ratingData.service.image,
+          category: ratingData.service.category,
+          description: ratingData.service.description,
+        }}
+        providerData={{
+          name: ratingData.service.serviceProvider.name,
+          image: ratingData.service.serviceProvider.image,
+          contact: {
+            email: ratingData.service.serviceProvider.email || "",
+          },
+        }}
+      />
+    </Suspense>
   );
 }

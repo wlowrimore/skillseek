@@ -1,6 +1,8 @@
 import ServiceForm from "@/components/ServiceForm";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import LoadingBar from "@/components/ui/LoadingBar";
 
 const page = async () => {
   const session = await auth();
@@ -8,13 +10,15 @@ const page = async () => {
   if (!session) redirect("/");
 
   return (
-    <div className="mt-12 md:mt-16 pb-16">
-      <section className="blue_container bg-swirl-pattern">
-        <h1 className="heading">Share Your Service with the comminity</h1>
-      </section>
+    <Suspense fallback={<LoadingBar />}>
+      <div className="mt-12 md:mt-16 pb-16">
+        <section className="blue_container bg-swirl-pattern">
+          <h1 className="heading">Share Your Service with the comminity</h1>
+        </section>
 
-      <ServiceForm authorEmail={session?.user?.email} />
-    </div>
+        <ServiceForm authorEmail={session?.user?.email} />
+      </div>
+    </Suspense>
   );
 };
 

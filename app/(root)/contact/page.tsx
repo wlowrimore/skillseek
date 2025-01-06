@@ -1,11 +1,13 @@
 import ContactForm from "@/components/ContactForm";
+import LoadingBar from "@/components/ui/LoadingBar";
 import { Dot } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 import { SocialIcon } from "react-social-icons";
 
 const Contact = () => {
   return (
-    <>
+    <Suspense fallback={<LoadingBar />}>
       <section className="container w-full mx-auto bg-contact contact_container py-3 md:mt-16">
         <h1 className="mx-4 font-bold text-3xl pb-4 mt-20 md:mt-4 border-b">
           Contact Us
@@ -109,7 +111,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </>
+    </Suspense>
   );
 };
 

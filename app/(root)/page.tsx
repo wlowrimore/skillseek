@@ -13,12 +13,9 @@ export default async function Home({
 }) {
   const query = (await searchParams).query || null;
   const category = (await searchParams).category || null;
-
   const params = { search: query || null, category: category || null };
 
   const session = await auth();
-
-  console.log(session?.user?.email);
 
   const { data: posts } = await sanityFetch({ query: SERVICES_QUERY, params });
 
@@ -42,11 +39,17 @@ export default async function Home({
       </section>
 
       <section className="section_container">
-        <p className="text-30-semibold text-center md:text-start h-[4.6rem]">
-          {displayText}
-        </p>
+        <div
+          className={`w-full flex ${posts?.length > 0 ? "justify-center lg:justify-start" : "justify-center"}`}
+        >
+          <p className="text-2xl font-semibold md:text-30-semibold text-center xl:text-start">
+            {displayText}
+          </p>
+        </div>
 
-        <ul className="mt-7 card_grid">
+        <ul
+          className={`mt-7 ${posts?.length > 0 ? "card_grid" : `card_grid-sm`}`}
+        >
           {posts?.length > 0 ? (
             posts.map((post: ServiceTypeCard) => (
               <ServiceCard
@@ -58,7 +61,9 @@ export default async function Home({
               />
             ))
           ) : (
-            <p className="no-results">No services found</p>
+            <p className="no-results_container text-center min-h-[3.6rem]">
+              No services found
+            </p>
           )}
         </ul>
       </section>

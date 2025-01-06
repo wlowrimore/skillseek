@@ -189,7 +189,7 @@ const RatingAndReviewComponent = ({
   }
 
   return (
-    <section className="container px-4 w-full md:mx-auto my-12 flex flex-col items-center min-h-[50.6rem]">
+    <section className="container px-4 w-full md:mx-auto my-14 md:my-[4.2rem] flex flex-col items-center">
       <h1 className="w-full font-bold text-3xl mt-8 md:mt-12 lg:pt-6 pb-4 border-b">
         Rate This Service
       </h1>
@@ -238,14 +238,14 @@ const RatingAndReviewComponent = ({
             <h1 className="text-4xl font-[600] mb-2 text-start">
               {serviceData?.title}
             </h1>
-            <div className="relative flex flex-col md:grid md:grid-cols-2 w-full max-h-[500px] bg-zinc-400 md:bg-white aspect-video border border-zinc-300 md:border-none rounded-xl md:rounded-tl-xl md:rounded-bl-xl md:rounded-br-none md:rounded-tr-none shadow-lg shadow-black md:shadow-none">
-              <div className="md:flex gap-2 w-full md:pr-4 md:border-r-2 border-black">
+            <div className="relative flex flex-col md:grid md:grid-cols-2 w-full max-h-[20rem] md:h-[30rem] md:max-h-[30rem] bg-zinc-400 md:bg-white aspect-video border border-zinc-300 md:border-none rounded-xl md:rounded-tl-xl md:rounded-bl-xl md:rounded-br-none md:rounded-tr-none shadow-lg shadow-black md:shadow-none">
+              <div className="md:flex gap-2 w-full h-[20rem] max-h-[20rem] md:max-h-[30rem] md:h-[30rem] md:pr-4 md:border-r-2 border-black">
                 <Image
                   src={serviceData?.image as string}
                   alt={serviceData?.title as string}
                   width={700}
                   height={700}
-                  className="rounded-xl md:rounded-tl-lg md:rounded-bl-lg md:rounded-tr-none md:rounded-br-none border border-white"
+                  className="w-full object-cover h-full rounded-xl md:rounded-tl-lg md:rounded-bl-lg md:rounded-tr-none md:rounded-br-none border border-white"
                 />
               </div>
               <div className="hidden md:flex flex-col md:ml-[1.15rem]">

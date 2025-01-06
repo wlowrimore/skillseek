@@ -79,11 +79,11 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   return (
     <>
       <section className="blue_container bg-swirl-pattern mt-[3.4rem] md:mt-16">
-        <div className="text-black max-w-[28rem] md:!max-w-[55rem] px-[1.15rem]  py-2 md:py-12 md:space-y-4  rounded-xl md:rounded-xl md:text-2xl font-semibold">
+        <div className="text-white flex flex-col justify-center items-center bg-black/70 max-w-[28rem] md:!max-w-[55rem] px-[1.15rem] md:px-10 py-2 md:py-12 md:space-y-4 rounded-xl md:rounded-xl md:text-2xl font-semibold">
           <h1 className="text-2xl md:text-5xl text-center md:text-start font-bold">
             {post.title}
           </h1>
-          <h2 className="text-gray-800 bg-slate-300/50 rounded-lg px-4 py-2 mt-3 leading-tight w-[17rem] md:w-[49.8rem] text-base md:mt-4 md:text-2xl md:max-w-[50rem]">
+          <h2 className="text-black bg-slate-300/80 rounded-lg px-4 py-2 mt-3 mb-2 leading-tight w-[17rem] md:w-[49.8rem] text-base md:mt-4 md:text-2xl md:max-w-[50rem]">
             {post.description}
           </h2>
         </div>
@@ -92,13 +92,13 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
         <p className="category-tag">{post.category}</p>
       </div>
       <section className="section_container">
-        <div className="relative">
+        <div className="relative h-[24rem] md:h-[40rem] md:max-h-[40rem]">
           <Image
             src={post?.image as string}
             alt="service image"
             width={1000}
             height={1000}
-            className="mx-auto md:max-w-[56rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
+            className="mx-auto object-cover w-full h-full md:max-w-[56rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
           />
 
           {isAuthor && (
@@ -162,10 +162,11 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
               }}
             />
           </div>
+          <hr className="divider" />
 
           {/* Service Details & Editor Picks Section */}
 
-          <h3 className="text-30-bold text-center md:text-start pt-8">
+          <h3 className="text-30-bold text-center md:text-start pt-6 md:pt-8">
             Service Details
           </h3>
           {parsedContent ? (
@@ -181,11 +182,11 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
 
           {editorPosts?.length > 0 && (
             <div className="max-w-4xl mx-auto">
-              <p className="text-30-semibold text-center md:text-start pt-5">
+              <p className="text-30-bold text-center md:text-start pt-5">
                 Editor Picks
               </p>
 
-              <ul className="mt-7 card_grid-sm">
+              <ul className="mt-7 card_grid">
                 {editorPosts.map((post: ServiceTypeCard, i: number) => (
                   <ServiceCard
                     key={i}

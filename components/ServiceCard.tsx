@@ -104,13 +104,17 @@ const ServiceCard = ({
           </Link>
 
           {/* Rating display */}
-          {ratings && ratings.length > 0 && (
+          {ratings && ratings.length > 0 ? (
             <div className="flex items-center gap-2 mb-3">
               <Star className="w-4 h-4 text-neutral-400 fill-yellow-400" />
               <span className="text-sm text-muted-foreground">
                 {calculateAverageRating(ratings).toFixed(1)} ({ratings.length}{" "}
                 {ratings.length === 1 ? "review" : "reviews"})
               </span>
+            </div>
+          ) : (
+            <div className="flex items-center mb-3">
+              <p className="text-sm">No ratings yet</p>
             </div>
           )}
 

@@ -10,6 +10,7 @@ import UserServices from "@/components/UserServices";
 import { Suspense } from "react";
 import { ServiceCardSkeleton, ServiceTypeCard } from "@/components/ServiceCard";
 import Link from "next/link";
+import LoadingBar from "@/components/ui/LoadingBar";
 
 export const experimental_ppr = true;
 
@@ -29,7 +30,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   console.log("USER IN USER/[ID]/PAGE.TSX:", user);
 
   return (
-    <>
+    <Suspense fallback={<LoadingBar />}>
       <section className="profile_container mb-12 md:my-28">
         <div className="profile_card">
           <div className="profile_title">
@@ -71,7 +72,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           </ul>
         </div>
       </section>
-    </>
+    </Suspense>
   );
 };
 
