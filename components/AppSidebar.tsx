@@ -56,7 +56,7 @@ export function AppSidebar() {
 
   return (
     <main
-      className={`fixed top-0 bottom-0 z-50 max-w-[60rem] md:mt-1 ${isOpen ? "min-h-screen overflow-y-auto translate-x-0 transition-all duration-300" : "translate-x-[-22rem] md:h-[8vh] transition-all duration-300 ease-in-out"}`}
+      className={`fixed top-0 bottom-0 left-0 right-0 z-50 md:max-w-[17.4rem] md:mt-1 bg-transparent ${isOpen ? "bg-white border-r border-neutral-300 shadow-lg shadow-black min-h-screen h-screen min-w-screen w-screen overflow-y-auto translate-x-0 transition-all duration-300" : "translate-x-[-16rem] md:h-[8vh] transition-all duration-300 ease-in-out"}`}
     >
       <button
         onClick={toggleSidebar}
@@ -66,7 +66,7 @@ export function AppSidebar() {
       >
         {isOpen ? (
           <CircleArrowLeft
-            className={`hidden md:block w-8 h-8 mt-4 mr-3 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C]" : ""}`}
+            className={`hidden md:block w-8 h-8 mt-5 mr-3 bg-[#51819C] text-white hover:bg-[#F29072] hover:text-black rounded-lg p-1 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C]" : ""}`}
           />
         ) : (
           <Option
@@ -78,15 +78,15 @@ export function AppSidebar() {
         onClick={toggleSidebar}
         title="Quick Search"
         aria-label="Toggle Sidebar"
-        className={`w-full z-100 absolute flex justify-end ${isOpen ? "right-28 md:right-4" : "right-4 top-[0.2rem]"} md:hidden`}
+        className={`w-full z-100 absolute left-[63%] flex  ${isOpen ? "right-28 md:right-4" : "right-4 top-[0.2rem]"} md:hidden`}
       >
         <span
           className={`md:hidden flex items-center justify-center w-fit h-8 mr-[-5.4rem] text-xs text-black rounded-lg px-2 mt-2cursor-pointer transition duration-300 ${isOpen ? " text-white" : "text-white"}`}
         >
           {isOpen ? (
-            <ArrowLeftCircle className="w-8 h-8 -mr-6 mt-5 bg-[#51819C] rounded-full" />
+            <ArrowLeftCircle className="w-8 h-8 -mr-[11rem] mt-4 bg-[#51819C] rounded-full" />
           ) : (
-            <Option className="w-7 h-7 bg-black/80 p-1 mt-3.5 rounded-full" />
+            <Option className="w-7 h-7 ml-14 bg-black/80 p-1 mt-3.5 rounded-full" />
           )}
         </span>
       </button>
@@ -102,13 +102,15 @@ export function AppSidebar() {
           className="w-32 h-auto pl-2 mt-2"
         />
         <div className="flex flex-col gap-2">
+          {/* <div className="fixed"> */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold mt-6 md:mt-8 pl-10">
-              Categories
-            </h1>
+            <h1 className="text-2xl font-bold mt-6 md:mt-8 pl-4">Categories</h1>
           </div>
-          <hr className="flex-grow w-[80%] mx-auto border-neutral-300 border-b-0" />
-          <div className="flex flex-col px-6 py-6 gap-2">
+          <hr
+            className={`flex-grow w-[92%] mx-auto ${isOpen ? "bg-neutral-300" : "hidden"}`}
+          />
+          {/* </div> */}
+          <div className="flex flex-col py-6 gap-y-2">
             {sortedCategories.map((c) => (
               <Link
                 key={c.name}
