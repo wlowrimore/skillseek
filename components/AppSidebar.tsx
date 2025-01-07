@@ -78,15 +78,15 @@ export function AppSidebar() {
         onClick={toggleSidebar}
         title="Quick Search"
         aria-label="Toggle Sidebar"
-        className={`w-full z-100 absolute left-[63%] flex  ${isOpen ? "right-28 md:right-4" : "right-4 top-[0.2rem]"} md:hidden`}
+        className={`z-100 absolute left-[63%] flex  ${isOpen ? "right-28 md:right-4" : "right-4 top-[0.2rem]"} md:hidden`}
       >
         <span
           className={`md:hidden flex items-center justify-center w-fit h-8 mr-[-5.4rem] text-xs text-black rounded-lg px-2 mt-2cursor-pointer transition duration-300 ${isOpen ? " text-white" : "text-white"}`}
         >
           {isOpen ? (
-            <ArrowLeftCircle className="w-8 h-8 -mr-[11rem] mt-4 bg-[#51819C] rounded-full" />
+            <ArrowLeftCircle className="w-8 h-8 -mr-[15rem] mt-4 bg-[#51819C] rounded-full" />
           ) : (
-            <Option className="w-7 h-7 ml-14 bg-black/80 p-1 mt-3.5 rounded-full" />
+            <Option className="w-7 h-7  bg-black/80 p-1 mt-3.5 rounded-full" />
           )}
         </span>
       </button>
