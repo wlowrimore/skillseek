@@ -79,11 +79,11 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   return (
     <>
       <section className="blue_container bg-swirl-pattern mt-[3.4rem] md:mt-16">
-        <div className="text-white flex flex-col justify-center items-center bg-black/70 max-w-[28rem] md:!max-w-[55rem] px-[1.15rem] md:px-10 py-2 md:py-12 md:space-y-4 rounded-xl md:rounded-xl md:text-2xl font-semibold">
+        <div className="text-white flex flex-col justify-center items-center bg-black/70 max-w-[36rem] md:!max-w-[55rem] px-[1.15rem] md:px-10 py-2 md:py-12 md:space-y-4 rounded-xl md:rounded-xl md:text-2xl font-semibold">
           <h1 className="text-2xl md:text-5xl text-center md:text-start font-bold">
             {post.title}
           </h1>
-          <h2 className="text-black bg-slate-300/80 rounded-lg px-4 py-2 mt-3 mb-2 leading-tight w-[17rem] md:w-[49.8rem] text-base md:mt-4 md:text-2xl md:max-w-[50rem]">
+          <h2 className="text-black bg-slate-300/80 rounded-lg px-4 py-2 mt-3 mb-2 leading-tight w-[22rem] md:w-[49.8rem] text-base md:mt-4 md:text-2xl md:max-w-[50rem]">
             {post.description}
           </h2>
         </div>
