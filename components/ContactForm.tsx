@@ -131,7 +131,10 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
   });
 
   return (
-    <form action={formAction} className="contact-form">
+    <form
+      action={formAction}
+      className="contact-form bg-mobile-contact md:bg-none"
+    >
       <div>
         <label htmlFor="firstName" className="contact-form_label">
           First Name
@@ -213,6 +216,7 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
         <Textarea
           id="message"
           name="message"
+          rows={5}
           value={formData.message}
           onChange={handleInputChange}
           className="contact-form_textarea"
