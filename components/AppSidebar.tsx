@@ -56,7 +56,7 @@ export function AppSidebar() {
 
   return (
     <main
-      className={`fixed top-0 bottom-0 left-0 right-0 z-50 md:max-w-[17.4rem] md:mt-1 bg-transparent ${isOpen ? "bg-white border-r border-neutral-300 shadow-lg shadow-black min-h-screen h-screen min-w-screen w-screen overflow-y-auto translate-x-0 transition-all duration-300" : "translate-x-[-16rem] md:h-[8vh] transition-all duration-300 ease-in-out"}`}
+      className={`fixed top-0 bottom-0 left-0 px-[5rem] z-50 md:max-w-[17.4rem] md:mt-1 bg-transparent ${isOpen ? "px-0 bg-white border-r border-neutral-300 shadow-lg shadow-black min-h-screen h-screen min-w-screen w-screen overflow-y-auto translate-x-0 transition-all duration-300" : "translate-x-[-16rem] md:h-[8vh] transition-all duration-300 ease-in-out"}`}
     >
       <button
         onClick={toggleSidebar}
@@ -74,42 +74,41 @@ export function AppSidebar() {
           />
         )}
       </button>
+
+      {/* Mobile Quick Search */}
       <button
+        type="button"
         onClick={toggleSidebar}
         title="Quick Search"
         aria-label="Toggle Sidebar"
-        className={`z-100 absolute left-[63%] flex  ${isOpen ? "right-28 md:right-4" : "right-4 top-[0.2rem]"} md:hidden`}
+        className="w-full mt-[1.6rem] ml-2 flex justify-end items-center mx-auto"
       >
-        <span
-          className={`md:hidden flex items-center justify-center w-fit h-8 mr-[-5.4rem] text-xs text-black rounded-lg px-2 mt-2cursor-pointer transition duration-300 ${isOpen ? " text-white" : "text-white"}`}
-        >
-          {isOpen ? (
-            <ArrowLeftCircle className="w-8 h-8 -mr-[15rem] mt-4 bg-[#51819C] rounded-full" />
-          ) : (
-            <Option className="w-7 h-7  bg-black/80 p-1 mt-3.5 rounded-full" />
-          )}
-        </span>
+        {isOpen ? (
+          <ArrowLeftCircle
+            className={`md:hidden absolute flex items-center justify-center w-14 h-14 text-xs rounded-lg px-2 cursor-pointer transition duration-300 ${isOpen ? " text-white fill-[#F29072]" : ""}`}
+          />
+        ) : (
+          <Option className="md:hidden absolute sm:right-[9rem] flex items-center justify-center w-7 h-7  bg-black/80 text-white p-1 rounded-full" />
+        )}
       </button>
 
       <div
-        className={`w-[100vw] md:w-full flex flex-col gap-2 transition-all duration-300 ease-in ${isOpen ? "bg-white w-[100vw] md:w-full" : "bg-transparent w-full ml-[-3rem] md:ml-0"}`}
+        className={`w-[100vw] min-h-screen h-screen md:w-full flex flex-col gap-2 transition-all duration-300 ease-in ${isOpen ? "bg-white w-[100vw] md:w-full" : "bg-transparent w-full ml-[-3rem] md:ml-0"}`}
       >
         <img
           src="/brand-logo.png"
           alt="brand logo"
           width={1000}
           height={1000}
-          className="w-32 h-auto pl-2 mt-2"
+          className="w-32 h-auto pl-2 -mt-4"
         />
         <div className="flex flex-col gap-2">
-          {/* <div className="fixed"> */}
           <div className="flex items-center">
             <h1 className="text-2xl font-bold mt-6 md:mt-8 pl-4">Categories</h1>
           </div>
           <hr
             className={`flex-grow w-[92%] mx-auto ${isOpen ? "bg-neutral-300" : "hidden"}`}
           />
-          {/* </div> */}
           <div className="flex flex-col py-6 gap-y-2">
             {sortedCategories.map((c) => (
               <Link
