@@ -56,7 +56,7 @@ export function AppSidebar() {
 
   return (
     <main
-      className={`fixed top-0 bottom-0 left-0 z-50 pr-8 w-[19.8rem] md:mt-1 bg-transparent ${isOpen ? "px-0 bg-white border-r border-neutral-300 shadow-lg shadow-black min-h-screen h-screen min-w-screen w-screen md:max-w-[15vw] md:w-[15vw] overflow-y-auto translate-x-0 transition-all duration-300" : "translate-x-[-16rem] md:h-[8vh] transition-all duration-300 ease-in-out"}`}
+      className={`fixed top-0 bottom-0 left-0 z-50 pr-8 w-[19.8rem] md:mt-1 bg-transparent ${isOpen ? "px-0 bg-white border-r border-neutral-300 shadow-lg shadow-black min-h-screen h-screen min-w-screen w-screen md:max-w-[40vw] md:w-[40vw] xl:max-w-[15vw] xl:w-[15vw] overflow-y-auto translate-x-0 transition-all duration-300" : "translate-x-[-16rem] md:h-[8vh] transition-all duration-300 ease-in-out"}`}
     >
       <button
         onClick={toggleSidebar}
