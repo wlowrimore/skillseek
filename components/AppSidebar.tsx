@@ -56,13 +56,13 @@ export function AppSidebar() {
 
   return (
     <main
-      className={`fixed top-0 bottom-0 left-0 px-[5rem] z-50 md:max-w-[17.4rem] md:mt-1 bg-transparent ${isOpen ? "px-0 bg-white border-r border-neutral-300 shadow-lg shadow-black min-h-screen h-screen min-w-screen w-screen overflow-y-auto translate-x-0 transition-all duration-300" : "translate-x-[-16rem] md:h-[8vh] transition-all duration-300 ease-in-out"}`}
+      className={`fixed top-0 bottom-0 left-0 z-50 pr-8 w-[19.8rem] md:mt-1 bg-transparent ${isOpen ? "px-0 bg-white border-r border-neutral-300 shadow-lg shadow-black min-h-screen h-screen min-w-screen w-screen overflow-y-auto translate-x-0 transition-all duration-300" : "translate-x-[-16rem] md:h-[8vh] transition-all duration-300 ease-in-out"}`}
     >
       <button
         onClick={toggleSidebar}
         title="Category Filter"
         aria-label="Toggle Sidebar"
-        className={`w-full z-100 absolute top-14 flex justify-end ${isOpen ? "" : "left-5"}`}
+        className="w-full z-100 absolute top-14 flex justify-end"
       >
         {isOpen ? (
           <CircleArrowLeft
@@ -70,7 +70,8 @@ export function AppSidebar() {
           />
         ) : (
           <Option
-            className={`hidden md:block w-8 h-8 mt-4 bg-neutral-800 text-white rounded-full p-1.5 cursor-pointer transition duration-300 ${isOpen ? "bg-[#F29072] text-black hover:bg-[#51819C] mr-[-1.5rem]" : "ml-[-1.5rem]"}`}
+            className={`hidden 
+              md:inline-block md:mr-[1rem] w-8 h-8 mt-4 bg-neutral-800 text-white rounded-full p-1.5 cursor-pointer transition duration-300 ${isOpen ? "hidden" : ""}`}
           />
         )}
       </button>
@@ -85,10 +86,10 @@ export function AppSidebar() {
       >
         {isOpen ? (
           <ArrowLeftCircle
-            className={`md:hidden absolute flex items-center justify-center w-14 h-14 text-xs rounded-lg px-2 cursor-pointer transition duration-300 ${isOpen ? " text-white fill-[#F29072]" : ""}`}
+            className={`md:hidden absolute right-0 flex items-center justify-center w-14 h-14 text-xs rounded-lg px-2 cursor-pointer transition duration-300 ${isOpen ? " text-white fill-[#F29072]" : ""}`}
           />
         ) : (
-          <Option className="md:hidden absolute sm:right-[9rem] flex items-center justify-center w-7 h-7  bg-black/80 text-white p-1 rounded-full" />
+          <Option className="md:hidden absolute sm:right-[4rem] flex items-center justify-center w-7 h-7  bg-black/80 text-white p-1 rounded-full" />
         )}
       </button>
 
@@ -115,11 +116,13 @@ export function AppSidebar() {
                 key={c.name}
                 href={`/?category=${c.name}`}
                 onClick={toggleSidebar}
-                className="flex gap-2 items-center hover:bg-zinc-200 transition duration-100 cursor-pointer px-4 rounded-full"
+                className="flex w-[90%] gap-2 items-center hover:bg-zinc-200 transition duration-100 cursor-pointer pl-4 pr-2 rounded-full"
               >
                 <div className="flex items-center w-full py-1 pr-4 gap-2 rounded-full">
                   <div className="w-2 h-2 mb-0.5 rounded-full bg-[#F29072] text-white"></div>
-                  <span className="text-[1rem] font-semibold">{c.name}</span>
+                  <span className="text-[1rem] w-full font-semibold">
+                    {c.name}
+                  </span>
                 </div>
               </Link>
             ))}
