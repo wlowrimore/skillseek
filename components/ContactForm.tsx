@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
 import { contactFormSchema } from "@/lib/validation";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
@@ -11,30 +12,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 
-interface ContactFormProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  subject: string;
-  message: string;
+type ContactFormData = z.infer<typeof contactFormSchema>;
+
+export interface ContactFormProps {
+  initialData?: ContactFormData;
 }
 
-interface ContactFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
+const ContactForm = ({ initialData }: ContactFormProps) => {
+  const form = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState<ContactFormData>({
-    firstName: initialData?.firstName || "",
-    lastName: initialData?.lastName || "",
-    email: initialData?.email || "",
-    subject: initialData?.subject || "",
-    message: initialData?.message || "",
+  const [isPending, setIsPending] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const { toast } = useToast();
   const router = useRouter();
@@ -43,56 +37,57 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleFormSubmit = async (prevState: any, formDataSubmit: FormData) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsPending(true);
+
     try {
-      if (!contactFormSchema.safeParse(formData)) {
-        setErrors((prev) => ({
-          ...prev,
-          email: "Please enter a valid email address",
-        }));
-        toast({
-          variant: "destructive",
-          title: "Validation Error",
-          description: "Please enter a valid email address",
-        });
-        return {
-          ...prevState,
-          error: "Invalid email address",
-          status: "ERROR",
-        };
+      // Validate form data
+      const validationResult = contactFormSchema.safeParse(formValues);
+      if (!validationResult.success) {
+        throw validationResult.error;
       }
 
-      const result = await fetch("/api/contact", {
-        method: "POST",
-        body: JSON.stringify(formDataSubmit),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      if (!form.current) {
+        throw new Error("Form reference is not available");
+      }
 
-      if (result.ok) {
+      const templateParams = {
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        email: formValues.email,
+        subject: formValues.subject,
+        message: formValues.message,
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        templateParams,
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
+      ),
         toast({
           variant: "success",
           title: "Success",
           description: "Your message has been sent successfully",
         });
-        router.refresh();
-        router.push(`/contact-success`);
-        return {
-          status: "SUCCESS",
-          message: "Your message has been sent successfully",
-        };
-      } else {
-        throw new Error("Failed to send message");
-      }
+
+      setFormValues({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+      router.push("/");
     } catch (error) {
-      console.log("Validation or submission error:", error);
+      console.error("Error sending message:", error);
 
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors;
@@ -103,36 +98,22 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
           title: "Validation Error",
           description: "Please check the form fields and try again",
         });
-
-        return {
-          ...prevState,
-          error: "Validation error occurred",
-          status: "ERROR",
-        };
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to send message. Please try again later.",
+        });
       }
-
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "An unexpected error has occurred",
-      });
-
-      return {
-        ...prevState,
-        error: "An unexpected error has occurred",
-        status: "ERROR",
-      };
+    } finally {
+      setIsPending(false);
     }
   };
 
-  const [state, formAction, isPending] = useActionState(handleFormSubmit, {
-    error: "",
-    status: "INITIAL",
-  });
-
   return (
     <form
-      action={formAction}
+      ref={form}
+      onSubmit={handleFormSubmit}
       className="contact-form bg-mobile-contact md:bg-none"
     >
       <div>
@@ -142,7 +123,7 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
         <Input
           id="firstName"
           name="firstName"
-          value={formData.firstName}
+          value={formValues.firstName}
           onChange={handleInputChange}
           className="contact-form_input"
           aria-label="First Name"
@@ -161,7 +142,7 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
         <Input
           id="lastName"
           name="lastName"
-          value={formData.lastName}
+          value={formValues.lastName}
           onChange={handleInputChange}
           className="contact-form_input"
           aria-label="Last Name"
@@ -180,7 +161,7 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
         <Input
           id="email"
           name="email"
-          value={formData.email}
+          value={formValues.email}
           onChange={handleInputChange}
           className="contact-form_input"
           aria-label="Email"
@@ -197,7 +178,7 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
         <Input
           id="subject"
           name="subject"
-          value={formData.subject}
+          value={formValues.subject}
           onChange={handleInputChange}
           className="contact-form_input"
           aria-label="Subject"
@@ -217,7 +198,7 @@ const ContactForm = ({ initialData }: { initialData?: ContactFormProps }) => {
           id="message"
           name="message"
           rows={5}
-          value={formData.message}
+          value={formValues.message}
           onChange={handleInputChange}
           className="contact-form_textarea"
           aria-label="Message"

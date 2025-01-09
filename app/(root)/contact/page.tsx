@@ -66,9 +66,7 @@ const Contact = () => {
                         style={{
                           width: 40,
                           height: 40,
-                          // transition: "all 0.3s ease",
                         }}
-                        // className="group-hover:opacity-80"
                         target="_blank"
                         rel="noreferrer"
                       />

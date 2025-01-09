@@ -15,6 +15,3 @@ export const contactFormSchema = z.object({
   subject: z.string().min(1),
   message: z.string().min(1),
 });
-
-export type FormData = z.infer<typeof formSchema>;
-export type ContactFormData = z.infer<typeof contactFormSchema>;
