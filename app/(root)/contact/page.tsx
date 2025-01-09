@@ -60,18 +60,20 @@ const Contact = () => {
                     Follow Us
                   </h2>
                   <div className="flex md:flex-row gap-8">
-                    <div className="p-1 border border-white rounded-full">
+                    <div className="p-1 border border-white rounded-full transition-all duration-300 md:hover:bg-[#007FB1] md:hover:scale-110">
                       <SocialIcon
                         url="https://linkedin.com/in/william-lowrimore-dev"
                         style={{
                           width: 40,
                           height: 40,
+                          // transition: "all 0.3s ease",
                         }}
+                        // className="group-hover:opacity-80"
                         target="_blank"
                         rel="noreferrer"
                       />
                     </div>
-                    <div className="p-1 border border-white rounded-full">
+                    <div className="p-1 border border-white rounded-full transition-all duration-300 md:hover:bg-[#E94475] md:hover:scale-110">
                       <SocialIcon
                         url="https://instagram.com/wlowrimore"
                         style={{
@@ -82,7 +84,7 @@ const Contact = () => {
                         rel="noreferrer"
                       />
                     </div>
-                    <div className="p-1 border border-white rounded-full">
+                    <div className="p-1 border border-white rounded-full transition-all duration-300 md:hover:bg-[#03ACED] md:hover:scale-110">
                       <SocialIcon
                         url="https://twitter.com/wlowrimore"
                         style={{
@@ -93,7 +95,7 @@ const Contact = () => {
                         rel="noreferrer"
                       />
                     </div>
-                    <div className="p-1 border border-white rounded-full">
+                    <div className="p-1 border border-white rounded-full transition-all duration-300 md:hover:bg-[#5865F3] md:hover:scale-110">
                       <SocialIcon
                         url="https://discord.gg/9w4r3s4"
                         style={{
