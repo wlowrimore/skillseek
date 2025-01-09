@@ -71,6 +71,7 @@ const MobileNavbar = async () => {
           <Image
             src={session?.user?.image || ""}
             alt={session?.user?.name || ""}
+            title={session?.user?.email || ""}
             width={34}
             height={34}
             className="rounded-full p-0.5 border-2 border-black"
