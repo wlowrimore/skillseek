@@ -37,7 +37,6 @@ export default async function Home({
         </div>
         <SearchForm query={query ?? ""} />
       </section>
-
       <section className="section_container">
         <div
           className={`w-full flex ${posts?.length > 0 ? "justify-center lg:justify-start" : "justify-center"}`}
@@ -67,7 +66,6 @@ export default async function Home({
           )}
         </ul>
       </section>
-
       <SanityLive />
     </Suspense>
   );

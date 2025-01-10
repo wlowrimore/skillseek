@@ -1,30 +1,20 @@
 import { auth } from "@/auth";
 import { client } from "@/sanity/lib/client";
-import Link from "next/link";
 import Image from "next/image";
 import { MobileSignInBtn } from "./AuthButtons";
 import MobileSignOutBtn from "./mobileNavLinks/MobileSignOutBtn";
 import { AUTHOR_BY_EMAIL_QUERY } from "@/sanity/lib/queries";
-
 import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerFooter,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import {
-  LayoutPanelTop,
-  Plus,
-  UserRoundX,
-  Menu,
-  Info,
-  MessageCircleQuestion,
-  Mail,
-  House,
-} from "lucide-react";
+
 import MobileAllServicesBtn from "./mobileNavLinks/MobileAllServicesBtn";
 import MobileAboutBtn from "./mobileNavLinks/MobileAboutBtn";
 import MobileMyServicesBtn from "./mobileNavLinks/MobileMyServicesBtn";

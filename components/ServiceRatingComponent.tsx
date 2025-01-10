@@ -7,6 +7,7 @@ import ServiceRatingDisplay from "./ServiceRatingDisplay";
 
 export interface RatingData {
   rating: number | null;
+  ratings: number[];
   ratingInfo: {
     serviceId: string;
     providerId: string;
@@ -27,15 +28,17 @@ export interface ServiceRatingProps {
   providerId: string;
   currentUserRating?: RatingData;
   ratingKey?: string | undefined;
+  ratings: RatingData[];
 }
 
 const ServicRating: React.FC<ServiceRatingProps> = ({
   serviceId,
   providerId,
+  ratings,
 }) => {
   const { data: session } = useSession();
-  const [ratings, setRatings] = useState<RatingData[]>([]);
-  const [averageRating, setAverageRating] = useState(0);
+
+  let averageRating = 0;
 
   return (
     <div className="space-y-8">

@@ -1,6 +1,5 @@
 import React from "react";
 import FAQQuickLinks from "./FAQQuickLinks";
-import { Button } from "./ui/button";
 import Link from "next/link";
 
 const FAQImage = () => {

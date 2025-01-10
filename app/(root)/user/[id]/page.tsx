@@ -19,15 +19,11 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const session = await auth();
 
   const user = await client.fetch(AUTHOR_BY_ID_QUERY, { id });
-  console.log("USER in user/[id]/page.tsx", user);
   if (!user) return notFound();
 
   const services = await client.fetch(SERVICES_BY_AUTHOR_QUERY, { id });
-  console.log("SERVICES IN USER/[ID]/PAGE.TSX:", services);
 
   const isAuthor = session?.user?.email === user.email;
-  console.log("IS AUTHOR IN USER/[ID]/PAGE.TSX:", isAuthor);
-  console.log("USER IN USER/[ID]/PAGE.TSX:", user);
 
   return (
     <Suspense fallback={<LoadingBar />}>

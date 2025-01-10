@@ -15,7 +15,6 @@ const page = async () => {
         <section className="blue_container bg-swirl-pattern">
           <h1 className="heading">Share Your Service with the comminity</h1>
         </section>
-
         <ServiceForm authorEmail={session?.user?.email} />
       </div>
     </Suspense>

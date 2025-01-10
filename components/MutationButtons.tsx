@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,6 +14,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+
 import { ServiceTypeCard } from "@/components/ServiceCard";
 import { deleteService } from "@/lib/actions"; // adjust import path
 import { cn } from "@/lib/utils";
@@ -21,7 +23,6 @@ import { toast } from "@/hooks/use-toast";
 
 export function UpdateButton({
   service,
-  deleteToken,
 }: {
   service: ServiceTypeCard;
   deleteToken: string;
@@ -70,7 +71,7 @@ export function DeleteButton({
           description: "Service deleted successfully",
         });
         router.refresh();
-        router.push("/"); // Optional: redirect after deletion
+        router.push("/");
       } else {
         throw new Error(result.message);
       }

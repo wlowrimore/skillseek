@@ -16,7 +16,6 @@ const client = createClient({
 export async function GET(req: NextRequest, { params }: { params: kParams }) {
   try {
     const { key } = await params;
-    console.log("API: Fetching rating key data for key:", key);
 
     // Query Sanity for the service being rated
     const query = `*[_type == "ratingKey" && key == $key] {
@@ -45,7 +44,6 @@ export async function GET(req: NextRequest, { params }: { params: kParams }) {
     }[0]`;
 
     const ratingKey = await client.fetch(query, { key });
-    console.log("API: Query result:", JSON.stringify(ratingKey, null, 2));
 
     if (!ratingKey) {
       console.log("API: No rating key found");

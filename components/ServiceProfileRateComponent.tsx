@@ -1,18 +1,12 @@
 "use client";
 
 import { client } from "@/sanity/lib/client";
-import { useParams } from "next/navigation";
-import {
-  SERVICE_BY_ID_QUERY,
-  SERVICE_BY_RATING_KEY_QUERY,
-} from "@/sanity/lib/queries";
+import { SERVICE_BY_RATING_KEY_QUERY } from "@/sanity/lib/queries";
 import { ServiceTypeCard } from "./ServiceCard";
-import { RatingData } from "@/app/(root)/rate/[key]/page";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const ServiceProfileRateComponent = (): JSX.Element => {
-  // const params = useParams();
   const [service, setService] = useState<ServiceTypeCard | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -26,8 +20,7 @@ const ServiceProfileRateComponent = (): JSX.Element => {
         const fetchedService = await client.fetch(SERVICE_BY_RATING_KEY_QUERY, {
           id: service._id,
         });
-        console.log("ID SERVICE.ID:", service._id),
-          console.log("Fetched service:", fetchedService);
+
         setService(fetchedService);
       } catch (err) {
         console.error("Error fetching service:", err);
@@ -35,7 +28,6 @@ const ServiceProfileRateComponent = (): JSX.Element => {
       } finally {
         setIsLoading(false);
       }
-      console.log("Fetching service data for SERVICE_ID:", service._id);
     };
 
     fetchServiceData();

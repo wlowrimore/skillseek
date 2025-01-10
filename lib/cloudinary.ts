@@ -18,11 +18,9 @@ export const uploadToCloudinary = async (file: File) => {
 
     const data = await response.json();
 
-    console.log("RESPONSE DATA:", response);
-    console.log("DELETE TOKEN:", data.delete_token);
     return {
       url: data.secure_url,
-      deleteToken: data.delete_token, // Save this
+      deleteToken: data.delete_token,
       publicId: data.public_id,
     };
   } catch (error) {

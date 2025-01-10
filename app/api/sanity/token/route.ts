@@ -3,10 +3,8 @@ import { SignJWT } from "jose";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  console.log("TOKEN ENDPOINT CALLED");
   try {
     const session = await auth();
-    console.log("SESSION", session);
 
     if (!session?.user?.email) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });

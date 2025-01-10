@@ -3,13 +3,9 @@ import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
 import { UpdateButton, DeleteButton } from "@/components/MutationButtons";
 import Link from "next/link";
 import Image from "next/image";
-import { formatDate } from "@/lib/utils";
 import { RatingData } from "./ServiceRatingDisplay";
-import ServiceRating, { ServiceRatingProps } from "./ServiceRatingComponent";
 import ServiceRatingDisplay from "./ServiceRatingDisplay";
-import ServiceEmailButton, {
-  ServiceEmailButtonProps,
-} from "./ui/ServiceEmailButton";
+import ServiceEmailButton from "./ui/ServiceEmailButton";
 import { Suspense } from "react";
 import LoadingBar from "./ui/LoadingBar";
 
@@ -33,7 +29,6 @@ export interface ServiceContentProps {
     _id: string;
     title: string;
     contact: string;
-    // contactEmail: string;
     author: {
       _id: string;
       name: string;
@@ -60,7 +55,6 @@ export interface ServiceContentProps {
 }
 
 const ServiceContent: React.FC<ServiceContentProps> = async ({
-  user,
   post,
   isAuthor,
   currentUserEmail,

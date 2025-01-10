@@ -6,7 +6,6 @@ import { nanoid } from "nanoid";
 import { client } from "@/sanity/lib/client";
 import { createValidId } from "@/auth";
 import { Contact } from "@/components/ServiceContent";
-import { set } from "sanity";
 
 export interface ServiceEmailButtonProps {
   service: {
@@ -51,36 +50,27 @@ export default function ServiceEmailButton({
       providerId,
     });
 
-    // Add more specific logging for service check
-    console.log("Checking service document:", serviceId);
     const serviceExists = await client.fetch(`*[_id == $serviceId][0]`, {
       serviceId: serviceId,
     });
-    console.log("Service check result:", serviceExists);
+
     if (!serviceExists) {
       throw new Error(`Service with ID ${serviceId} not found`);
     }
 
-    // Add more specific logging for user check
-    console.log("Checking user document:", userId);
     const userExists = await client.fetch(
       `*[_type == "author" && (_id == $userId)][0]`,
       { userId }
     );
 
-    console.log("User verification result:", userExists);
-
     if (!userExists) {
       throw new Error(`User document not found. ID: ${userId}`);
     }
 
-    // Add more specific logging for provider check
-    console.log("Checking provider document:", providerId);
     const providerExists = await client.fetch(`*[_id == $providerId][0]`, {
       providerId: providerId,
     });
 
-    console.log("Provider check result:", providerExists);
     if (!providerExists) {
       throw new Error(`Provider with ID ${providerId} not found`);
     }
@@ -123,9 +113,7 @@ export default function ServiceEmailButton({
 
     setIsLoading(true);
 
-    console.log("Raw email:", session.user.email);
     const userId = createValidId(session.user.email);
-    console.log("Created userId:", userId);
 
     if (session?.user?.email === service?.author?.email?.toLowerCase()) {
       alert("You cannot rate your own services");
@@ -143,12 +131,7 @@ export default function ServiceEmailButton({
     });
 
     try {
-      // First, verify all references exist using the actual IDs
-      console.log("Starting email click handler...");
-
       const userEmail = session.user.email.toLowerCase();
-      console.log("Looking up user with email:", userEmail);
-
       const userDoc = await client.fetch(
         `*[_type == "author" && email == $email][0]{
           _id,
@@ -157,8 +140,6 @@ export default function ServiceEmailButton({
         }`,
         { email: userEmail }
       );
-
-      console.log("Found user document:", userDoc);
 
       if (!userDoc) {
         throw new Error(`No user found with the email ${userEmail}`);
@@ -179,16 +160,13 @@ export default function ServiceEmailButton({
 
       const userId = userExists._id;
 
-      await verifyReferences(
-        service._id, // The actual service ID
-        userId, // The actual user ID
-        service.author._id // The actual provider ID
-      );
+      await verifyReferences(service._id, userId, service.author._id);
 
       // Check for existing unused rating key
       const existingKey = await checkExistingRatingKey(service._id, userId);
 
       let ratingKey;
+
       if (existingKey) {
         ratingKey = existingKey;
         console.log("Using existing rating key:", existingKey);
@@ -224,12 +202,13 @@ export default function ServiceEmailButton({
           isUsed: false,
         };
 
-        console.log("Creating new rating key with data:", ratingKeyData);
         ratingKey = await client.createIfNotExists(ratingKeyData);
-        console.log("Rating key creation result:", ratingKey);
       }
       setIsLoading(false);
-      console.log("SERVICE CONTACT:", contactEmail);
+
+      // ------------------------------------------------------------------------------
+      // Prefabricated email to service provider containing rating link with rating key
+      // ------------------------------------------------------------------------------
 
       const emailBody = `Hi ${service.author.name},
 

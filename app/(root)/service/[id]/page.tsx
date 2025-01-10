@@ -11,9 +11,7 @@ type sParams = {
   id: string;
 };
 
-import ServiceContent, {
-  ServiceContentProps,
-} from "@/components/ServiceContent";
+import ServiceContent from "@/components/ServiceContent";
 import { Suspense } from "react";
 import LoadingBar from "@/components/ui/LoadingBar";
 
@@ -32,12 +30,8 @@ const page = async ({ params }: { params: sParams }, review: RatingData) => {
   console.log("Full post data:", JSON.stringify(post, null, 2));
 
   const editorPosts = playlist?.select || [];
-  console.log("PLAYLIST QUERY RESULT:", playlist);
-  console.log("EDITOR POSTS", editorPosts);
 
   if (!post) return notFound();
-
-  console.log("POST IN SERVICE PAGE:", post);
 
   const authorEmail = post.author?.email;
   const currentUserEmail = session?.user?.email || null;

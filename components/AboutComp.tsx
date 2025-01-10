@@ -1,5 +1,3 @@
-import React from "react";
-
 const AboutComp = () => {
   return (
     <>
@@ -8,16 +6,6 @@ const AboutComp = () => {
           About Us
         </h1>
         <div className="grid grid-cols-1 md:flex flex-col lg:grid-cols-2 py-10 md:py-12">
-          {/* <div className="md:hidden lg:flex flex justify-center items-start pr-2 md:pr-0 pb-10 md:pb-0">
-            <img
-              src="/community_sharing.webp"
-              alt="community sharing"
-              width={1000}
-              height={1000}
-              className="w-full md:w-full h-auto rounded-full border border-neutral-600 opacity-90 shadow-xl shadow-neutral-800"
-            />
-          </div> */}
-
           <div className="w-full mx-auto pb-1 flex md:px-6">
             <img
               src="/community_sharing_flat.webp"

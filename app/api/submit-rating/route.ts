@@ -51,8 +51,6 @@ export async function POST(req: Request) {
       createdAt: new Date().toISOString(),
     });
 
-    console.log("Submitted rating:", ratingDoc);
-
     // Mark the rating key as used
     await client.patch(ratingKeyDoc._id).set({ isUsed: true }).commit();
 

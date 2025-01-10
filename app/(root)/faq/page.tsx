@@ -1,6 +1,5 @@
 import FAQContent from "@/components/FAQContent";
 import FAQImage from "@/components/FAQImage";
-import MobileFAQImage from "@/components/MobileFAQImage";
 import LoadingBar from "@/components/ui/LoadingBar";
 import React, { Suspense } from "react";
 

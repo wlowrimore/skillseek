@@ -163,7 +163,6 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         }
       } else {
         const validatedData = await formSchema.parseAsync(formData);
-        console.log("Validation passed:", validatedData);
 
         const submitFormData = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
@@ -219,7 +218,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
     }
   };
 
-  const [state, formAction, isPending] = useActionState(handleFormSubmit, {
+  const [_, formAction, isPending] = useActionState(handleFormSubmit, {
     error: "",
     status: "INITIAL",
   });

@@ -2,10 +2,7 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { client } from "./sanity/lib/client";
 import { writeClient } from "./sanity/lib/write-client";
-import {
-  AUTHOR_BY_GOOGLE_ID_QUERY,
-  VERIFY_USER_REFERENCES,
-} from "./sanity/lib/queries";
+import { AUTHOR_BY_GOOGLE_ID_QUERY } from "./sanity/lib/queries";
 
 declare module "next-auth" {
   interface Session {

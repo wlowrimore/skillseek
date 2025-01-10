@@ -7,7 +7,6 @@ import { writeClient } from "@/sanity/lib/write-client";
 import { client } from "@/sanity/lib/client";
 import { revalidatePath } from "next/cache";
 import { deleteCloudinaryImage } from "@/lib/cloudinary";
-import { cloudinaryLoader } from "next-cloudinary";
 
 interface Author {
   _id: string;
@@ -63,8 +62,6 @@ export const createPitch = async (state: any, form: FormData) => {
   const { title, description, category, image, pitch, deleteToken, contact } =
     Object.fromEntries(form);
 
-  console.log("EXTRACTED CONTACT VALUES:", contact);
-
   const slug = slugify(title as string, { lower: true, strict: true });
 
   try {
@@ -108,9 +105,6 @@ export const createPitch = async (state: any, form: FormData) => {
       pitch,
     };
 
-    console.log("SERVICE IN action.ts:", service);
-    console.log("SERVICE IMAGE IN action.ts:", service.image);
-
     const result = await writeClient.create(service);
 
     return parseServerActionResponse({
@@ -144,11 +138,6 @@ export async function updateService(
   authorEmail: string
 ) {
   try {
-    console.log("\n=== Update Service Debug Info ===");
-    console.log("Service ID:", serviceId);
-    console.log("Author Email:", authorEmail);
-    console.log("Update Data:", JSON.stringify(data, null, 2));
-
     // Get the existing service first
     const existingService = await client.fetch<ServiceWithAuthor | null>(
       `*[_type == "service" && _id == $serviceId][0]{
@@ -170,18 +159,12 @@ export async function updateService(
       { serviceId }
     );
 
-    console.log("\n=== Existing Service ===");
-    console.log(JSON.stringify(existingService, null, 2));
-
     if (!existingService) {
       throw new Error(`Service with ID ${serviceId} not found`);
     }
 
     // Check if the service's author email matches the provided email
     if (existingService.author.email !== authorEmail) {
-      console.log("\n=== Authorization Failed ===");
-      console.log("Service Author Email:", existingService.author.email);
-      console.log("Provided Email:", authorEmail);
       throw new Error(
         "Unauthorized: You don't have permission to edit this service"
       );
@@ -212,35 +195,14 @@ export async function updateService(
       title: data.title,
       description: data.description ?? existingService.description,
       category: data.category ?? existingService.category,
-      // ...(data.image && data.image !== "" ? { image: data.image } : {}),
       image: updatedImageUrl,
       pitch: data.pitch ?? existingService.pitch,
       contact: data.contact ?? existingService.contact,
-      // ...data,
-      // author: {
-      //   _type: "reference",
-      //   _ref: existingService.author._id,
-      // },
-    };
-
-    console.log("\n=== Updated Data to Commit ===");
-    console.log(JSON.stringify(updatedData, null, 2));
-
-    const serviceUpdate = {
-      ...updatedData,
-      author: {
-        _type: "reference",
-        _ref: existingService.author._id,
-      },
     };
 
     const result = await writeClient.patch(serviceId).set(updatedData).commit();
-
-    console.log("\n=== Update Result ===");
-    console.log(JSON.stringify(result, null, 2));
     return result;
   } catch (error) {
-    console.error("\n=== Error updating service ===");
     console.error("Error:", error);
     throw error;
   }
@@ -268,8 +230,6 @@ export async function deleteService(serviceId: string) {
       { serviceId }
     );
 
-    console.log("Fetched service:", service);
-
     if (!service) {
       throw new Error("Service not found");
     }
@@ -282,7 +242,7 @@ export async function deleteService(serviceId: string) {
       console.log("Auth mismatch:", {
         serviceAuthorEmail: service.author.email,
         currentUserEmail: session.user.email,
-      }); // Debug log
+      });
       throw new Error(
         "Unauthorized: You don't have permission to delete this service"
       );

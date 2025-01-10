@@ -1,53 +1,13 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useSidebar } from "@/hooks/useSidebar";
-import {
-  ArrowLeftCircle,
-  ArrowRightCircle,
-  CircleArrowLeft,
-  CircleArrowRight,
-  Option,
-} from "lucide-react";
+import { ArrowLeftCircle, CircleArrowLeft, Option } from "lucide-react";
 import Link from "next/link";
-import { dec } from "sanity";
-import { useEffect } from "react";
+import { categoriesArray } from "@/public/categoriesList/categoriesArray";
 
-const categories = [
-  { name: "Home Improvement", value: "Home Improvement" },
-  { name: "Lawn & Garden", value: "Lawn & Garden" },
-  {
-    name: "Automotive Maintenance",
-    value: "Automotive Maintenance",
-  },
-  {
-    name: "Small Engine Maintenance",
-    value: "Small Engine Maintenance",
-  },
-  { name: "Child Care", value: "Child Care" },
-  { name: "Pet Care", value: "Pet Care" },
-  { name: "Education & Tutoring", value: "Education & Tutoring" },
-  { name: "Music & Arts", value: "Music & Arts" },
-  { name: "Music Services", value: "Music Services" },
-  { name: "Party Planning", value: "Party Planning" },
-  { name: "Legal Services", value: "Legal Services" },
-  { name: "Financial Advice", value: "Financial Advice" },
-  { name: "Electronics Repair", value: "Electronics Repair" },
-  { name: "Rideshare", value: "Rideshare" },
-  { name: "Housekeeping", value: "Housekeeping" },
-  { name: "Website & Software", value: "Website & Software" },
-  { name: "Plumbing", value: "Plumbing" },
-  {
-    name: "Electrical Maintenance",
-    value: "Electrical Maintenance",
-  },
-  { name: "HVAC Service", value: "HVAC Service" },
-  { name: "Pool Maintenance", value: "Pool Maintenance" },
-  { name: "Other", value: "Other" },
-];
+const categories = categoriesArray;
 
 export function AppSidebar() {
-  const { data: session } = useSession();
   const { isOpen, toggleSidebar } = useSidebar();
 
   const sortedCategories = categories.sort((a, b) => {

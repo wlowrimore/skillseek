@@ -1,15 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { cn, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Author, Service } from "@/sanity/types";
-import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Blocks, Delete, Star } from "lucide-react";
-import { PackageMinus } from "lucide-react";
+import { Star } from "lucide-react";
 import { UpdateButton, DeleteButton } from "./MutationButtons";
 import { Contact } from "./ServiceContent";
 
@@ -76,8 +72,6 @@ const ServiceCard = ({
     description,
     ratings,
   } = post;
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const { toast } = useToast();
   const isAuthor = Boolean(
     currentUserEmail && author?.email && currentUserEmail === author.email
   );

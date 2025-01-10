@@ -1,5 +1,5 @@
 import { signIn, signOut } from "@/auth";
-import { User, UserRoundPlus, UserRoundX } from "lucide-react";
+import { UserRoundPlus, UserRoundX } from "lucide-react";
 import { Work_Sans as WorkSans } from "next/font/google";
 const work = WorkSans({ subsets: ["latin"], weight: "500" });
 

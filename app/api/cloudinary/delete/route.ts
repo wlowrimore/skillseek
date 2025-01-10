@@ -7,10 +7,8 @@ cloudinary.config({
 });
 
 export async function DELETE(request: Request) {
-  console.log("REQUEST:", request);
   try {
     const { deleteToken } = await request.json();
-    console.log("DELETE TOKEN:", deleteToken);
 
     if (!deleteToken) {
       return new Response(
@@ -29,7 +27,6 @@ export async function DELETE(request: Request) {
         body: JSON.stringify({ token: deleteToken }),
       }
     );
-    console.log("NEWEST RESPONSE:", response);
 
     const result = await response.json();
 

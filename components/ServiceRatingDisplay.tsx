@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useToast } from "@/hooks/use-toast";
-import { formatDistanceToNow } from "date-fns";
 import { StarRating } from "./ui/StarRatingComponent";
-import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import { calculateAverageRating } from "@/lib/utils";
 import { getServiceData } from "@/app/(root)/service/[id]/ServiceContentServer";
 import RatingsCarousel from "./RatingsCarouselDisplay";
@@ -39,7 +34,6 @@ export interface ServiceRatingProps {
 
 const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
   serviceId,
-  providerId,
   currentUserRating,
 }) => {
   const [review, setReview] = useState(currentUserRating?.review || "");

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  useCdn: false, // Set to false for real-time data
+  useCdn: false,
   apiVersion: "2024-01-01",
   token: process.env.SANITY_API_TOKEN,
 });
@@ -12,21 +12,15 @@ const client = createClient({
 export async function POST(req: Request) {
   try {
     const { key, serviceId, providerId } = await req.json();
-    console.log("Received parameters:", { key, serviceId, providerId });
 
     if (!key || !serviceId || !providerId) {
-      console.log("Missing required parameters:", {
-        key,
-        serviceId,
-        providerId,
-      });
       return NextResponse.json(
         { message: "Missing required parameters" },
         { status: 400 }
       );
     }
 
-    // Query Sanity for the rating key with more detailed conditions
+    // Query Sanity for the rating key with detailed conditions
     const query = `*[_type == "ratingKey" && 
       key == $key && 
       service._ref == $serviceId && 
@@ -42,12 +36,7 @@ export async function POST(req: Request) {
       isUsed
     }[0]`;
 
-    console.log("Executing query:", query);
-    console.log("With parameters:", { key, serviceId, providerId });
-
     const ratingKey = await client.fetch(query, { key, serviceId, providerId });
-
-    console.log("Query result:", JSON.stringify(ratingKey, null, 2));
 
     if (!ratingKey) {
       console.log("No rating key found for parameters");
@@ -80,7 +69,6 @@ export async function POST(req: Request) {
       );
     }
 
-    console.log("Rating key valid:", ratingKey);
     return NextResponse.json({
       valid: true,
       data: {

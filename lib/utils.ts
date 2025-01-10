@@ -84,7 +84,6 @@ export const createOrUpdateUser = async (userData: {
         roles: ["user"],
       };
 
-      console.log("Creating new user:", newUser);
       await client.createIfNotExists(newUser);
       return newUser;
     }
@@ -96,7 +95,6 @@ export const createOrUpdateUser = async (userData: {
       image: userData.image || existingUser.image,
     };
 
-    console.log("Updating existing user:", updatedUser);
     await client.patch(userId).set(updatedUser).commit();
     return updatedUser;
   } catch (error) {

@@ -8,7 +8,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import { formatDate } from "@/lib/utils";
 
 export interface RatingAndReviewProps {
   ratingKey: string | undefined;
@@ -53,7 +52,6 @@ const RatingAndReviewComponent = ({
   serviceData,
   ratingInfo: ratingInfo,
   providerData,
-  //   createdAt,
 }: RatingAndReviewProps) => {
   console.log("Component Props:", {
     ratingKey,
@@ -93,7 +91,6 @@ const RatingAndReviewComponent = ({
         });
 
         const data = await response.json();
-        console.log("Verification response:", data);
 
         if (response.ok && data.valid) {
           setIsValidRatingKey(true);

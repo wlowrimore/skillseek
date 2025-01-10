@@ -1,23 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 import { StarRating } from "./ui/StarRatingComponent";
 import { formatDistanceToNow } from "date-fns";
+
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import RatingsModal from "./ui/RatingsModal";
 
 export interface RatingData {
   rating: number | null;
@@ -46,8 +42,6 @@ export interface ServiceRatingProps {
 }
 
 const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
-  const { data: session } = useSession();
-  const user = session?.user;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedRating, setSelectedRating] = useState<RatingData | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -118,16 +112,6 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
               <ChevronsRight className="p-1" />
             </Button>
           </div>
-
-          {/* <div className="md:hidden border border-white rounded-full absolute top-[50%] right-[25%] md:top-1/2 md:right-[6%] -translate-y-1/2 z-10">
-            <Button
-              variant="ghost"
-              className="py-[1rem] px-0.5 border-[#275975] rounded-full bg-white/90 text-black"
-              onClick={nextSlide}
-            >
-              <ChevronRight className="p-1 rounded-full" />
-            </Button>
-          </div> */}
         </div>
 
         {/* Current Rating Card */}
@@ -185,49 +169,17 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
           </div>
         </div>
       </div>
-
-      {/* Full Review Dialog */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle>Review Details</DialogTitle>
-          </DialogHeader>
-
-          {selectedRating && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <img
-                  src={selectedRating.user.image || "/default-avatar.png"}
-                  alt={selectedRating.user.name}
-                  className="w-10 h-10 rounded-full"
-                />
-                <div>
-                  <p className="font-medium">{selectedRating.user.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatDistanceToNow(new Date(selectedRating.createdAt), {
-                      addSuffix: true,
-                    })}
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <StarRating
-                  rating={selectedRating.rating || 0}
-                  maxRating={5}
-                  disabled={true}
-                  showText={false}
-                  size={16}
-                />
-              </div>
-
-              <p className="text-sm">
-                {selectedRating.review || "No review provided"}
-              </p>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      {selectedRating !== null && (
+        <RatingsModal
+          selectedRating={selectedRating}
+          dialogOpen={dialogOpen}
+          handleReadMore={handleReadMore}
+          onClose={() => {
+            setDialogOpen(false);
+            setSelectedRating(null);
+          }}
+        />
+      )}
     </div>
   );
 };

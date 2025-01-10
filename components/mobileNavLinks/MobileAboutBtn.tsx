@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Info, Table } from "lucide-react";
+import { Info } from "lucide-react";
 import { DrawerClose } from "@/components/ui/drawer";
-import DiagnosticLink from "@/components/diagnostics/DiagnosticLink";
 
 const MobileAllServicesBtn = () => {
   return (
