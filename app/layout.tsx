@@ -60,9 +60,23 @@ const workSans = localFont({
 
 export const metadata: Metadata = {
   title: "SkillSeek",
-  description: "Trade skills with neighbors",
+  description:
+    "Neighbors helping neighbors through community outreach and skill-share.",
   icons: {
     icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "SkillSeek",
+    description:
+      "Neighbors helping neighbors through community outreach and skill-share.",
+    images: [
+      "/brand-logo-new.png",
+      "/brand-logo-cropped.png",
+      "/fakenamedev-logo.png",
+    ],
+    siteName: "SkillSeek",
+    locale: "en_US",
+    type: "website",
   },
 };
 

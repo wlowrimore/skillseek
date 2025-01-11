@@ -134,7 +134,7 @@ const TermsOfServiceContent = () => {
           <strong className="text-xl">6. Disclaimer of Warranties</strong>
         </p>
         <div className="mt-2">
-          <p className="text-lg">
+          <p className="text-lg leading-snug">
             THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF
             ANY KIND, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE
             IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
@@ -150,7 +150,7 @@ const TermsOfServiceContent = () => {
           <strong className="text-xl">7. Limimation of Liability</strong>
         </p>
         <div className="mt-2">
-          <p className="text-lg">
+          <p className="text-lg leading-snug">
             IN NO EVENT SHALL FAKE NAME DEVELOPMENT BE LIABLE FOR ANY INDIRECT,
             INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING,
             BUT NOT LIMITED TO, LOSS OF PROFITS, DATA LOSS, OR LOSS OF GOODWILL,
