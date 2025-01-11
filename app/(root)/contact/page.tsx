@@ -1,9 +1,37 @@
 import ContactForm from "@/components/ContactForm";
 import LoadingBar from "@/components/ui/LoadingBar";
 import { Dot } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { SocialIcon } from "react-social-icons";
+
+export const metadata: Metadata = {
+  title: "SkillSeek",
+  viewport: "width=device-width, initial-scale=1",
+  authors: [
+    { name: "William Lowrimore", url: "https://williamlowrimore.com" },
+    { name: "Fakenamedev", url: "https://x.com/fakenamedev" },
+  ],
+  description:
+    "Neighbors helping neighbors through community outreach and skill-share.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "SkillSeek",
+    description:
+      "Neighbors helping neighbors through community outreach and skill-share.",
+    images: [
+      "/brand-logo-new.png",
+      "/brand-logo-cropped.png",
+      "/fakenamedev-logo.png",
+    ],
+    siteName: "SkillSeek",
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 const Contact = () => {
   return (
