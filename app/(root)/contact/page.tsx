@@ -73,7 +73,7 @@ const Contact = () => {
                     </div>
                     <div className="p-1 border border-white rounded-full transition-all duration-300 md:hover:bg-[#E94475] md:hover:scale-110">
                       <SocialIcon
-                        url="https://instagram.com/wlowrimore"
+                        url="https://instagram.com/fakenamedev"
                         style={{
                           width: 40,
                           height: 40,
@@ -82,9 +82,9 @@ const Contact = () => {
                         rel="noreferrer"
                       />
                     </div>
-                    <div className="p-1 border border-white rounded-full transition-all duration-300 md:hover:bg-[#03ACED] md:hover:scale-110">
+                    <div className="p-1 border border-white rounded-full transition-all duration-300 md:hover:bg-black md:hover:scale-110">
                       <SocialIcon
-                        url="https://twitter.com/wlowrimore"
+                        url="https://x.com/fakenamedev"
                         style={{
                           width: 40,
                           height: 40,
@@ -95,7 +95,7 @@ const Contact = () => {
                     </div>
                     <div className="p-1 border border-white rounded-full transition-all duration-300 md:hover:bg-[#5865F3] md:hover:scale-110">
                       <SocialIcon
-                        url="https://discord.gg/9w4r3s4"
+                        url="https://discord.com/users/fakenamedev"
                         style={{
                           width: 40,
                           height: 40,

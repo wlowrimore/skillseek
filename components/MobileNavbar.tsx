@@ -74,11 +74,11 @@ const MobileNavbar = async () => {
           <div className="flex justify-start pl-2">
             <DrawerTitle>
               <img
-                src="/brand-logo-mobile.png"
+                src="/brand-logo-cropped.png"
                 alt="brand logo"
                 width={500}
                 height={500}
-                className="w-24 mt-[-0.5rem]"
+                className="w-24 h-auto"
               />
             </DrawerTitle>
           </div>

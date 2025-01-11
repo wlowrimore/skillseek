@@ -62,7 +62,7 @@ const Navbar = async () => {
         <div className="flex items-center gap-3">
           <Link href="/">
             <Image
-              src="/brand-logo.png"
+              src="/brand-logo-cropped.png"
               alt="brand logo"
               width={1000}
               height={1000}
