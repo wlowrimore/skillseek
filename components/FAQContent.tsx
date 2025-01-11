@@ -237,7 +237,7 @@ const FAQContent = () => {
           <h3 className="text-xl font-semibold">How can I contact support?</h3>
           <article className="text-slate-900 mb-3">
             <ul className="list-disc px-6 space-y-2 pt-3">
-              <li>Email: support@skillseek.com</li>
+              <li>Email: support@skillseek.app</li>
               <li>Live chat on the platform &#40; comming soon &#41;</li>
               <li>Help center with comprehensive guides</li>
               <li>Response time 24-48 hours</li>
@@ -293,7 +293,7 @@ const FAQContent = () => {
                 If you are still having trouble, contact our support team.
               </li>
               <li>Clear your browser cache and cookies.</li>
-              <li>Contact support@skillseek.com if issues persist.</li>
+              <li>Contact support@skillseek.app if issues persist.</li>
             </ul>
           </article>
           <hr className="bg-black my-4"></hr>

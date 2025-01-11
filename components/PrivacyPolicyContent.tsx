@@ -4,7 +4,16 @@ const PrivacyPolicyContent = () => {
   return (
     <article className="mt-6">
       <div className="flex flex-col pb-1.5 border-b border-neutral-400">
-        <h1 className="text-2xl font-bold">Privacy Policy</h1>
+        <span className="flex items-center gap-1.5">
+          <img
+            src="/brand-logo-cropped.png"
+            alt="skillseek"
+            width={1000}
+            height={1000}
+            className="w-36 h-auto"
+          />
+          <h1 className="text-2xl font-bold">Privacy Policy</h1>
+        </span>
         <p className="text-lg font-semibold">Effective Date: January 1, 2025</p>
       </div>
       <section className="my-4">

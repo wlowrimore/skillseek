@@ -1,7 +1,7 @@
 const AboutComp = () => {
   return (
     <>
-      <section className="container px-4 w-full md:mx-auto mt-12 flex flex-col justify-center items-center bg-slate-100">
+      <section className="container px-4 w-full md:mx-auto mt-12 md:mt-12 md:mb-6 flex flex-col justify-center items-center bg-slate-100">
         <h1 className="w-full font-bold text-3xl mt-8 md:mt-12 lg:pt-6 pb-4 border-b ">
           About Us
         </h1>
