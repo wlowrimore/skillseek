@@ -10,26 +10,24 @@ interface SignInBtnProps {
 
 export async function SignInBtn({ className, ...props }: SignInBtnProps) {
   return (
-    <>
-      <SignInVerificationWrapper>
-        <form
-          id="signin-form"
-          action={async () => {
-            "use server";
-            await signIn("google", { redirectTo: "/" });
-          }}
+    <SignInVerificationWrapper>
+      <form
+        id="signin-form"
+        action={async () => {
+          "use server";
+          await signIn("google", { redirectTo: "/" });
+        }}
+      >
+        <button
+          type="submit"
+          aria-label="Sign In"
+          {...props}
+          className={`hover:bg-[#08B6D4]/70 hover:text-white px-2 py-1 rounded-full w-[6rem] text-center transition duration-300 ${work.className} font-[600] text-[0.98rem]`}
         >
-          <button
-            type="submit"
-            aria-label="Sign In"
-            {...props}
-            className={`hover:bg-[#08B6D4]/70 hover:text-white px-2 py-1 rounded-full w-[6rem] text-center transition duration-300 ${work.className} font-[600] text-[0.98rem]`}
-          >
-            <span>SignIn</span>
-          </button>
-        </form>
-      </SignInVerificationWrapper>
-    </>
+          <span>SignIn</span>
+        </button>
+      </form>
+    </SignInVerificationWrapper>
   );
 }
 

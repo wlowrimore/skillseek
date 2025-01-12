@@ -19,7 +19,12 @@ export const SignInVerificationWrapper = ({ children }: WrapperProps) => {
       'button[type="submit"]'
     ) as HTMLButtonElement;
 
-    if (submitButton) submitButton.click();
+    setTimeout(() => {
+      const form = document.getElementById("signin-form") as HTMLFormElement;
+      if (form) {
+        form.requestSubmit();
+      }
+    });
   };
 
   const handleClose = () => {
