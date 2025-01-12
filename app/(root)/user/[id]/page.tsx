@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { client } from "@/sanity/lib/client";
+import { Metadata } from "next";
 import {
   AUTHOR_BY_ID_QUERY,
   SERVICES_BY_AUTHOR_QUERY,
@@ -11,6 +12,32 @@ import { Suspense } from "react";
 import { ServiceCardSkeleton, ServiceTypeCard } from "@/components/ServiceCard";
 import Link from "next/link";
 import LoadingBar from "@/components/ui/LoadingBar";
+
+export const metadata: Metadata = {
+  title: "SkillSeek",
+  authors: [
+    { name: "William Lowrimore", url: "https://williamlowrimore.com" },
+    { name: "Fakenamedev", url: "https://x.com/fakenamedev" },
+  ],
+  description:
+    "Neighbors helping neighbors through community outreach and skill-share.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "SkillSeek",
+    description:
+      "Neighbors helping neighbors through community outreach and skill-share.",
+    images: [
+      "/brand-logo-new.png",
+      "/brand-logo-cropped.png",
+      "/fakenamedev-logo.png",
+    ],
+    siteName: "SkillSeek",
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export const experimental_ppr = true;
 

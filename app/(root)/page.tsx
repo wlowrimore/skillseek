@@ -9,7 +9,6 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "SkillSeek",
-  viewport: "width=device-width, initial-scale=1",
   authors: [
     { name: "William Lowrimore", url: "https://williamlowrimore.com" },
     { name: "Fakenamedev", url: "https://x.com/fakenamedev" },

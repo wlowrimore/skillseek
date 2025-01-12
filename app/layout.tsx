@@ -1,5 +1,5 @@
 import React from "react";
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -60,7 +60,6 @@ const workSans = localFont({
 
 export const metadata: Metadata = {
   title: "SkillSeek",
-  viewport: "width=device-width, initial-scale=1",
   authors: [
     { name: "William Lowrimore", url: "https://williamlowrimore.com" },
     { name: "Fakenamedev", url: "https://x.com/fakenamedev" },
