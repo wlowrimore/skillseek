@@ -2,28 +2,19 @@ import TermsOfServiceContent from "@/components/TermsOfServiceContent";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "SkillSeek",
-  authors: [
-    { name: "William Lowrimore", url: "https://williamlowrimore.com" },
-    { name: "Fakenamedev", url: "https://x.com/fakenamedev" },
-  ],
-  description:
-    "Neighbors helping neighbors through community outreach and skill-share.",
-  icons: {
-    icon: "/favicon.ico",
-  },
+  title: "Terms Of Services",
+  description: "Our terms of service are very simple",
   openGraph: {
-    title: "SkillSeek",
-    description:
-      "Neighbors helping neighbors through community outreach and skill-share.",
+    title: "Terms Of Services",
+    description: "Our terms of service are very simple",
     images: [
-      "/brand-logo-new.png",
-      "/brand-logo-cropped.png",
-      "/fakenamedev-logo.png",
+      {
+        url: "https://skillseek.vercel.app/brand-logo-new.png",
+        width: 1200,
+        height: 630,
+        alt: "Terms Of Services",
+      },
     ],
-    siteName: "SkillSeek",
-    locale: "en_US",
-    type: "website",
   },
 };
 

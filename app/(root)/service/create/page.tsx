@@ -6,28 +6,19 @@ import LoadingBar from "@/components/ui/LoadingBar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "SkillSeek",
-  authors: [
-    { name: "William Lowrimore", url: "https://williamlowrimore.com" },
-    { name: "Fakenamedev", url: "https://x.com/fakenamedev" },
-  ],
-  description:
-    "Neighbors helping neighbors through community outreach and skill-share.",
-  icons: {
-    icon: "/favicon.ico",
-  },
+  title: "Create a Service",
+  description: "Got a skill or service to offer? Create it here!",
   openGraph: {
-    title: "SkillSeek",
-    description:
-      "Neighbors helping neighbors through community outreach and skill-share.",
+    title: "Create a Service",
+    description: "Got a skill or service to offer? Create it here!",
     images: [
-      "/brand-logo-new.png",
-      "/brand-logo-cropped.png",
-      "/fakenamedev-logo.png",
+      {
+        url: "https://skillseek.vercel.app/brand-logo-new.png",
+        width: 1200,
+        height: 630,
+        alt: "Create a Service",
+      },
     ],
-    siteName: "SkillSeek",
-    locale: "en_US",
-    type: "website",
   },
 };
 
