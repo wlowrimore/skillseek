@@ -13,16 +13,19 @@ import {
 import { Button } from "@/components/ui/button";
 import ModalTermsOfService from "../signInVerification/ModalTermsOfService";
 import LoadingBar from "./LoadingBar";
+import { set } from "sanity";
 
-interface UserVerificationModalProps {
+export interface UserVerificationModalProps {
   dialogOpen: boolean;
   onClose: () => void;
+  onDecline: () => void;
   onAccept: () => void;
 }
 
 export const UserVerificationModal = ({
   dialogOpen,
   onClose,
+  onDecline,
   onAccept,
 }: UserVerificationModalProps) => {
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -33,6 +36,13 @@ export const UserVerificationModal = ({
   useEffect(() => {
     setIsOpen(dialogOpen);
   }, [dialogOpen]);
+
+  const handleClose = () => {
+    setTermsAccepted(false);
+    setAgeVerified(false);
+    setIsOpen(false);
+    onClose();
+  };
 
   const handleAccept = () => {
     if (termsAccepted && ageVerified) {
@@ -46,7 +56,7 @@ export const UserVerificationModal = ({
     setAgeVerified(false);
     setTermsAccepted(false);
     setIsOpen(false);
-    onClose();
+    onDecline();
   };
 
   const handleOpenChange = (open: boolean) => {

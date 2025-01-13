@@ -97,11 +97,13 @@ const MobileNavbar = async () => {
                   <MobileSignOutBtn />
                 </>
               ) : (
-                <>
+                <div className="w-full space-y-4">
                   <MobileSignInBtn />
-                  <MobileFAQBtn />
-                  <MobileAboutBtn />
-                </>
+                  <div className="flex w-full justify-center gap-4">
+                    <MobileFAQBtn />
+                    <MobileAboutBtn />
+                  </div>
+                </div>
               )}
             </div>
           </div>

@@ -4,7 +4,7 @@ import { Work_Sans as WorkSans } from "next/font/google";
 import { SignInVerificationWrapper } from "./signInVerification/SignInVerificationWrapper";
 const work = WorkSans({ subsets: ["latin"], weight: "500" });
 
-interface SignInBtnProps {
+export interface SignInBtnProps {
   className?: string;
 }
 
@@ -19,7 +19,7 @@ export async function SignInBtn({ className, ...props }: SignInBtnProps) {
         }}
       >
         <button
-          type="submit"
+          type="button"
           aria-label="Sign In"
           {...props}
           className={`hover:bg-[#08B6D4]/70 hover:text-white px-2 py-1 rounded-full w-[6rem] text-center transition duration-300 ${work.className} font-[600] text-[0.98rem]`}

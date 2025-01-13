@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { Work_Sans as WorkSans } from "next/font/google";
+import { on } from "events";
+
 const work = WorkSans({ subsets: ["latin"], weight: "500" });
 
 const ServicesSubmenu = React.forwardRef<
@@ -27,7 +29,6 @@ const ServicesSubmenu = React.forwardRef<
     <li>
       <NavigationMenuLink asChild>
         <a
-          ref={ref}
           className={cn(
             "block select-none space-y-1 p-2 rounded-md leading-none no-underline outline-none transition-all duration-300 hover:bg-[#08B6D4]/15 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
@@ -45,8 +46,9 @@ const ServicesSubmenu = React.forwardRef<
 });
 ServicesSubmenu.displayName = "ServicesSubmenu";
 
-const Navbar = async () => {
+const Navbar = async (onDecline: () => void) => {
   const session = await auth();
+
   let authorId = null;
 
   if (session?.user?.email) {
@@ -57,7 +59,9 @@ const Navbar = async () => {
   }
 
   return (
-    <header className="hidden md:block w-full py-4 fixed top-0 z-50 bg-white/40 backdrop-blur-[8px] shadow-md shadow-zinc-300/40">
+    <header
+      className={`hidden md:block w-full ${session?.user ? "py-2" : "py-4"} fixed top-0 z-50 bg-white/40 backdrop-blur-[8px] shadow-md shadow-zinc-300/40`}
+    >
       <nav className="flex flex-between gap-5 text-[#072454]">
         <div className="flex items-center gap-3">
           <Link href="/">
