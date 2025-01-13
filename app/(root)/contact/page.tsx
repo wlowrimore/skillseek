@@ -66,8 +66,8 @@ const Contact = () => {
                           </span>
                           <p>USA</p>
                         </div>
-                        <Link href="mailto:fakenamedev@gmail.com">
-                          <p>fakenamedev@gmail.com</p>
+                        <Link href="mailto:will@skillseekapp.com">
+                          <p>support@fakenamedev.com</p>
                         </Link>{" "}
                       </div>
                     </div>
@@ -131,7 +131,7 @@ const Contact = () => {
                       We do not collect, nor do we do share your information
                       with any third parties.
                     </p>
-                    <Link href="#" className="text-xs mb-4">
+                    <Link href="/privacy-policy" className="text-xs mb-4">
                       *See{" "}
                       <span className="underline text-slate-500">
                         Privacy Policy
