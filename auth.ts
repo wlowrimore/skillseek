@@ -35,9 +35,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
   secret: process.env.AUTH_SECRET,
   debug: false,
-  pages: {
-    signIn: "/auth/signin",
-  },
   callbacks: {
     async signIn({ user, account, profile }) {
       if (!user?.email) {
