@@ -32,12 +32,7 @@ export const createValidId = (email: string) => {
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID as string,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET as string,
-    }),
-  ],
+  providers: [Google],
   secret: process.env.AUTH_SECRET,
   debug: false,
   pages: {
