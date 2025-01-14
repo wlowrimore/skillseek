@@ -137,17 +137,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
   },
-  // useSecureCookies: true,
-  // cookies: {
-  //   sessionToken: {
-  //     name: `__Secure-next-auth.session-token`,
-  //     options: {
-  //       httpOnly: true,
-  //       sameSite: "lax",
-  //       path: "/",
-  //       secure: true,
-  //       domain: ".skillseekapp.com", // Add your domain
-  //     },
-  //   },
-  // },
+  useSecureCookies: true,
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+        domain: ".skillseekapp.com", // Add your domain
+      },
+    },
+  },
 });
