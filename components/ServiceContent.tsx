@@ -79,7 +79,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
           <h1 className="text-2xl md:text-5xl text-center md:text-start font-bold">
             {post.title}
           </h1>
-          <h2 className="text-black bg-slate-300/80 rounded-lg px-4 py-2 mt-3 mb-2 leading-tight w-[22rem] md:w-[49.8rem] text-base md:mt-4 md:text-2xl md:max-w-[50rem]">
+          <h2 className="text-black bg-slate-300/80 rounded-lg px-4 py-2 mt-3 mb-2 leading-tight text-base md:mt-4 md:text-2xl max-w-[50rem] md:w-[90%]">
             {post.description}
           </h2>
         </div>
