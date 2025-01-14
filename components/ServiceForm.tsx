@@ -313,9 +313,9 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           value={formData.pitch}
           onChange={handleInputChange}
           className="startup-form_textarea h-32"
-          aria-label="Briefly describe your services and how you can help others"
+          aria-label="Briefly describe your service. Include things like years of experience, skills, and more."
           required
-          placeholder="Briefly describe your services and how you can help others"
+          placeholder="Briefly describe your service. Include things like years of experience, skills, and more."
         />
         {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
       </div>
