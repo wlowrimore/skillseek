@@ -26,8 +26,16 @@ export const createValidId = (email: string) => {
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [Google],
+  providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID as string,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET as string,
+    }),
+  ],
   debug: false,
+  pages: {
+    signIn: "/auth/signin",
+  },
   callbacks: {
     async signIn({ user, account, profile }) {
       if (!user?.email) {
@@ -120,6 +128,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.roles = (token.roles as string[]) || ["administrator"];
       }
       return session;
+    },
+  },
+  useSecureCookies: true,
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+        domain: ".skillseekapp.com", // Add your domain
+      },
     },
   },
 });
