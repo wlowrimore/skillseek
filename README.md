@@ -1,38 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SkillSeek
+
+### SkillSeek is a web application that connects people in your local area who need services with skilled professionals who can provide them.
+
+## For Clients
+
+- Find and schedule appointments with local service providers for a variety of needs, including handyman services, carpentry, computer repairs, and more.
+
+- Save money by supporting local professionals.
+
+- Build rapport with service providers for future needs and recommendations.
+
+- Rate and review service providers to help others make informed decisions.
+
+## For Service Providers
+
+- Create a profile to showcase your skills and experience.
+
+- Connect with local clients who need your services.
+
+- Get notified when clients contact you through a prefabricated email with a unique rating link.
+
+- Receive ratings and reviews from clients to build trust and credibility.
+
+### Technologies Used
+
+## Front-End
+
+- React v19 Library
+
+- Next.js v15 Framework
+
+- TailwindCSS Framework
+
+- Vanilla CSS
+
+- HTML
+
+## Back-End
+
+- Sanity
+- Google Cloud API (for 2FA OAuth)
+- Cloudinary Cloud API (for image uploads)
+- TypeScript
+- JavaScript(ES6)
+
+## Security
+
+- Server-side and client-side validation
+- Next-Auth with JSON Web Token Validation
+- Unique rating keys with expiration and usage checks
 
 ## Getting Started
 
-First, run the development server:
+- Visit the SkillSeek website: [https://www.skillseekapp.com](https://www.skillseekapp.com)
+- Signin using your Google account
+- Browse for services or create a profile to offer your services
+- Contact service providers or get contacted for jobs
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Support
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img src='public/brand-logo-new.png' width='200px' height='200px' alt='skillseekapp' />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# difo
-# skillseek
+### If you have any questions or need help using SkillSeek, please contact us at [support@skillseek.com](mailto://support@skillseek.com).
