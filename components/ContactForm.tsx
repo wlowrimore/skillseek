@@ -11,17 +11,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 
-type ContactFormData = z.infer<typeof contactFormSchema>;
-
-export interface ContactFormProps {
-  initialData?: ContactFormData;
-}
-
-const ContactForm = ({ initialData }: ContactFormProps) => {
+const ContactForm = () => {
   const form = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isPending, setIsPending] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",

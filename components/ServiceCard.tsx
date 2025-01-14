@@ -67,7 +67,6 @@ const ServiceCard = ({
     title,
     category,
     _id,
-    contact,
     image,
     description,
     ratings,

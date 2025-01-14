@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { RatingData } from "@/components/RatingsCarouselDisplay";
 
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,

@@ -14,9 +14,6 @@ type sParams = {
 import ServiceContent from "@/components/ServiceContent";
 import { Suspense } from "react";
 import LoadingBar from "@/components/ui/LoadingBar";
-import { Metadata } from "next";
-
-export const experimental_ppr = true;
 
 const page = async ({ params }: { params: sParams }, review: RatingData) => {
   const { id } = await params;

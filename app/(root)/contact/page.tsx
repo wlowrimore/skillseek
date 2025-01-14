@@ -66,8 +66,8 @@ const Contact = () => {
                           </span>
                           <p>USA</p>
                         </div>
-                        <Link href="mailto:will@skillseekapp.com">
-                          <p>support@fakenamedev.com</p>
+                        <Link href="mailto:support@skillseekapp.com">
+                          <p>support@skillseekapp.com</p>
                         </Link>{" "}
                       </div>
                     </div>

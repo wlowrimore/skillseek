@@ -192,7 +192,7 @@ const PrivacyPolicyContent = () => {
         </p>
         <div className="mt-2">
           <p className="text-lg">
-            The App is not intended for use by children under the age of 13. We
+            The App is not intended for use by children under the age of 18. We
             do not knowingly collect personal information from children under
             13.
           </p>
@@ -217,7 +217,7 @@ const PrivacyPolicyContent = () => {
         <div className="mt-2">
           <p className="text-lg">
             If you have any questions about this Privacy Policy or our privacy
-            practices, please contact us at: fakenamedev@gmail.com
+            practices, please contact us at: support@skillseekapp.com
           </p>
         </div>
       </section>

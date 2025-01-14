@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useSession } from "next-auth/react";
 import { StarRating } from "./ui/StarRatingComponent";
 import ServiceRatingDisplay from "./ServiceRatingDisplay";

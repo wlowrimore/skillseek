@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { Work_Sans as WorkSans } from "next/font/google";
-import { on } from "events";
 
 const work = WorkSans({ subsets: ["latin"], weight: "500" });
 
@@ -46,7 +45,7 @@ const ServicesSubmenu = React.forwardRef<
 });
 ServicesSubmenu.displayName = "ServicesSubmenu";
 
-const Navbar = async (onDecline: () => void) => {
+const Navbar: React.FC = async () => {
   const session = await auth();
 
   let authorId = null;

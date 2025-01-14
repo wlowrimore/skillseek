@@ -206,7 +206,7 @@ const TermsOfServiceContent = () => {
         <div className="mt-2">
           <p className="text-lg">
             If you have any questions about these Terms, please contact us at:
-            fakenamedev@gmail.com.
+            support@skillseekapp.com.
           </p>
         </div>
       </section>

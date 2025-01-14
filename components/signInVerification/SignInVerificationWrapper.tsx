@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { UserVerificationModal } from "../ui/UserVerificationModal";
 
 interface WrapperProps {

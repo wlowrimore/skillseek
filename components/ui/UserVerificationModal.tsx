@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useState, useEffect } from "react";
-import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
@@ -13,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import ModalTermsOfService from "../signInVerification/ModalTermsOfService";
 import LoadingBar from "./LoadingBar";
-import { set } from "sanity";
 
 export interface UserVerificationModalProps {
   dialogOpen: boolean;
