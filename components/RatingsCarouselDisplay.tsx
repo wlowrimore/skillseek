@@ -54,7 +54,7 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
     setCurrentIndex((prev) => (prev - 1 + ratings.length) % ratings.length);
   };
 
-  const truncateText = (text: string, maxLength = 100) => {
+  const truncateText = (text: string, maxLength = 60) => {
     if (!text) return "No review provided";
     if (text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
@@ -151,7 +151,7 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
                 />
               </div>
 
-              <div className="mt-2">
+              <div className="mt-2 h-[2rem]">
                 <p className="text-sm">
                   {truncateText(ratings[currentIndex].review)}
                   {ratings[currentIndex].review?.length > 100 && (

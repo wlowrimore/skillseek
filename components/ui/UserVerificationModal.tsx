@@ -68,7 +68,7 @@ export const UserVerificationModal = ({
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <Suspense fallback={<LoadingBar />}>
         <DialogContent
-          className="sm:max-w-lg flex flex-col w-[94%] md:w-full max-h-[94%] md:max-h-[85%]
+          className="max-w-[60rem] flex flex-col md:w-[90vm] max-h-[94%] md:max-h-[85%]
           overflow-y-auto bg-[url('/terms-of-service-modal-bg.webp')]"
         >
           <DialogHeader>

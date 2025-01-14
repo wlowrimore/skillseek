@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const ModalTermsOfService = () => {
@@ -181,7 +182,7 @@ const ModalTermsOfService = () => {
         <div className="mt-2">
           <p className="text-lg">
             These Terms shall be governed by and construed in accordance with
-            the laws of [Your State/Country].
+            the laws of Tennessee.
           </p>
         </div>
       </section>
@@ -206,7 +207,11 @@ const ModalTermsOfService = () => {
         <div className="mt-2">
           <p className="text-lg">
             If you have any questions about these Terms, please contact us at:
-            support@skillseekapp.com.
+            <Link href="mailto:support@skillseekapp.com">
+              <span className="ml-2 text-cyan-800 hover:underline">
+                support@skillseekapp.com.
+              </span>
+            </Link>
           </p>
         </div>
       </section>
