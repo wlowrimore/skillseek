@@ -4,6 +4,12 @@ import { client } from "./sanity/lib/client";
 import { writeClient } from "./sanity/lib/write-client";
 import { AUTHOR_BY_GOOGLE_ID_QUERY } from "./sanity/lib/queries";
 
+console.log("NEXTAUTH_URL:", process.env.NEXT_AUTH_URL);
+console.log("NEXT_PUBLIC_APP_URL:", process.env.NEXT_PUBLIC_APP_URL);
+console.log("AUTH_GOOGLE_ID:", process.env.AUTH_GOOGLE_ID);
+console.log("AUTH_GOOGLE_SECRET:", process.env.AUTH_GOOGLE_SECRET);
+console.log("AUTH_SECRET:", process.env.AUTH_SECRET);
+
 declare module "next-auth" {
   interface Session {
     user: {
@@ -32,6 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientSecret: process.env.AUTH_GOOGLE_SECRET as string,
     }),
   ],
+  secret: process.env.AUTH_SECRET,
   debug: false,
   pages: {
     signIn: "/auth/signin",

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description: "Have a question or want to work with us?",
     images: [
       {
-        url: "https://skillseek.vercel.app/brand-logo-new.png",
+        url: "https://skillseekapp.com/brand-logo-new.png",
         width: 1200,
         height: 630,
         alt: "Contact Us",
