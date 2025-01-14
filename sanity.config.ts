@@ -129,7 +129,7 @@ export default defineConfig({
   },
 
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://skillseekapp.com"],
     credentials: true,
   },
 });
