@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StarRating } from "./ui/StarRatingComponent";
 import { formatDistanceToNow } from "date-fns";
 
@@ -46,12 +46,25 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
   const [selectedRating, setSelectedRating] = useState<RatingData | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % ratings.length);
+    if (mounted.current) {
+      setCurrentIndex((prev) => (prev + 1) % ratings.length);
+    }
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + ratings.length) % ratings.length);
+    if (mounted.current) {
+      setCurrentIndex((prev) => (prev - 1 + ratings.length) % ratings.length);
+    }
   };
 
   const truncateText = (text: string, maxLength = 60) => {
@@ -61,8 +74,10 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
   };
 
   const handleReadMore = (rating: RatingData) => {
-    setSelectedRating(rating);
-    setDialogOpen(true);
+    if (mounted.current) {
+      setSelectedRating(rating);
+      setDialogOpen(true);
+    }
   };
 
   return (
