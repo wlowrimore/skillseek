@@ -136,9 +136,9 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
               <div className="w-full flex items-center gap-2">
                 <img
                   src={
-                    ratings[currentIndex].user.image || "/default-avatar.png"
+                    ratings[currentIndex]?.user?.image || "/default-avatar.png"
                   }
-                  alt={ratings[currentIndex].user.name}
+                  alt={ratings[currentIndex]?.user?.name || "User"}
                   className="w-10 h-10 rounded-full"
                 />
                 <div>
