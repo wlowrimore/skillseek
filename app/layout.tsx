@@ -6,7 +6,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppSidebar } from "@/components/AppSidebar";
 import { CatProvider } from "@/contexts/CategoryContext";
 import AppSessionProvider from "@/AppSessionProvider";
-import SplashScreen from "@/components/ui/SplashScreen";
 
 const workSans = localFont({
   src: [
@@ -96,7 +95,6 @@ export default function RootLayout({
       <body className={workSans.variable}>
         <AppSessionProvider>
           <CatProvider>
-            <SplashScreen />
             <AppSidebar />
             {children}
             <Toaster />

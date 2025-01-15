@@ -1,4 +1,5 @@
 import React from "react";
+import SplashScreen from "@/components/SplashScreen";
 import Navbar from "../../components/Navbar";
 import MobileNavbar from "@/components/MobileNavbar";
 import Footer from "@/components/Footer";
@@ -35,6 +36,7 @@ export default function Layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <main className="font-work-sans ml-[calc(var(--sidebar-width)*2.5)]">
+      <SplashScreen />
       <div className="hidden md:block">
         <Navbar />
       </div>
