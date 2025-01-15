@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const SplashScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -47,7 +48,7 @@ const SplashScreen = () => {
               </p>
             </div>
             {/* Loading Spinner */}
-            <div className="absolute h-[80%] top-[8rem] z-70">
+            <Link href="/" className="absolute h-[80%] top-[8rem] z-70">
               <Loader2 className="w-24 h-24 bg-gradient-to-br from-[#51819C] to-[#F29072] text-[#51819C]/80 rounded-full animate-spin p-4" />
               <div className="relative z-80 bottom-24 w-full">
                 <Image
@@ -58,7 +59,7 @@ const SplashScreen = () => {
                   className="w-64 h-auto"
                 />
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
