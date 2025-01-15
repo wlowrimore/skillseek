@@ -59,6 +59,7 @@ const workSans = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://skillseekapp.com"),
   title: "SkillSeek",
   authors: [
     { name: "William Lowrimore", url: "https://williamlowrimore.com" },

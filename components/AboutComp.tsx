@@ -12,7 +12,7 @@ const AboutComp = () => {
               alt="community sharing"
               width={1000}
               height={1000}
-              className="w-full max-h-[15rem] opacity-90 object-cover rounded-xl border-[3px] border-black"
+              className="w-full max-h-[14.5rem] opacity-70 brightness-70 object-cover rounded-xl"
             />
           </div>
 
