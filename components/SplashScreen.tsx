@@ -46,7 +46,7 @@ const SplashScreen = () => {
           {/* Title */}
           <div className="relative z-50 w-full flex flex-col justify-center items-center">
             <div className=" bg-black/80 w-screen h-screen flex flex-col items-center pt-[17rem] px-4 text-zinc-400">
-              <h1 className="text-6xl text-center font-bold w-full bg-swirl-pattern bg-clip-text text-transparent opacity-60">
+              <h1 className="text-6xl text-center font-bold w-full bg-swirl-pattern bg-clip-text text-transparent opacity-80">
                 SkillSeek
               </h1>
               <p className="text-white/80 text-[1.1rem] duration-1000">
@@ -62,29 +62,32 @@ const SplashScreen = () => {
                   alt="skillseekapp"
                   width={500}
                   height={500}
-                  className="w-44 h-auto border-2 border-slate-800 rounded-full"
+                  className="w-44 h-auto border-2 border-white rounded-full"
                   onClick={handleAuthentication}
                 />
               </div>
             </div>
             <SignInVerificationWrapper>
               {!session?.user ? (
-                <div className="absolute z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
+                <div className="absolute bottom-[34%] left-0 right-0 z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
                   {/* <span className="bg-slate-800 relative min-w-[100vw] left-[13%] h-[0.2rem] rounded-full"></span> */}
-                  <form onSubmit={handleSubmit}>
+                  <form
+                    onSubmit={handleSubmit}
+                    className="text-zinc-200 w-full flex justify-center items-center mx-auto"
+                  >
                     <button
                       type="submit"
                       // className="relative flex justify-center right-[49.95vw] items-center top-[1.7rem] z-20 py-2 px-4"
                     >
-                      <p className="w-fit px-3 py-0.5 border-[3px] bg-gray-900 border-slate-800 rounded-md flex justify-center items-center">
-                        <span>Enter</span>
+                      <p className="w-fit text-lg border-b border-zinc-300 pt-2 flex justify-center items-center">
+                        <span>Click Here to Get Started</span>
                       </p>
                     </button>
                   </form>
                 </div>
               ) : (
                 <>
-                  <h1 className="relative top-[25vh] text-zinc-200 text-[1.3rem] text-center font-normal tracking-wide w-full animate-pulse duration-[2000ms]">
+                  <h1 className="relative top-[25vh] text-[1.3rem] text-center font-normal tracking-wide w-full animate-pulse duration-[2000ms]">
                     Loading
                   </h1>
                 </>
