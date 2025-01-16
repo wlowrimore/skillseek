@@ -69,7 +69,7 @@ const SplashScreen = () => {
             </div>
             <SignInVerificationWrapper>
               {!session?.user ? (
-                <div className="absolute z-90 w-screen flex justify-center items-end h-[70vh] text-zinc-300 text-[1.3rem]">
+                <div className="absolute z-90 w-screen flex justify-center items-end top-[24vh] -left-[13.4rem]  text-zinc-300 text-[1.3rem]">
                   <span className="bg-slate-800 relative min-w-[100vw] left-[13%] h-[0.2rem] rounded-full"></span>
                   <form onSubmit={handleSubmit}>
                     <button
