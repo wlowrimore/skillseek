@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { sharedMetadata } from "./metadata";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -59,8 +60,10 @@ const workSans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://skillseekapp.com"),
-  title: "SkillSeek",
+  title: {
+    default: "SkillSeek",
+    template: "%s | SkillSeek",
+  },
   authors: [
     { name: "William Lowrimore", url: "https://williamlowrimore.com" },
     { name: "Fakenamedev", url: "https://x.com/fakenamedev" },

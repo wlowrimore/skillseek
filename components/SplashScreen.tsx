@@ -83,10 +83,16 @@ const SplashScreen = () => {
                   <form onSubmit={handleSubmit}>
                     <button
                       type="submit"
-                      className="relative flex justify-center right-[49.5vw] items-center top-[1.7rem] z-20 py-2 px-4"
+                      className="relative flex justify-center right-[49.95vw] items-center top-[1.7rem] z-20 py-2 px-4"
                     >
                       <p className="w-fit px-3 py-0.5 border-[3px] bg-gray-900 border-slate-800 rounded-md flex justify-center items-center">
-                        Enter
+                        {!session?.user ? (
+                          <span>Enter</span>
+                        ) : (
+                          <span className="animate-pulse duration-1000">
+                            Loading...
+                          </span>
+                        )}
                       </p>
                     </button>
                   </form>
