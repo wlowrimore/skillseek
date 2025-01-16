@@ -13,6 +13,16 @@ const SplashScreen = () => {
 
   const { data: session } = useSession();
 
+  useEffect(() => {
+    if (session?.user) {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [session?.user]);
+
   const handleAuthentication = () => {
     if (session?.user) {
       setIsAuthenicated(true);
@@ -24,16 +34,6 @@ const SplashScreen = () => {
   const handleSubmit = () => {
     signIn("google", { callbackUrl: "/" });
   };
-
-  if (session?.user) {
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    }, []);
-  }
 
   if (!isVisible || isAuthenticated) return null;
 
@@ -67,29 +67,29 @@ const SplashScreen = () => {
                 />
               </div>
             </div>
-            {!session?.user ? (
-              <div className="absolute z-90 w-screen flex justify-center items-end h-[70vh] text-zinc-300 text-[1.3rem]">
-                <span className="bg-slate-800 relative min-w-[100vw] left-[13%] h-[0.2rem] rounded-full"></span>
-                <SignInVerificationWrapper>
+            <SignInVerificationWrapper>
+              {!session?.user ? (
+                <div className="absolute z-90 w-screen flex justify-center items-end h-[70vh] text-zinc-300 text-[1.3rem]">
+                  <span className="bg-slate-800 relative min-w-[100vw] left-[13%] h-[0.2rem] rounded-full"></span>
                   <form onSubmit={handleSubmit}>
                     <button
                       type="submit"
                       className="relative flex justify-center right-[49.95vw] items-center top-[1.7rem] z-20 py-2 px-4"
                     >
                       <p className="w-fit px-3 py-0.5 border-[3px] bg-gray-900 border-slate-800 rounded-md flex justify-center items-center">
-                        {!session?.user ? (
-                          <span>Enter</span>
-                        ) : (
-                          <span className="animate-pulse duration-1000">
-                            Loading...
-                          </span>
-                        )}
+                        <span>Enter</span>
                       </p>
                     </button>
                   </form>
-                </SignInVerificationWrapper>
-              </div>
-            ) : null}
+                </div>
+              ) : (
+                <>
+                  <h1 className="relative top-[25vh] text-zinc-200 text-[1.3rem] text-center font-normal tracking-wide w-full animate-pulse duration-[2000ms]">
+                    Loading
+                  </h1>
+                </>
+              )}
+            </SignInVerificationWrapper>
           </div>
         </div>
       </div>
