@@ -5,8 +5,6 @@ import { useSession, signIn } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import SplashScreenColorCircles from "./ui/SplashScreenColorCircles";
-import { Button } from "./ui/button";
-import Link from "next/link";
 import { SignInVerificationWrapper } from "./signInVerification/SignInVerificationWrapper";
 
 const SplashScreen = () => {
@@ -26,13 +24,6 @@ const SplashScreen = () => {
   const handleSubmit = () => {
     signIn("google", { callbackUrl: "/" });
   };
-  useEffect(() => {
-    handleAuthentication();
-  }, [session]);
-
-  if (isAuthenticated) {
-    return null;
-  }
 
   if (session?.user) {
     useEffect(() => {
@@ -44,7 +35,7 @@ const SplashScreen = () => {
     }, []);
   }
 
-  if (!isVisible) return null;
+  if (!isVisible || isAuthenticated) return null;
 
   return (
     <div className="fixed inset-0 bg-[url('/splash-screen-bg.webp')] flex flex-col items-center justify-center md:hidden">

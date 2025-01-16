@@ -1,6 +1,5 @@
 import React from "react";
 import type { Metadata } from "next";
-import { sharedMetadata } from "./metadata";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
