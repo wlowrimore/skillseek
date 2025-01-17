@@ -362,7 +362,7 @@
 }
 
 .loading-text {
-  color: black;
+  color: skyblue;;
   font-size: 14pt;
   font-weight: 600;
   margin-left: 10px;
@@ -388,7 +388,7 @@
   padding: 5px;
   width: 200px;
   height: var(--height);
-  background-color: #212121 /*change this*/;
+  background-color: #183455;
   box-shadow: #0c0c0c -2px 2px 4px 0px inset;
   border-radius: calc(var(--height) / 2);
 }
@@ -405,7 +405,7 @@
   background: #51819c;
   background: linear-gradient(0deg, #51819c 0%, #a4deff 100%);
   border-radius: calc(var(--height) / 2);
-  animation: loading 4s ease-out infinite;
+  animation: loading 9s ease-out infinite;
 }
 
 .white-bars-container {
