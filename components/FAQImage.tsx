@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const FAQImage = () => {
   return (
-    <div className="hidden md:flex flex-col md:gap-[1.5rem] lg:gap-[2rem] items-end md:items-start h-full pr-4 w-[21rem] mt-[4rem] mb-9 lg:-mb-1">
+    <div className="hidden md:flex flex-col md:gap-[1.5rem] lg:gap-[2rem] items-end md:items-start h-0 md:h-full pr-4 w-[21rem] mt-[4rem] mb-9 lg:-mb-1">
       <FAQQuickLinks />
       <Link href="/contact" className="w-full">
         <div className="bg-[#FCF2E4]/90 border-[3px] rounded-xl border-black shadow-lg shadow-black lg:w-full lg:h-[6.3rem] px-2 py-3.5 w-full flex flex-col gap-2">

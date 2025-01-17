@@ -345,23 +345,24 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           <p className="startup-form_error">{errors.contact}</p>
         )}
       </div>
-
-      <Button
-        type="submit"
-        aria-label="Submit Your Service"
-        name="submit"
-        className="startup-form_btn"
-        disabled={isPending || !formData.image}
-      >
-        {isPending
-          ? isUpdatePath
-            ? "Updating..."
-            : "Submitting..."
-          : isUpdatePath
-            ? "Submit Changes"
-            : "Submit Your Service"}
-        <Send className="size-6 ml-2" />
-      </Button>
+      <div className="pb-4 md:pb-0 md:pt-6">
+        <Button
+          type="submit"
+          aria-label="Submit Your Service"
+          name="submit"
+          className="startup-form_btn"
+          disabled={isPending || !formData.image}
+        >
+          {isPending
+            ? isUpdatePath
+              ? "Updating..."
+              : "Submitting..."
+            : isUpdatePath
+              ? "Submit Changes"
+              : "Submit Your Service"}
+          <Send className="size-6 ml-2" />
+        </Button>
+      </div>
     </form>
   );
 };

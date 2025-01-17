@@ -265,7 +265,7 @@
 
   /* startupform */
   .startup-form {
-    @apply max-w-2xl mx-auto bg-[#F29072]/20 md:my-10 md:rounded-xl border-t-2 md:border border-slate-400 space-y-8 px-6 py-8;
+    @apply max-w-2xl mx-auto bg-[#F29072]/20 md:my-10 md:rounded-xl border-t-2 md:border border-slate-400 space-y-6 px-6 pt-8 pb-4 -mb-[5rem] md:mb-8 md:py-8;
   }
 
   .startup-form_label {
