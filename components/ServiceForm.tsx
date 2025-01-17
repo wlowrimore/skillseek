@@ -114,6 +114,9 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
 
   const handleFormSubmit = async (prevState: any, formDataSubmit: FormData) => {
     try {
+      console.log("Initial Data:", initialData);
+      console.log("Is Admin", initialData?.role === "administrator");
+
       if (!validateEmail(formData.contact)) {
         setErrors((prev) => ({
           ...prev,
@@ -131,7 +134,9 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         };
       }
 
-      if (initialData && initialData.role === "administrator") {
+      if (initialData?._id) {
+        console.log("Taking Update Branch");
+
         const result = await updateService(
           initialData._id,
           {
@@ -162,6 +167,8 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           throw new Error("Failed to update service");
         }
       } else {
+        console.log("Taking Create Branch");
+
         const validatedData = await formSchema.parseAsync(formData);
 
         const submitFormData = new FormData();

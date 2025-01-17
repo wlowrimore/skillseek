@@ -151,6 +151,7 @@ const ContactForm = () => {
           Email
         </label>
         <Input
+          type="email"
           id="email"
           name="email"
           value={formValues.email}
