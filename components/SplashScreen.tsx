@@ -6,9 +6,11 @@ import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import SplashScreenColorCircles from "./ui/SplashScreenColorCircles";
 import { SignInVerificationWrapper } from "./signInVerification/SignInVerificationWrapper";
+import LoadingBar from "./ui/LoadingBar";
 
 const SplashScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenicated] = useState(false);
 
   const { data: session } = useSession();
@@ -17,6 +19,7 @@ const SplashScreen = () => {
     if (session?.user) {
       const timer = setTimeout(() => {
         setIsVisible(false);
+        setIsLoading(false);
       }, 5000);
 
       return () => clearTimeout(timer);
@@ -86,11 +89,14 @@ const SplashScreen = () => {
                   </form>
                 </div>
               ) : (
-                <>
-                  <h1 className="relative top-[25vh] text-[1.3rem] text-center font-normal tracking-wide w-full animate-pulse duration-[2000ms]">
-                    Loading
-                  </h1>
-                </>
+                <div className="absolute bottom-[34%] left-0 right-0 z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
+                  <div className="w-full flex justify-center items-center mx-auto">
+                    {/* <h1 className="w-fit text-[1.3rem] pt-2 flex justify-center items-center font-normal tracking-wide animate-pulse duration-[2000ms]">
+                    Loading User {session?.user?.name}
+                  </h1> */}
+                    {isLoading && <LoadingBar />}
+                  </div>
+                </div>
               )}
             </SignInVerificationWrapper>
           </div>
