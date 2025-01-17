@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import RatingAndReviewComponent from "../../../../components/RatingAndReviewComponent";
-import LoadingBar from "@/components/ui/LoadingBar";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 
 interface ApiResponse {
   expiresAt: string;
@@ -149,13 +149,13 @@ export default function RatingPage() {
     fetchRatingKeyData();
   }, [ratingKey, toast]);
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p>Loading rating information...</p>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-screen">
+  //       <p>Loading rating information...</p>
+  //     </div>
+  //   );
+  // }
 
   if (error || !ratingData) {
     return (
@@ -166,7 +166,7 @@ export default function RatingPage() {
   }
 
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <RatingAndReviewComponent
         ratingKey={params.key as string}
         ratingInfo={{

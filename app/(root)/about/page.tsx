@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import LoadingBar from "@/components/ui/LoadingBar";
 import AboutComp from "@/components/AboutComp";
 import { Metadata } from "next";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 const About = () => {
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <AboutComp />
     </Suspense>
   );

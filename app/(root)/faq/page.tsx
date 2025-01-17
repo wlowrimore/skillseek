@@ -1,6 +1,6 @@
 import FAQContent from "@/components/FAQContent";
 import FAQImage from "@/components/FAQImage";
-import LoadingBar from "@/components/ui/LoadingBar";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 import { Metadata } from "next";
 import React, { Suspense } from "react";
 
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 const FAQ = () => {
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <section className="container px-2 md:px-4 w-full mx-auto bg-faq mt-12 flex flex-col justify-center items-center md:mt-16">
         <h1 className="w-full font-bold text-3xl mt-8 md:mt-8 md:pt-4 lg:pt-10 pb-6 border-b">
           SkillSeek FAQ

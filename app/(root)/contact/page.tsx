@@ -1,5 +1,5 @@
 import ContactForm from "@/components/ContactForm";
-import LoadingBar from "@/components/ui/LoadingBar";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 import { Dot } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 const Contact = () => {
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <section className="container w-full h-full mx-auto md:bg-contact contact_container py-3 md:mt-16">
         <h1 className="mx-4 font-bold text-3xl pb-2 md:pb-4 mt-16 md:mb-0 md:mt-4 border-b">
           Contact Us

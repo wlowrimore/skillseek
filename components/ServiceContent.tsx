@@ -89,15 +89,13 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
       </div>
       <section className="section_container">
         <div className="relative h-[24rem] md:h-[40rem] md:max-h-[40rem]">
-          <Suspense fallback={<LoadingBar />}>
-            <Image
-              src={post?.image as string}
-              alt="service image"
-              width={1000}
-              height={1000}
-              className="mx-auto object-cover w-full h-full md:max-w-[56rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
-            />
-          </Suspense>
+          <Image
+            src={post?.image as string}
+            alt="service image"
+            width={1000}
+            height={1000}
+            className="mx-auto object-cover w-full h-full md:max-w-[56rem] rounded-xl shadow-md shadow-neutral-700 border border-neutral-400"
+          />
 
           {isAuthor && (
             <div className="absolute right-[3%] md:right-[15%] bottom-[2%] z-1 bg-black/90 px-4 py-1.5 rounded-full flex gap-4 items-center">

@@ -2,8 +2,8 @@ import ServiceForm from "@/components/ServiceForm";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import LoadingBar from "@/components/ui/LoadingBar";
 import { Metadata } from "next";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 
 export const metadata: Metadata = {
   title: "Create a Service",
@@ -28,7 +28,7 @@ const page = async () => {
   if (!session) redirect("/");
 
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <div className="mt-12 md:mt-16 pb-16">
         <section className="blue_container bg-swirl-pattern">
           <h1 className="heading">Share Your Service with the comminity</h1>

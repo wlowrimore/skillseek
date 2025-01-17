@@ -2,8 +2,8 @@ import { SERVICE_BY_ID_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
 import ServiceForm from "@/components/ServiceForm";
 import { Suspense } from "react";
-import LoadingBar from "@/components/ui/LoadingBar";
 import { Metadata } from "next";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 
 export const metadata: Metadata = {
   title: "SkillSeek",
@@ -41,7 +41,7 @@ export default async function EditServicePage({
   });
 
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <section className="blue_container bg-swirl-pattern mt-12 md:mt-16">
         <div className="heading">
           <h1 className="">Edit Your Service</h1>

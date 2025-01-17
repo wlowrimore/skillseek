@@ -4,8 +4,8 @@ import { auth } from "@/auth";
 import { SERVICES_QUERY } from "@/sanity/lib/queries";
 import SearchForm from "@/components/SearchForm";
 import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
-import LoadingBar from "@/components/ui/LoadingBar";
 import { Metadata } from "next";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 
 export const metadata: Metadata = {
   title: "SkillSeek",
@@ -53,7 +53,7 @@ export default async function Home({
       : "All Listed Services";
 
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <section className="blue_container bg-swirl-pattern pt-2 mt-12 md:mt-16">
         <div className="heading">
           <h1 className="">Find help. Save money.</h1>

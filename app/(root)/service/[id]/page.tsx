@@ -14,6 +14,7 @@ type sParams = {
 import ServiceContent from "@/components/ServiceContent";
 import { Suspense } from "react";
 import LoadingBar from "@/components/ui/LoadingBar";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 
 const page = async ({ params }: { params: sParams }, review: RatingData) => {
   const { id } = await params;
@@ -38,7 +39,7 @@ const page = async ({ params }: { params: sParams }, review: RatingData) => {
   );
 
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <div className="flex flex-col justify-center items-center">
         <ServiceContent
           user={session?.user}

@@ -11,7 +11,7 @@ import UserServices from "@/components/UserServices";
 import { Suspense } from "react";
 import { ServiceCardSkeleton, ServiceTypeCard } from "@/components/ServiceCard";
 import Link from "next/link";
-import LoadingBar from "@/components/ui/LoadingBar";
+import LoadingBar2 from "@/components/ui/LoadingBar_2";
 
 export const metadata: Metadata = {
   title: "SkillSeek",
@@ -51,7 +51,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const isAuthor = session?.user?.email === user.email;
 
   return (
-    <Suspense fallback={<LoadingBar />}>
+    <Suspense fallback={<LoadingBar2 />}>
       <section className="profile_container mb-12 md:my-28">
         <div className="profile_card">
           <div className="profile_title">

@@ -1,11 +1,11 @@
 import React from "react";
 
-const LoadingBar = () => {
+const LoadingBar2 = () => {
   return (
     // <main className="w-full h-screen flex flex-col justify-center items-center mx-auto">
-    <div className="loader">
-      <div className="loading-text animate-pulse duration-[2000ms]">
-        One Moment<span className="dot">.</span>
+    <div className="loader2">
+      <div className="loading-text2 animate-pulse duration-[2000ms]">
+        Loading Content<span className="dot">.</span>
         <span className="dot">.</span>
         <span className="dot">.</span>
       </div>
@@ -30,4 +30,4 @@ const LoadingBar = () => {
   );
 };
 
-export default LoadingBar;
+export default LoadingBar2;
