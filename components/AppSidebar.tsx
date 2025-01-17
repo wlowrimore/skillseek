@@ -61,7 +61,7 @@ export function AppSidebar() {
           alt="brand logo"
           width={1000}
           height={1000}
-          className="w-[8rem] h-auto pl-4 -mt-1.5"
+          className="w-[8rem] h-auto pl-3 -mt-1.5"
         />
         <div className="flex flex-col gap-2">
           <div className="flex items-center">
