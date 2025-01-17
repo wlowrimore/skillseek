@@ -89,9 +89,9 @@ const SplashScreen = () => {
                   </form>
                 </div>
               ) : (
-                <div className="absolute bottom-[34%] left-0 right-0 z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
+                <div className="absolute bottom-[32%] left-0 right-0 z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
                   <div className="w-full flex flex-col justify-center items-center mx-auto">
-                    <h1 className="w-fit text-[1.3rem] pt-2 flex justify-center items-center font-normal tracking-wide animate-pulse duration-[2000ms]">
+                    <h1 className="w-fit text-[1.3rem] pt-2 pb-4 flex justify-center items-center font-normal tracking-wide animate-pulse duration-[2000ms]">
                       Loading User {session?.user?.name}
                     </h1>
                     {isLoading && <LoadingBar />}
