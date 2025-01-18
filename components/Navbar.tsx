@@ -113,8 +113,8 @@ const Navbar: React.FC = async () => {
                     <NavigationMenuTrigger className="font-work-sans text-[1.1rem]">
                       Navigation
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[200px] gap-3 px-2 py-4">
+                    <NavigationMenuContent className="">
+                      <ul className="grid w-[200px] gap-3 px-2 py-4 min-h-[21rem] h-[22rem] lg:h-[28rem] max-h-[28rem] overflow-y-auto">
                         <ServicesSubmenu href="/about" title="About Us">
                           Learn more about SkillSeek and our mission to empower
                           individuals and businesses to find the right service
