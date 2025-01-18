@@ -1,5 +1,6 @@
 "use client";
 
+import { useSplashStatus } from "@/hooks/useSplashStatus";
 import { useSidebar } from "@/hooks/useSidebar";
 import { ArrowLeftCircle, CircleArrowLeft, Option } from "lucide-react";
 import Link from "next/link";
@@ -9,6 +10,8 @@ const categories = categoriesArray;
 
 export function AppSidebar() {
   const { isOpen, toggleSidebar } = useSidebar();
+
+  const splashStatus = useSplashStatus();
 
   const sortedCategories = categories.sort((a, b) => {
     return a.name.localeCompare(b.name);
@@ -49,7 +52,9 @@ export function AppSidebar() {
             className={`md:hidden absolute right-0 flex items-center justify-center w-14 h-14 text-xs rounded-lg px-2 cursor-pointer transition duration-300 ${isOpen ? " text-white fill-[#F29072]" : ""}`}
           />
         ) : (
-          <Option className="md:hidden absolute sm:right-[4rem] flex items-center justify-center w-7 h-7  bg-black/80 text-white p-1 rounded-full" />
+          <Option
+            className={`md:hidden ${splashStatus && "hidden"} absolute sm:right-[4rem] flex items-center justify-center w-7 h-7  bg-black/80 text-white p-1 rounded-full`}
+          />
         )}
       </button>
 

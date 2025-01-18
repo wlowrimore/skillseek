@@ -41,7 +41,7 @@ const SplashScreen = () => {
   if (!isVisible || isAuthenticated) return null;
 
   return (
-    <div className="fixed z-20 h-screen left-0 right-0 top-0 bottom-0 bg-[url('/splash-screen-bg.webp')] flex flex-col items-center justify-center md:hidden">
+    <div className="fixed z-40 h-screen left-0 right-0 top-0 bottom-0 bg-[url('/splash-screen-bg.webp')] flex flex-col items-center justify-center md:hidden">
       <div className="h-screen flex flex-col items-center flex-center border-[3px] border-zinc-400 rounded-2xl">
         <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
           {/* Shapes */}
