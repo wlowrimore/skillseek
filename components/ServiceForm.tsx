@@ -344,7 +344,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         >
           License/Certification (optional)
           <span className="text-xs font-medium text-black/80">
-            Adding a TN service license or certification can increase your
+            Adding a valid service license or certification can increase your
             credibility, and help you stand out from other service providers.
           </span>
           <div className="flex gap-2">
