@@ -362,7 +362,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
               name="licensingState"
               value={formData.licensingState}
               onChange={handleLicenseStateInputChange}
-              className="startup-form_lic_input text-center max-w-[4rem]"
+              className="startup-form_lic_input text-center max-w-[4rem] uppercase"
               maxLength={2}
               minLength={2}
               pattern="[A-Za-z]{2}"

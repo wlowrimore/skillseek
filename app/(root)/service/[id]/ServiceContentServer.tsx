@@ -9,6 +9,8 @@ export async function getServiceData(id: string) {
         rating,
         averageRating,
         review,
+        license,
+        licensingState,
         createdAt,
         "user": user->{
           _id,

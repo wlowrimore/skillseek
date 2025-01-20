@@ -114,6 +114,8 @@ export const SERVICES_BY_AUTHOR_QUERY =
   },
   description,
   category,
+  license,
+  licensingState,
   image,
   deleteToken,  // Make sure this is included if you need it for mutations
   pitch,
