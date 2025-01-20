@@ -28,6 +28,8 @@ export type Service = {
   title: string;
   description: string;
   image: string;
+  license: string;
+  licensingState: string;
   category: string;
   pitch: string;
   contact: string;
@@ -49,6 +51,8 @@ interface ServiceFormProps {
     author: { _ref: string; email: string };
     category: string;
     image: string;
+    license: string;
+    licensingState: string;
     contact: string;
     pitch: string;
     role: string;
@@ -61,6 +65,8 @@ interface ServiceFormData {
   description: string;
   category: string;
   image: string;
+  license: string;
+  licensingState: string;
   contact: string;
   imageDeleteToken?: string;
   pitch: string;
@@ -74,6 +80,8 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
     description: initialData?.description || "",
     category: initialData?.category || "",
     image: initialData?.image || "",
+    license: initialData?.license || "",
+    licensingState: initialData?.licensingState || "",
     imageDeleteToken: "",
     pitch: initialData?.pitch || "",
     contact: initialData?.contact || "",
@@ -87,6 +95,24 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
       ...prev,
       image: url,
       imageDeleteToken: deleteToken || "",
+    }));
+  };
+
+  const handleLicenseInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleLicenseStateInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
     }));
   };
 
@@ -145,6 +171,8 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
             description: formDataSubmit.get("description") as string,
             category: formDataSubmit.get("category") as string,
             image: formData.image,
+            license: formDataSubmit.get("license") as string,
+            licensingState: formDataSubmit.get("licensingState") as string,
             contact: formDataSubmit.get("contact") as string,
             pitch: formDataSubmit.get("pitch") as string,
           },
@@ -309,6 +337,44 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         )}
         {errors.image && <p className="startup-form_error">{errors.image}</p>}
       </div>
+      <div className="flex flex-col">
+        <label
+          htmlFor="license"
+          className="startup-form_label flex flex-col bg-[#F29072]/80 pt-2 pb-3 px-4 rounded-2xl border-[3px] border-black/80"
+        >
+          License/Certification (optional)
+          <span className="text-xs font-medium text-black/80">
+            Adding a TN service license or certification can increase your
+            credibility, and help you stand out from other service providers.
+          </span>
+          <div className="flex gap-2">
+            <Input
+              id="license"
+              name="license"
+              value={formData.license}
+              onChange={handleLicenseInputChange}
+              className="startup-form_lic_input"
+              aria-label="Service License/Certification"
+              placeholder="Service License/Certification"
+            />
+            <Input
+              id="licensing-state"
+              name="licensingState"
+              value={formData.licensingState}
+              onChange={handleLicenseStateInputChange}
+              className="startup-form_lic_input text-center max-w-[4rem]"
+              maxLength={2}
+              minLength={2}
+              pattern="[A-Za-z]{2}"
+              aria-label="Licensing State"
+              placeholder="TN"
+            />
+          </div>
+        </label>
+        {errors.license && (
+          <p className="startup-form_error">{errors.license}</p>
+        )}
+      </div>
 
       <div>
         <label htmlFor="pitch" className="startup-form_label">
@@ -333,6 +399,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         </label>
         <Input
           id="contact"
+          type="email"
           name="contact"
           value={formData.contact}
           onChange={handleInputChange}

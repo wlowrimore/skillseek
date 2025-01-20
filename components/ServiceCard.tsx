@@ -5,9 +5,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Star } from "lucide-react";
+import { Star, X } from "lucide-react";
 import { UpdateButton, DeleteButton } from "./MutationButtons";
 import { Contact } from "./ServiceContent";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "./ui/dialog";
 
 export type ServiceTypeCard = {
   _id: string;
@@ -15,6 +25,8 @@ export type ServiceTypeCard = {
   description: string;
   category: string;
   image: string;
+  license: string;
+  licensingState: string;
   pitch: string;
   contact: string;
   ratings?: Array<{
@@ -68,6 +80,8 @@ const ServiceCard = ({
     category,
     _id,
     image,
+    license,
+    licensingState,
     description,
     ratings,
   } = post;
@@ -93,10 +107,50 @@ const ServiceCard = ({
       <div className="flex-bewtween gap-5">
         <div className="flex-1">
           <Link href={`/service/${_id}`}>
-            <h3 className="text-26-semibold line-clamp-1 mb-2">{title}</h3>
+            <h3 className="text-26-semibold line-clamp-1">{title}</h3>
           </Link>
 
-          {/* Rating display */}
+          {license || licensingState ? (
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  type="button"
+                  className="border py-0.5 px-2 mb-2 bg-green-700 text-xs font-[600] uppercase text-white tracking-wide rounded-md "
+                >
+                  Licensed
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-white">
+                <DialogHeader>
+                  <DialogTitle className="text-xl">
+                    {service.title} License
+                  </DialogTitle>
+                  <DialogDescription>
+                    This service is licensed and/or certified under the
+                    following license id provided by this service provider:
+                  </DialogDescription>
+                </DialogHeader>
+                {/* <div className="flex gap-4 items-center"> */}
+                <p className="text-center text-lg">
+                  {license}
+                  <span className="text-center text-lg">
+                    &nbsp; &#40; {licensingState} &#41;
+                  </span>
+                </p>
+                {/* </div> */}
+                <DialogFooter>
+                  <div className="text-xs text-red-500">
+                    <h2>
+                      ** DISCLAIMER ** We are not responsible for the validity
+                      of this license. Though we aknowledge this license, we
+                      STRONLY ADVISE you to verify all licenses with the issuing
+                      state or local government.
+                    </h2>
+                  </div>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          ) : null}
           {ratings && ratings.length > 0 ? (
             <div className="flex items-center gap-2 mb-3">
               <Star className="w-4 h-4 text-neutral-400 fill-yellow-400" />

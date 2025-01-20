@@ -27,6 +27,8 @@ export const SERVICES_QUERY = defineQuery(`
     description,
     category,
     image,
+    license,
+    licensingState,
     contact,
     pitch,
     "ratings": *[_type == "rating" && service._ref == ^._id] {
@@ -57,6 +59,8 @@ export const SERVICE_BY_ID_QUERY =
       description,
       category,
       image,
+      license,
+      licensingState,
       pitch,
       contact
     }`);

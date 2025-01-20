@@ -248,6 +248,8 @@ export type Service = {
   description?: string;
   category?: Category;
   image?: string;
+  license?: string;
+  licensingState?: string;
   deleteToken?: string;
   pitch?: string;
   contact?: string;

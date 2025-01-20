@@ -123,9 +123,3 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
   }
   return v;
 }
-
-export const sanityConfig = {
-  projectId: assertValue(env.projectId, "Missing Sanity Project ID"),
-  dataset: assertValue(env.dataset, "Missing Sanity Dataset"),
-  apiVersion: env.apiVersion,
-};

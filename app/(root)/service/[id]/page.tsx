@@ -34,16 +34,21 @@ const page = async ({ params }: { params: sParams }, review: RatingData) => {
 
   const authorEmail = post.author?.email;
   const currentUserEmail = session?.user?.email || null;
+  const license = post.license || "";
+  const licensingState = post.licensingState || "";
   const isAuthor = Boolean(
     currentUserEmail && authorEmail && currentUserEmail === authorEmail
   );
-
+  console.log("LICENSE IN SERVICE PAGE: ", license);
+  console.log("POST IN SERVICE PAGE: ", post);
   return (
     <Suspense fallback={<LoadingBar2 />}>
       <div className="flex flex-col justify-center items-center">
         <ServiceContent
           user={session?.user}
           post={post}
+          license={license}
+          licensingState={licensingState}
           review={review}
           service={post}
           contact={post?.author?.contact || ""}

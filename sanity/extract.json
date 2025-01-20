@@ -1412,6 +1412,20 @@
         },
         "optional": true
       },
+      "license": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "licensingState": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "deleteToken": {
         "type": "objectAttribute",
         "value": {

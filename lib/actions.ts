@@ -22,6 +22,8 @@ export type Service = {
   title: string;
   description: string;
   image: string;
+  license: string;
+  licensingState: string;
   category: string;
   pitch: string;
   contact: string;
@@ -38,6 +40,7 @@ export type ServiceWithAuthorRef = Omit<Service, "author"> & {
 // New interface for service with expanded author
 interface ServiceWithAuthor extends Omit<ServiceWithAuthorRef, "author"> {
   author: Author;
+  deleteToken: string;
 }
 
 export type ServiceFormData = {
@@ -45,6 +48,8 @@ export type ServiceFormData = {
   description: string;
   category: string;
   image: string;
+  license: string;
+  licensingState: string;
   imageDeleteToken?: string;
   pitch: string;
   contact: string;
@@ -59,8 +64,17 @@ export const createPitch = async (state: any, form: FormData) => {
       status: "ERROR",
     });
 
-  const { title, description, category, image, pitch, deleteToken, contact } =
-    Object.fromEntries(form);
+  const {
+    title,
+    description,
+    category,
+    image,
+    license,
+    licensingState,
+    pitch,
+    deleteToken,
+    contact,
+  } = Object.fromEntries(form);
 
   const slug = slugify(title as string, { lower: true, strict: true });
 
@@ -92,6 +106,8 @@ export const createPitch = async (state: any, form: FormData) => {
       description,
       category,
       image: image as string,
+      license: license as string,
+      licensingState: licensingState as string,
       deleteToken: deleteToken as string,
       contact: contact as string,
       slug: {
@@ -133,6 +149,9 @@ export async function updateService(
     Omit<ServiceWithAuthorRef, "author"> & {
       contact: string;
       imageDeleteToken?: string;
+      license: string;
+      licensingState: string;
+      deleteToken: string;
     }
   >,
   authorEmail: string
@@ -147,13 +166,16 @@ export async function updateService(
         description,
         category,
         image,
+        license,
+        licensingState,
+        deleteToken,
         pitch,
         contact,
         "author": author->{
           _id,
           _type,
           email,
-          name
+          name,
         }
       }`,
       { serviceId }
@@ -191,14 +213,18 @@ export async function updateService(
     }
 
     // Use the existing author reference for the update
-    const updatedData: Partial<ServiceWithAuthorRef> = {
-      title: data.title,
-      description: data.description ?? existingService.description,
-      category: data.category ?? existingService.category,
-      image: updatedImageUrl,
-      pitch: data.pitch ?? existingService.pitch,
-      contact: data.contact ?? existingService.contact,
-    };
+    const updatedData: Partial<ServiceWithAuthorRef> & { deleteToken: string } =
+      {
+        title: data.title,
+        description: data.description ?? existingService.description,
+        category: data.category ?? existingService.category,
+        image: updatedImageUrl,
+        license: data.license ?? existingService.license,
+        licensingState: data.licensingState ?? existingService.licensingState,
+        deleteToken: data.deleteToken ?? existingService.deleteToken,
+        pitch: data.pitch ?? existingService.pitch,
+        contact: data.contact ?? existingService.contact,
+      };
 
     const result = await writeClient.patch(serviceId).set(updatedData).commit();
     return result;
@@ -220,6 +246,8 @@ export async function deleteService(serviceId: string) {
       *[_type == "service" && _id == $serviceId][0]{
         _id,
         image,
+        license,
+        licensingState,
         deleteToken,
         author->{
           _id,

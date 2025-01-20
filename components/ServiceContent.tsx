@@ -24,6 +24,8 @@ interface User {
 
 export interface ServiceContentProps {
   post: ServiceTypeCard;
+  license: string;
+  licensingState: string;
   review: RatingData;
   service: {
     _id: string;
@@ -56,6 +58,8 @@ export interface ServiceContentProps {
 
 const ServiceContent: React.FC<ServiceContentProps> = async ({
   post,
+  license,
+  licensingState,
   isAuthor,
   currentUserEmail,
   providerId,
@@ -65,6 +69,8 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   currentUserRating,
   editorPosts,
 }: ServiceContentProps) => {
+  console.log("LICENSE:", license);
+  console.log("POST:", post);
   const session = await auth();
   const createdUserName = post.author?.email?.split("@")[0];
   const username = `@${createdUserName}`;
@@ -79,6 +85,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
           <h1 className="text-2xl md:text-5xl text-center md:text-start font-bold">
             {post.title}
           </h1>
+
           <h2 className="text-black bg-slate-300/80 rounded-lg px-4 py-2 mt-3 mb-2 leading-tight text-base md:mt-4 md:text-2xl max-w-[50rem] md:w-[90%]">
             {post.description}
           </h2>
@@ -86,6 +93,19 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
       </section>
       <div className="md:hidden w-full flex justify-start px-6 pt-4">
         <p className="category-tag">{post.category}</p>
+      </div>
+      <div className="text-xs w-full xl:w-[80%] 2xl:w-[40%] flex flex-col mx-auto pl-6 md:pl-4 lg:pl-16 -mb-[0.5rem] md:-mb-[3.2rem] md:text-lg italic text-black/70 pt-4">
+        <div className="flex items-center">
+          <p className="text-black">
+            License: <span className="text-black/70">{license}</span>
+          </p>
+        </div>
+        <div className="flex items-center">
+          <p className="text-black">
+            Issuing State:{" "}
+            <span className="text-black/70">{licensingState}</span>
+          </p>
+        </div>
       </div>
       <section className="section_container">
         <div className="relative h-[24rem] md:h-[40rem] md:max-h-[40rem]">
