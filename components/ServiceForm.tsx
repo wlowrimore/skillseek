@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useActionState } from "react";
+import { useState, useActionState, FormEvent } from "react";
 import { useUpdatePath } from "@/hooks/useUpdatePath";
 import { useTimeLimit } from "@/hooks/useTimeLimit";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { createPitch, updateService } from "@/lib/actions";
 import { SelectForm } from "@/components/SelectForm";
+import { StateInput } from "./StateInput";
 
 export type Author = {
   _id: string;
@@ -74,6 +75,8 @@ interface ServiceFormData {
 
 const ServiceForm = ({ initialData }: ServiceFormProps) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [hasLicense, setHasLicense] = useState<boolean>(false);
+  const [isStateValid, setIsStateValid] = useState<boolean>(false);
   const router = useRouter();
   const [formData, setFormData] = useState<ServiceFormData>({
     title: initialData?.title || "",
@@ -104,15 +107,13 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
       ...prev,
       [name]: value,
     }));
+    setHasLicense(true);
   };
 
-  const handleLicenseStateInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = e.target;
+  const handleLicenseStateInputChange = (newState: string) => {
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      licensingState: newState,
     }));
   };
 
@@ -139,6 +140,10 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
   };
 
   const handleFormSubmit = async (prevState: any, formDataSubmit: FormData) => {
+    if (formData.license && !isStateValid) {
+      return;
+    }
+
     try {
       console.log("Initial Data:", initialData);
       console.log("Is Admin", initialData?.role === "administrator");
@@ -198,6 +203,15 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         console.log("Taking Create Branch");
 
         const validatedData = await formSchema.parseAsync(formData);
+
+        console.log("Form Data before submission:", {
+          ...formData,
+          licensingState: formData.licensingState,
+        });
+        console.log("Form Data from FormData API:", {
+          title: formDataSubmit.get("title"),
+          licensingState: formDataSubmit.get("licensingState"),
+        });
 
         const submitFormData = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
@@ -340,10 +354,10 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
       <div className="flex flex-col">
         <label
           htmlFor="license"
-          className="startup-form_label flex flex-col bg-[#F29072]/80 pt-2 pb-3 px-4 rounded-2xl border-[3px] border-black/80"
+          className="startup-form_label flex flex-col bg-[#F29072]/80 pt-2 pb-6 px-4 rounded-2xl border-[3px] border-black/80"
         >
           License/Certification (optional)
-          <span className="text-xs font-medium text-black/80">
+          <span className="text-xs max-w-[32rem] font-medium text-black/80">
             Adding a valid service license or certification can increase your
             credibility, and help you stand out from other service providers.
           </span>
@@ -357,17 +371,13 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
               aria-label="Service License/Certification"
               placeholder="Service License/Certification"
             />
-            <Input
-              id="licensing-state"
-              name="licensingState"
+            <StateInput
               value={formData.licensingState}
               onChange={handleLicenseStateInputChange}
-              className="startup-form_lic_input text-center max-w-[4rem] uppercase"
-              maxLength={2}
-              minLength={2}
-              pattern="[A-Za-z]{2}"
-              aria-label="Licensing State"
-              placeholder="TN"
+              onValidityChange={setIsStateValid}
+              disabled={!formData.license}
+              required={formData.license ? true : false}
+              className="startup-form_lic_input uppercase disabled:bg-gray-500"
             />
           </div>
         </label>
@@ -418,7 +428,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           aria-label="Submit Your Service"
           name="submit"
           className="startup-form_btn"
-          disabled={isPending || !formData.image}
+          disabled={isPending || !formData.image || !isStateValid}
         >
           {isPending
             ? isUpdatePath

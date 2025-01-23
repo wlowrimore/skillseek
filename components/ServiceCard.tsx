@@ -3,9 +3,10 @@
 import { cn, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { ratingsUtils, RatingData, Rating } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Star, X } from "lucide-react";
+import { Star, StarHalf } from "lucide-react";
 import { UpdateButton, DeleteButton } from "./MutationButtons";
 import { Contact } from "./ServiceContent";
 import {
@@ -19,43 +20,77 @@ import {
   DialogClose,
 } from "./ui/dialog";
 
-export type ServiceTypeCard = {
+// export const RatingStars = ({ rating }: { rating: number }) => {
+//   const fullStars = Math.floor(rating);
+//   const hasHalfStar = rating % 1 >= 0.5;
+
+//   return (
+//     <div className="flex items-center">
+//       {[...Array(fullStars)].map((_, i) => (
+//         <Star
+//           key={`full-${i}`}
+//           className="w-4 h-4 text-neutral-400 fill-yellow-400"
+//         />
+//       ))}
+//       {hasHalfStar && (
+//         <StarHalf className="w-4 h-4 text-neutral-400 fill-yellow-400" />
+//       )}
+//       {[...Array(5 - Math.ceil(rating))].map((_, i) => (
+//         <Star key={`empty-${i}`} className="w-4 h-4 text-neutral-400" />
+//       ))}
+//     </div>
+//   );
+// };
+
+// interface ServiceCardProps {
+//   service: ServiceTypeCard;
+//   isLoading: boolean;
+//   isAdmin: boolean;
+//   isAuthor: boolean;
+//   ratings: ServiceTypeCard["ratings"];
+// }
+
+export interface ServiceTypeCard {
   _id: string;
   title: string;
+  pitch: string;
   description: string;
-  category: string;
   image: string;
+  category: string;
+  contact: string;
+  author: {
+    _id: string;
+    name: string;
+    email: string;
+    image: string;
+  };
+  ratings?: RatingData[];
+  // rating?: RatingData[];
+  averageRating?: number;
   license: string;
   licensingState: string;
-  pitch: string;
-  contact: string;
-  ratings?: Array<{
-    _id: string;
-    rating: number;
-    review?: string;
-    createdAt: string;
-    user: {
-      _id: string;
-      name: string;
-      image?: string;
-    };
-  }>;
-  deleteToken?: string;
-  author?: {
-    _id: string;
-    name?: string;
-    email?: string;
-    contact: string;
-    image?: string;
-  };
-  _createdAt?: string;
-};
+  _createdAt: string;
+  deleteToken: string;
+  currentUserEmail: string | null | undefined;
+}
 
-const calculateAverageRating = (ratings: ServiceTypeCard["ratings"]) => {
-  if (!ratings || ratings.length === 0) return 0;
-  const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
-  return sum / ratings.length;
-};
+export interface ServiceCardProps {
+  post: ServiceTypeCard;
+  license: string;
+  licensingState: string;
+  service: ServiceTypeCard;
+  currentUserEmail?: ServiceTypeCard["author"]["email"];
+  contact: Contact;
+  ratings: RatingData[];
+  // rating: RatingData[];
+  averageRating: number;
+}
+
+// const calculateAverageRating = (ratings: ServiceTypeCard["ratings"]) => {
+//   if (!ratings || ratings.length === 0) return 0;
+//   const sum = ratings.reduce((acc, rating) => acc + rating?.rating || 0, 0);
+//   return sum / ratings.length;
+// };
 
 const truncateDesc = (text: string, maxLength = 57) => {
   if (!text) return "No description provided";
@@ -63,14 +98,21 @@ const truncateDesc = (text: string, maxLength = 57) => {
   return text.slice(0, maxLength) + "...";
 };
 
-const ServiceCard = ({
+const ServiceCard: React.FC<ServiceCardProps> = ({
   post,
   service,
   currentUserEmail,
+  contact,
+  // rating,
+  ratings,
+  // averageRating,
 }: {
   post: ServiceTypeCard;
   service: ServiceTypeCard;
-  currentUserEmail?: string;
+  ratings: RatingData[];
+  // rating: RatingData[];
+  averageRating: number;
+  currentUserEmail?: ServiceTypeCard["author"]["email"];
   contact: Contact;
 }) => {
   const {
@@ -82,12 +124,15 @@ const ServiceCard = ({
     image,
     license,
     licensingState,
+    averageRating,
     description,
-    ratings,
+    pitch,
   } = post;
   const isAuthor = Boolean(
     currentUserEmail && author?.email && currentUserEmail === author.email
   );
+
+  console.log("SERVICE IN SERVICE CARD: ", service);
 
   const createdUsername = service?.author?.email?.split("@")[0];
   const username = `@${createdUsername}`;
@@ -117,7 +162,7 @@ const ServiceCard = ({
                   type="button"
                   className="border py-0.5 px-2 mb-2 bg-green-700 text-xs font-[600] uppercase text-white tracking-wide rounded-md "
                 >
-                  Licensed
+                  View License
                 </button>
               </DialogTrigger>
               <DialogContent className="bg-white">
@@ -150,13 +195,17 @@ const ServiceCard = ({
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-          ) : null}
+          ) : (
+            <div className="w-fit border py-0.5 px-2 mb-2 bg-black/70 text-xs font-[600] uppercase text-white tracking-wide rounded-md ">
+              No License on File
+            </div>
+          )}
           {ratings && ratings.length > 0 ? (
             <div className="flex items-center gap-2 mb-3">
               <Star className="w-4 h-4 text-neutral-400 fill-yellow-400" />
               <span className="text-sm text-muted-foreground">
-                {calculateAverageRating(ratings).toFixed(1)} ({ratings.length}{" "}
-                {ratings.length === 1 ? "review" : "reviews"})
+                {ratingsUtils.calculateAverageRating(ratings).toFixed(1)} (
+                {ratings.length} {ratings.length === 1 ? "review" : "reviews"})
               </span>
             </div>
           ) : (
@@ -164,7 +213,15 @@ const ServiceCard = ({
               <p className="text-sm">No ratings yet</p>
             </div>
           )}
-
+          {/* {rating ? (
+            <div className="flex items-center gap-2 mb-3">
+              <Star className="w-4 h-4 text-neutral-400 fill-yellow-400" />
+              <span className="text-sm text-muted-foreground">
+                {ratingsUtils.calculateAverageRating(rating).toFixed(1)} (
+                {rating.length} {rating.length === 1 ? "review" : "reviews"})
+              </span>
+            </div>
+          ) : null} */}
           <Link
             href={`/user/${author?._id}`}
             className="flex gap-3 items-center mb-5"

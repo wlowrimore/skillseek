@@ -4,14 +4,26 @@ import { Metadata } from "next";
 import {
   AUTHOR_BY_ID_QUERY,
   SERVICES_BY_AUTHOR_QUERY,
+  SERVICES_QUERY,
+  SERVICES_WITHOUT_SEARCH,
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import UserServices from "@/components/UserServices";
+import { getRating, RatingData } from "@/lib/utils";
+import ServiceCard from "@/components/ServiceCard";
 import { Suspense } from "react";
 import { ServiceCardSkeleton, ServiceTypeCard } from "@/components/ServiceCard";
+import {
+  getAverageRating,
+  getRatingsData,
+  getServiceRatings,
+  ratingsUtils,
+} from "@/lib/utils";
 import Link from "next/link";
 import LoadingBar2 from "@/components/ui/LoadingBar_2";
+import { get } from "http";
+import { User } from "lucide-react";
+import { sanityFetch } from "@/sanity/lib/live";
 
 export const metadata: Metadata = {
   title: "SkillSeek",
@@ -39,14 +51,26 @@ export const metadata: Metadata = {
   },
 };
 
-const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const id = (await params).id;
+const UserPage = async ({
+  params,
+}: {
+  params: { id: string; serviceId: string };
+}) => {
+  const { id, serviceId } = await params;
   const session = await auth();
+
+  const { data: posts } = await sanityFetch({
+    query: SERVICES_WITHOUT_SEARCH,
+    params: {
+      id,
+      serviceId: serviceId || null,
+    },
+  });
 
   const user = await client.fetch(AUTHOR_BY_ID_QUERY, { id });
   if (!user) return notFound();
 
-  const services = await client.fetch(SERVICES_BY_AUTHOR_QUERY, { id });
+  if (!user) return notFound();
 
   const isAuthor = session?.user?.email === user.email;
 
@@ -67,28 +91,34 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             height={1000}
             className="w-44 h-44 object-cover object-center rounded-2xl"
           />
-          <div className="flex flex-col justify-center items-center mt-6">
-            <p className="font-bold text-lg mb-[-0.5rem]">Email To Connect</p>
-            {services &&
-              services.map((service: ServiceTypeCard, id: string) => (
-                <Link
-                  href={`mailto:${service.contact}`}
-                  key={id}
-                  className="text-center"
-                >
-                  <span className="text-sm font-[600] hover:underline p-2">
-                    {service?.contact}
-                  </span>
-                </Link>
-              ))}
-          </div>
         </div>
 
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">
           <p className="text-30-bold">{isAuthor ? "Your" : "All"} Services</p>
-          <ul className="card_grid-sm">
+
+          <ul className={`${posts.length > 0 && "card_grid-sm"}`}>
             <Suspense fallback={<ServiceCardSkeleton />}>
-              <UserServices id={id} />
+              {posts.length > 0 ? (
+                posts.map((post: ServiceTypeCard) => (
+                  <ServiceCard
+                    ratings={post?.ratings ?? []}
+                    averageRating={post?.averageRating ?? 0}
+                    key={post?._id}
+                    post={post}
+                    license={post?.license || ""}
+                    licensingState={post?.licensingState || ""}
+                    service={post}
+                    contact={{ email: post?.contact }}
+                    currentUserEmail={
+                      session?.user?.email as string | undefined
+                    }
+                  />
+                ))
+              ) : (
+                <p className="text-16-regular text-center">
+                  No services found for this user.
+                </p>
+              )}
             </Suspense>
           </ul>
         </div>
@@ -97,4 +127,4 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export default page;
+export default UserPage;

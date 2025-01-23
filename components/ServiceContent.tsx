@@ -3,30 +3,22 @@ import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
 import { UpdateButton, DeleteButton } from "@/components/MutationButtons";
 import Link from "next/link";
 import Image from "next/image";
-import { RatingData } from "./ServiceRatingDisplay";
 import ServiceRatingDisplay from "./ServiceRatingDisplay";
 import ServiceEmailButton from "./ui/ServiceEmailButton";
 import { Suspense } from "react";
-import LoadingBar from "./ui/LoadingBar";
+import LoadingBar2 from "./ui/LoadingBar_2";
+import { RatingData } from "@/lib/utils";
 
 export interface Contact {
   email: string;
-}
-
-interface User {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    image?: string;
-  };
 }
 
 export interface ServiceContentProps {
   post: ServiceTypeCard;
   license: string;
   licensingState: string;
-  review: RatingData;
+  pitch: string;
+  averageRating?: number;
   service: {
     _id: string;
     title: string;
@@ -37,7 +29,6 @@ export interface ServiceContentProps {
       email: string;
     };
   };
-
   user:
     | {
         id: string;
@@ -52,6 +43,7 @@ export interface ServiceContentProps {
   providerId: string;
   currentUserRating: RatingData;
   editorPosts: ServiceTypeCard[];
+  ratings: ServiceTypeCard["ratings"];
   contactEmail: string;
   contact: Contact;
 }
@@ -60,6 +52,8 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   post,
   license,
   licensingState,
+  ratings = [],
+  averageRating = 0,
   isAuthor,
   currentUserEmail,
   providerId,
@@ -74,12 +68,11 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   const session = await auth();
   const createdUserName = post.author?.email?.split("@")[0];
   const username = `@${createdUserName}`;
-  const userId = { userId: session?.user?.id };
-  const review = currentUserRating?.review;
   const parsedContent = post?.pitch || "";
 
+  console.log("EDITOR POSTS:", editorPosts);
   return (
-    <>
+    <Suspense fallback={<LoadingBar2 />}>
       <section className="blue_container bg-swirl-pattern mt-[3.4rem] md:mt-16">
         <div className="text-white flex flex-col justify-center items-center bg-black/70 max-w-[36rem] md:!max-w-[55rem] px-[1.15rem] md:px-10 py-2 md:py-12 md:space-y-4 rounded-xl md:rounded-xl md:text-2xl font-semibold">
           <h1 className="text-2xl md:text-5xl text-center md:text-start font-bold">
@@ -94,19 +87,21 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
       <div className="md:hidden w-full flex justify-start px-6 pt-4">
         <p className="category-tag">{post.category}</p>
       </div>
-      <div className="text-xs w-full xl:w-[80%] 2xl:w-[40%] flex flex-col mx-auto pl-6 md:pl-4 lg:pl-16 -mb-[0.5rem] md:-mb-[3.2rem] md:text-lg italic text-black/70 pt-4">
-        <div className="flex items-center">
-          <p className="text-black">
-            License: <span className="text-black/70">{license}</span>
-          </p>
+      {license && licensingState && (
+        <div className="text-xs w-full xl:w-[80%] 2xl:w-[40%] flex flex-col mx-auto pl-6 md:pl-5 lg:pl-16 -mb-[1rem] md:-mb-[4rem] md:text-lg italic text-black/70 pt-4">
+          <div className="flex items-center -mb-1 md:-mb-3">
+            <p className="text-black">
+              License: <span className="text-black/70">{license}</span>
+            </p>
+          </div>
+          <div className="flex items-center">
+            <p className="text-black">
+              Issuing State:{" "}
+              <span className="text-black/70">{licensingState}</span>
+            </p>
+          </div>
         </div>
-        <div className="flex items-center">
-          <p className="text-black">
-            Issuing State:{" "}
-            <span className="text-black/70">{licensingState}</span>
-          </p>
-        </div>
-      </div>
+      )}
       <section className="section_container">
         <div className="relative h-[24rem] md:h-[40rem] md:max-h-[40rem]">
           <Image
@@ -164,10 +159,11 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
           </div>
           <div className="w-full h-full text-black">
             <ServiceRatingDisplay
-              userId={userId.userId}
+              userId={session?.user?.id}
               serviceId={post._id}
-              review={review}
-              providerId={providerId || ""}
+              ratings={ratings}
+              averageRating={post?.averageRating}
+              providerId={providerId}
               currentUserRating={{
                 ...currentUserRating,
                 review: currentUserRating?.review || "",
@@ -207,7 +203,11 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
                   <ServiceCard
                     key={i}
                     post={post}
+                    ratings={post.ratings ?? []}
+                    averageRating={averageRating || 0}
                     contact={contact}
+                    license={license || ""}
+                    licensingState={licensingState || ""}
                     service={post}
                     currentUserEmail={currentUserEmail || ""}
                   />
@@ -217,7 +217,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
           )}
         </div>
       </section>
-    </>
+    </Suspense>
   );
 };
 

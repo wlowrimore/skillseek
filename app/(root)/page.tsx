@@ -51,7 +51,7 @@ export default async function Home({
     : query
       ? `Search results for "${query}"`
       : "All Listed Services";
-
+  console.log("POSTS IN HOME PAGE:", posts);
   return (
     <Suspense fallback={<LoadingBar2 />}>
       <section className="blue_container bg-swirl-pattern pt-2 mt-12 md:mt-16">
@@ -79,6 +79,8 @@ export default async function Home({
           {posts?.length > 0 ? (
             posts.map((post: ServiceTypeCard) => (
               <ServiceCard
+                ratings={post?.ratings ?? []}
+                averageRating={post?.averageRating ?? 0}
                 key={post?._id}
                 post={post}
                 service={post}

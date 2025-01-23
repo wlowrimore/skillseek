@@ -44,6 +44,43 @@ export const SERVICES_QUERY = defineQuery(`
     }
   }`);
 
+export const SERVICES_WITHOUT_SEARCH = defineQuery(`
+  *[_type == "service" && (_id == $id || !defined($serviceId)) &&
+    (
+      !defined($serviceId) ||
+      serviceId match $serviceId
+    )
+  ] | order(_createdAt desc) {
+    _id,
+    title,
+    slug,
+    _createdAt,
+    author -> {
+      _id,
+      name,
+      image,
+      email
+    },
+    description,
+    category,
+    image,
+    license,
+    licensingState,
+    contact,
+    pitch,
+    "ratings": *[_type == "rating" && service._ref == ^._id] {
+      _id,
+      rating,
+      review,
+      createdAt,
+      user-> {
+        _id,
+        name,
+        image
+      }
+    }
+  }`);
+
 export const SERVICE_BY_ID_QUERY =
   defineQuery(`*[_type == "service" && _id == $id][0]{
       _id,
@@ -100,6 +137,19 @@ export const SERVICE_BY_RATING_KEY_QUERY =
       contact
     }`);
 
+export const RATINGS_BY_SERVICE_QUERY =
+  defineQuery(`*[_type == "rating" && service._ref == $id] | order(_createdAt desc){
+      _id,
+      rating,
+      review,
+      createdAt,
+      user-> {
+        _id,
+        name,
+        image
+      }
+    }`);
+
 export const SERVICES_BY_AUTHOR_QUERY =
   defineQuery(`*[_type == "service" && author._ref == $id] | order(_createdAt desc){
       _id,
@@ -114,6 +164,7 @@ export const SERVICES_BY_AUTHOR_QUERY =
   },
   description,
   category,
+  ratings,
   license,
   licensingState,
   image,
@@ -160,31 +211,58 @@ export const AUTHOR_BY_EMAIL_QUERY =
       image
     }`);
 
-export const PLAYLIST_BY_SLUG_QUERY =
-  defineQuery(`*[_type == "playlist" && slug.current == $slug][0]{
-    _id,
-    title,
-    slug,
-    select[]->{
-      _id,
-      _createdAt,
-      title,
-      slug,
-      description,
-      category,
-      image,
-      author-> {
+export const PLAYLIST_BY_SLUG_QUERY = defineQuery(`
+      *[_type == "playlist" && slug.current == $slug][0]{
         _id,
-        name,
+        title,
         slug,
-        image,
-        email
-        }},
+        license,
+        licensingState,
         description,
         category,
         image,
         pitch,
-    }`);
+        "ratings": *[_type == "rating" && service._ref == ^._id] {
+          _id,
+          rating,
+          review,
+          createdAt,
+          user-> {
+            _id,
+            name,
+            image
+          }
+        },
+        "select": select[]->{
+          _id,
+          _createdAt,
+          title,
+          slug,
+          description,
+          category,
+          image,
+          license,
+          licensingState,
+          "ratings": *[_type == "rating" && service._ref == ^._id] {
+          _id,
+          rating,
+          review,
+          createdAt,
+          user-> {
+            _id,
+            name,
+            image
+          }
+        },
+          author-> {
+            _id,
+            name,
+            slug,
+            image,
+            email
+          }
+        }
+      }`);
 
 export const UPDATE_SERVICE_MUTATION =
   defineQuery(`*[_type == "service" && _id == $id]{

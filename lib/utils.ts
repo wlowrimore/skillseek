@@ -3,6 +3,100 @@ import { client } from "@/sanity/lib/client";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+// GET SERVICE RATINGS INTERFACE
+
+export interface Rating {
+  _id: string;
+  rating: ServiceData;
+  ratings: number[];
+  ratingInfo: {
+    serviceId: string;
+    providerId: string;
+  };
+  ratingKey: string | undefined;
+  review?: string;
+  createdAt: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    image?: string;
+  };
+}
+
+// RATINGS FUNCTION
+
+export interface RatingData {
+  _id: string;
+  rating: number | null;
+  ratings: number[];
+  ratingInfo: {
+    serviceId: string;
+    providerId: string;
+  };
+  ratingKey: string | undefined;
+  review: string;
+  createdAt: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image?: string;
+  };
+}
+
+export interface ServiceData {
+  ratings?: RatingData[];
+  _id?: string;
+  author?: {
+    _id?: string;
+  };
+}
+
+export const ratingsUtils = {
+  extractRatings(serviceData: ServiceData): RatingData[] {
+    if (!serviceData?.ratings || !Array.isArray(serviceData.ratings)) {
+      return [];
+    }
+
+    return serviceData.ratings.map((rating) => ({
+      _id: rating._id,
+      rating: rating.rating,
+      ratings: [], // Initialize empty array for individual ratings
+      ratingInfo: {
+        serviceId: serviceData._id || "",
+        providerId: serviceData.author?._id || "",
+      },
+      ratingKey: rating._id,
+      review: rating.review || "",
+      createdAt: rating.createdAt,
+      user: {
+        id: rating.user?.id || "",
+        name: rating.user?.name || "",
+        email: rating.user?.email || "",
+        image: rating.user?.image,
+      },
+    }));
+  },
+
+  calculateAverageRating(ratings: RatingData[]) {
+    if (!ratings || ratings.length === 0) return 0;
+    const validRatings = ratings.filter((r) => r.rating !== null);
+    if (validRatings.length === 0) return 0;
+
+    const sum = validRatings.reduce((acc, curr) => acc + (curr.rating || 0), 0);
+    return Number(sum / validRatings.length);
+  },
+
+  formatRatingDate(dateString: string) {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  },
+};
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -37,6 +131,135 @@ export function extractPublicIdFromUrl(url: string) {
   } catch (error) {
     console.error("Error extracting public ID:", error);
     return null;
+  }
+}
+
+// GET RATINGS BELONGING TO TYPE RATINGDATA
+
+export async function getRatingsData(serviceId: string): Promise<RatingData[]> {
+  try {
+    if (!serviceId) {
+      console.warn("No serviceId provided to getRatingsData");
+      return [];
+    }
+    const ratings = await client.fetch<RatingData[]>(
+      `*[_type == "rating" && service._ref == $serviceId] | order(createdAt desc) {
+        _id,
+        rating,
+        review,
+        createdAt,
+        user->{
+          _id,
+          name,
+          email,
+          image
+        }
+      }`,
+      { serviceId }
+    );
+    return ratings || [];
+  } catch (error) {
+    console.error("Error fetching ratings:", error);
+    return [];
+  }
+}
+
+// GET RATINGS FOR SERVER-SIDE COMPONENTS
+
+export async function getRating(serviceId: string): Promise<RatingData[]> {
+  try {
+    if (!serviceId) {
+      console.warn("No serviceId provided to getRatings");
+      return [];
+    }
+
+    const rating = await client.fetch<RatingData[]>(
+      `*[_type == "rating" && service._ref == $serviceId] | order(createdAt desc) {
+        _id,
+        rating,
+        review,
+        createdAt,
+        user->{
+          _id,
+          name,
+          email,
+          image
+        }
+      }`,
+      { serviceId }
+    );
+
+    return rating || [];
+  } catch (error) {
+    console.error("Error fetching ratings:", error);
+    return [];
+  }
+}
+
+// GET AVERAGE RATING FOR SERVER-SIDE COMPONENTS
+
+export async function getAverageRating(serviceId: string): Promise<number> {
+  try {
+    if (!serviceId) {
+      console.warn("No serviceId provided to getAverageRating");
+      return 0;
+    }
+
+    const result = await client.fetch<{ averageRating: number }>(
+      `{
+        "averageRating": (*[_type == "rating" && service._ref == $serviceId].rating)
+      }`,
+      { serviceId }
+    );
+
+    return Number(result.averageRating) || 0;
+  } catch (error) {
+    console.error("Error fetching average rating:", error);
+    return 0;
+  }
+}
+
+// FUNCTION FOR GETTING BOTH RATINGS AND AVERAGE RATING
+
+export async function getServiceRatings(serviceId: string): Promise<{
+  ratings: Rating[];
+  averageRating: number;
+}> {
+  try {
+    if (!serviceId) {
+      console.warn("No serviceId provided to getServiceRatings");
+      return { ratings: [], averageRating: 0 };
+    }
+
+    const result = await client.fetch<{
+      ratings: Rating[];
+      averageRating: number;
+    }>(
+      `{
+        "ratings": *[_type == "rating" && service._ref == $serviceId] | order(createdAt desc) {
+          _id,
+          rating,
+          review,
+          createdAt,
+          user->{
+            _id,
+            name,
+            email,
+            image
+          }
+        },
+        "averageRating": (*[_type == "rating" && service._ref == $serviceId].rating)
+      }`,
+      { serviceId }
+    );
+
+    return {
+      ratings: result.ratings || [],
+      averageRating: Number(result.averageRating) || 0,
+    };
+  } catch (error) {
+    console.error("Error fetching service ratings:", error);
+    return { ratings: [], averageRating: 0 };
   }
 }
 

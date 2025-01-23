@@ -8,6 +8,7 @@ import RatingsCarousel from "./RatingsCarouselDisplay";
 
 export interface RatingData {
   rating: number | null;
+  ratings: number[];
   ratingInfo: {
     serviceId: string;
     providerId: string;
@@ -28,6 +29,12 @@ export interface ServiceRatingProps {
   serviceId: string;
   providerId: string;
   currentUserRating?: RatingData;
+  ratings?: RatingData[];
+  averageRating?: number;
+  ratingInfo?: {
+    serviceId: string;
+    providerId: string;
+  };
   ratingKey?: string | undefined;
   review?: string;
 }
