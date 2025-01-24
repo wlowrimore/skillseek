@@ -1,4 +1,5 @@
 import React from "react";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -99,6 +100,7 @@ export default function RootLayout({
           <CatProvider>
             <AppSidebar />
             {children}
+            <Analytics />
             <Toaster />
           </CatProvider>
         </AppSessionProvider>

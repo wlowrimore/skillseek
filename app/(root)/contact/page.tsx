@@ -128,8 +128,8 @@ const Contact = () => {
                       We Respect Your Privacy
                     </h2>
                     <p className="text-[1rem] md:text-[0.9rem] leading-4">
-                      We do not collect, nor do we do share your information
-                      with any third parties.
+                      We do not collect, nor do we share your information with
+                      any third parties.
                     </p>
                     <Link href="/privacy-policy" className="text-xs mb-4">
                       *See{" "}
