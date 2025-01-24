@@ -1,5 +1,3 @@
-"use client";
-
 import { cn, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -19,7 +17,7 @@ import {
   DialogFooter,
 } from "./ui/dialog";
 
-export interface ServiceTypeCard {
+export interface UserServiceCardType {
   _id: string;
   title: string;
   pitch: string;
@@ -42,15 +40,15 @@ export interface ServiceTypeCard {
   currentUserEmail: string | null | undefined;
 }
 
-export interface ServiceCardProps {
-  post: ServiceTypeCard;
+export interface UserServiceCardProps {
+  post: UserServiceCardType;
   license: string;
   licensingState: string;
-  service: ServiceTypeCard;
-  currentUserEmail?: ServiceTypeCard["author"]["email"];
+  service: UserServiceCardType;
+  currentUserEmail?: UserServiceCardType["author"]["email"];
   contact: Contact;
   ratings: RatingData[];
-  averageRating: number;
+  //   averageRating: number;
 }
 
 const truncateDesc = (text: string, maxLength = 57) => {
@@ -59,17 +57,17 @@ const truncateDesc = (text: string, maxLength = 57) => {
   return text.slice(0, maxLength) + "...";
 };
 
-const ServiceCard: React.FC<ServiceCardProps> = ({
+const UserServiceCard: React.FC<UserServiceCardProps> = ({
   post,
   service,
   currentUserEmail,
   ratings,
 }: {
-  post: ServiceTypeCard;
-  service: ServiceTypeCard;
+  post: UserServiceCardType;
+  service: UserServiceCardType;
   ratings: RatingData[];
-  averageRating: number;
-  currentUserEmail?: ServiceTypeCard["author"]["email"];
+  //   averageRating: number;
+  currentUserEmail?: UserServiceCardType["author"]["email"];
   contact: Contact;
 }) => {
   const {
@@ -81,15 +79,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     image,
     license,
     licensingState,
-    averageRating,
+    // averageRating,
     description,
-    pitch,
+    // pitch,
   } = post;
   const isAuthor = Boolean(
     currentUserEmail && author?.email && currentUserEmail === author.email
   );
 
-  console.log("SERVICE IN SERVICE CARD: ", service);
+  console.log("SERVICE IN USER SERVICE CARD: ", service);
 
   const createdUsername = service?.author?.email?.split("@")[0];
   const username = `@${createdUsername}`;
@@ -233,4 +231,4 @@ export const ServiceCardSkeleton = () => (
   </>
 );
 
-export default ServiceCard;
+export default UserServiceCard;

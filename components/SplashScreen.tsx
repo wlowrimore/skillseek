@@ -11,7 +11,7 @@ import LoadingBar from "./ui/LoadingBar";
 const SplashScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenicated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const { data: session } = useSession();
 
@@ -28,9 +28,9 @@ const SplashScreen = () => {
 
   const handleAuthentication = () => {
     if (session?.user) {
-      setIsAuthenicated(true);
+      setIsAuthenticated(true);
     } else {
-      setIsAuthenicated(false);
+      setIsAuthenticated(false);
     }
   };
 

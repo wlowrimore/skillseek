@@ -107,24 +107,22 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
         </div>
 
         {/* Small Screen Caraousel */}
-        <div className="md:hidden w-full max-w-4xl flex justify-end absolute top-[3.8rem] right-0 left-0 z-0">
-          <div className="md:hidden flex items-center border border-white rounded-full absolute top-[50%] right-0 -translate-y-1/2 z-10">
+        <div className="md:hidden w-full max-w-4xl flex justify-end absolute top-[0.6rem] right-0 left-5 z-0">
+          <div className="md:hidden flex items-center justify-center border border-white text-slate-800 rounded-xl absolute top-[50%] right-0 -translate-y-1/2 z-10">
             <Button
               variant="ghost"
-              className="py-[1rem] px-[0.7rem] border-[#275975] rounded-full bg-white/90 text-slate-600"
+              className="border-[#275975]"
               onClick={prevSlide}
             >
-              <ChevronsLeft className="p-1" />
+              <ChevronsLeft className="p-0.5" />
             </Button>
-            <p className="text-xs text-slate-800 font-medium mt-0.5">
-              View All
-            </p>
+            <p className="text-sm text-slate-800 font-medium">View All</p>
             <Button
               variant="ghost"
-              className="py-[1rem] px-[0.7rem] border-[#275975] rounded-full bg-white/90 text-slate-600"
+              className="border-[#275975]"
               onClick={nextSlide}
             >
-              <ChevronsRight className="p-1" />
+              <ChevronsRight className="p-0.5" />
             </Button>
           </div>
         </div>

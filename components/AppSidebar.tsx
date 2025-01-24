@@ -2,6 +2,7 @@
 
 import { useSplashStatus } from "@/hooks/useSplashStatus";
 import { useSidebar } from "@/hooks/useSidebar";
+import { useSession } from "next-auth/react";
 import { ArrowLeftCircle, CircleArrowLeft, Option } from "lucide-react";
 import Link from "next/link";
 import { categoriesArray } from "@/public/categoriesList/categoriesArray";
@@ -11,11 +12,15 @@ const categories = categoriesArray;
 export function AppSidebar() {
   const { isOpen, toggleSidebar } = useSidebar();
 
+  const { data: session } = useSession();
+
   const splashStatus = useSplashStatus();
 
   const sortedCategories = categories.sort((a, b) => {
     return a.name.localeCompare(b.name);
   });
+
+  if (!session?.user) return null;
 
   return (
     <main

@@ -53,6 +53,7 @@ const ServicePage = async ({ params }: ServicePageParams) => {
         <ServiceContent
           pitch={post?.pitch || ""}
           user={session?.user}
+          author={post.author}
           post={post}
           averageRating={averageRating}
           license={license}

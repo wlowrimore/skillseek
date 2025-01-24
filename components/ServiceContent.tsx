@@ -19,6 +19,7 @@ export interface ServiceContentProps {
   licensingState: string;
   pitch: string;
   averageRating?: number;
+  author: ServiceTypeCard["author"];
   service: {
     _id: string;
     title: string;
