@@ -72,6 +72,9 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   const parsedContent = post?.pitch || "";
 
   console.log("EDITOR POSTS:", editorPosts);
+  console.log("POST:", post);
+  console.log("AUTHOR:", post.author);
+
   return (
     <Suspense fallback={<LoadingBar2 />}>
       <section className="blue_container bg-swirl-pattern mt-[3.4rem] md:mt-16">
@@ -130,7 +133,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
         <div className="space-y-2 mt-6 md:mt-10 max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <Link
-              href={`/user/${post.author?._id}`}
+              href={`/user/${post?._id}`}
               className="flex gap-2 items-center"
             >
               <Image

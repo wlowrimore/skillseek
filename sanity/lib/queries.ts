@@ -151,19 +151,19 @@ export const RATINGS_BY_SERVICE_QUERY =
     }`);
 
 export const SERVICES_BY_AUTHOR_QUERY =
-  defineQuery(`*[_type == "service" && author._ref == $id] | order(_createdAt desc){
+  defineQuery(`*[_type == "service" && author._ref == $authorId] | order(_createdAt desc){
       _id,
   title,
-  slug,
-  _createdAt,
-  author -> {
-    _id, 
-    name, 
-    image,
-    email    // Added email field
-  },
   description,
   category,
+  author->{
+   _id,
+    name,
+    image,
+    email
+  },
+  slug,
+  _createdAt,
   ratings,
   license,
   licensingState,

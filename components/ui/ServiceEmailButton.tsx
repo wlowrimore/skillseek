@@ -6,6 +6,9 @@ import { nanoid } from "nanoid";
 import { client } from "@/sanity/lib/client";
 import { createValidId } from "@/auth";
 import { Contact } from "@/components/ServiceContent";
+import LoadingBar from "./LoadingBar";
+import LoadingBar2 from "./LoadingBar_2";
+import { Loader2 } from "lucide-react";
 
 export interface ServiceEmailButtonProps {
   service: {
@@ -273,9 +276,17 @@ The rating request will expire in 90 days.`;
   return (
     <button
       onClick={handleEmailClick}
-      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#275975] hover:bg-[#387da5] transition duration-200"
+      className="w-[13rem] inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#275975] hover:bg-[#387da5] transition duration-200"
     >
-      {isLoading ? "Contacting Provider Now..." : "Contact Service Provider"}
+      {isLoading ? (
+        <span className="w-full flex items-center justify-center gap-2">
+          <Loader2 className="inline-flex border border-transparent brightness-110 w-4 h-4 animate-spin bg-gradient-to-br from-[#578cac] to-[#ff8661] text-[#5394b9] rounded-full" />
+          <span className="">Reaching Out Now...</span>
+        </span>
+      ) : (
+        // <Loader2 className="w-full bg-gradient-to-br from-[#51819C] to-[#F29072] text-[#51819C]/80 rounded-full animate-spin p-6" />
+        "Contact Service Provider"
+      )}
     </button>
   );
 }

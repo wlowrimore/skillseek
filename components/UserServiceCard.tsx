@@ -177,10 +177,7 @@ const UserServiceCard: React.FC<UserServiceCardProps> = ({
               </span>
             </div>
           ) : null} */}
-          <Link
-            href={`/user/${author?._id}`}
-            className="flex gap-3 items-center mb-5"
-          >
+          <Link href={`/user/${_id}`} className="flex gap-3 items-center mb-5">
             <Image
               src={author?.image as string}
               alt={author?.name as string}

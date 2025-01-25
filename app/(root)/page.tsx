@@ -1,7 +1,11 @@
 import { Suspense } from "react";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { auth } from "@/auth";
-import { SERVICES_QUERY } from "@/sanity/lib/queries";
+import {
+  SERVICE_BY_ID_QUERY,
+  SERVICES_QUERY,
+  SERVICES_WITHOUT_SEARCH,
+} from "@/sanity/lib/queries";
 import SearchForm from "@/components/SearchForm";
 import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
 import { Metadata } from "next";
@@ -51,7 +55,7 @@ export default async function Home({
     : query
       ? `Search results for "${query}"`
       : "All Listed Services";
-  console.log("POSTS IN HOME PAGE:", posts);
+
   return (
     <Suspense fallback={<LoadingBar2 />}>
       <section className="blue_container bg-swirl-pattern pt-2 mt-12 md:mt-16">
@@ -81,6 +85,8 @@ export default async function Home({
               <ServiceCard
                 ratings={post?.ratings ?? []}
                 averageRating={post?.averageRating ?? 0}
+                license={post?.license || ""}
+                licensingState={post?.licensingState || ""}
                 key={post?._id}
                 post={post}
                 service={post}

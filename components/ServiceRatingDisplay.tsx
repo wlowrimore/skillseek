@@ -77,7 +77,8 @@ const ServicRatingDisplay: React.FC<ServiceRatingProps> = ({
             size={24}
           />
           <span className="text-sm text-muted-foreground">
-            {averageRating?.toFixed(1)} out of 5 ({ratings.length} ratings)
+            {averageRating?.toFixed(1)} out of 5 ({ratings.length}{" "}
+            {ratings.length === 1 ? "rating" : "ratings"})
           </span>
         </div>
       ) : (
