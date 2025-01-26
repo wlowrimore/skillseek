@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useActionState, FormEvent, useEffect } from "react";
+import React, { useState, useActionState, FormEvent, useEffect } from "react";
 import { useUpdatePath } from "@/hooks/useUpdatePath";
 import { useTimeLimit } from "@/hooks/useTimeLimit";
 import { useFormPersistence } from "@/hooks/useFormPersistence";
@@ -72,6 +72,11 @@ interface ServiceFormData {
   contact: string;
   imageDeleteToken?: string;
   pitch: string;
+}
+
+interface TextareaWithLineBreaksProps {
+  value: { value: string };
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const ServiceForm = ({ initialData }: ServiceFormProps) => {
@@ -160,6 +165,28 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleTextareaKeyDown = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const textarea = e.currentTarget;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+
+      setFormData((prev) => {
+        const currentValue = prev[textarea.name as keyof typeof prev] as string;
+        const newValue =
+          currentValue.slice(0, start) + "\n" + currentValue.slice(end);
+
+        return {
+          ...prev,
+          [textarea.name]: newValue,
+        };
+      });
+    }
   };
 
   const validateEmail = (email: string) => {
@@ -418,7 +445,8 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           name="pitch"
           value={formData.pitch}
           onChange={handleInputChange}
-          className="startup-form_textarea h-32"
+          onKeyDown={handleTextareaKeyDown}
+          className="startup-form_textarea h-32 whitespace-pre-wrap"
           aria-label="Briefly describe your service. Include things like years of experience, skills, and more."
           required
           placeholder="Briefly describe your service. Include things like years of experience, skills, and more."

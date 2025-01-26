@@ -187,7 +187,7 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
           </h3>
           {parsedContent ? (
             <article
-              className="text-black max-w-4xl font-work-sans"
+              className="text-black max-w-4xl font-work-sans whitespace-pre-line"
               dangerouslySetInnerHTML={{ __html: parsedContent }}
             />
           ) : (

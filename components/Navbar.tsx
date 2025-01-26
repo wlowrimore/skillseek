@@ -157,7 +157,7 @@ const Navbar = async () => {
 
               <div
                 title={session.user.email}
-                className="flex flex-col justify-center items-center p-0.5 ml-2 border-2 border-[#072454] rounded-full"
+                className="flex flex-col justify-center items-center p-0.5 ml-2 border border-[#072454]/60 rounded-full"
               >
                 <Image
                   src={session.user.image || ""}
