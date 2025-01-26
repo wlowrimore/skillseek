@@ -286,6 +286,8 @@
 
   .startup-form_textarea {
     @apply border-[3px] border-black p-5 resize-none text-[18px]  bg-white text-black font-semibold rounded-[20px] mt-3 placeholder:text-black-300 !important;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 
   .startup-form_error {
