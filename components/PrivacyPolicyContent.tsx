@@ -194,7 +194,7 @@ const PrivacyPolicyContent = () => {
           <p className="text-lg">
             The App is not intended for use by children under the age of 18. We
             do not knowingly collect personal information from children under
-            13.
+            18.
           </p>
         </div>
       </section>

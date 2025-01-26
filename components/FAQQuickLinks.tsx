@@ -43,15 +43,17 @@ const FAQQuickLinks = () => {
           <span className="ml-2">Account & Security</span>
         </p>
       </Link>
+      {/* GRAYED OUT UNDIL RECIEVING PAYMENTS */}
       <Link
         href="#pricing--payments"
-        className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
+        className="opacity-30 group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"
       >
         <p className="text-slate-900 text-lg font-[600]">
           <Sparkle className="animated-sparkle group-hover:rotate-180 transition-transform duration-500 ease-linear inline-block" />
           <span className="ml-2">Pricing & Payments</span>
         </p>
       </Link>
+      {/* +++++++++++++++++++++++++++++++++++++++++ */}
       <Link
         href="#technical-support"
         className="group w-4/5 px-2 py-1.5 rounded-xl hover:bg-[#08B6D4]/20 transition duration-300"

@@ -62,7 +62,7 @@ const workSans = localFont({
 export const metadata: Metadata = {
   title: {
     default: "SkillSeek",
-    template: "%s | SkillSeek",
+    template: "%s | Helping Neighbors Help Neighbors",
   },
   authors: [
     { name: "William Lowrimore", url: "https://williamlowrimore.com" },

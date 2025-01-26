@@ -23,37 +23,38 @@ const AboutComp = () => {
               </span>{" "}
               We understand that every individual possesses unique talents,
               skills, and experiences that can benefit others. Our platform
-              breaks down traditional barriers to service exchange, creating a
-              dynamic ecosystem where neighbors become resources for one
-              another. Whether you're a handyman who can fix a leaky faucet, a
-              graphic designer who can help create a small business logo, or a
-              gardener willing to share landscaping tips, SkillSeek provides the
-              bridge that connects local talent with local needs.
+              breaks down traditional barriers to services, resources, and even
+              service-exchange, creating a dynamic ecosystem where neighbors
+              become resources for one another. Whether you&apos;re a handyman
+              who can fix a leaky faucet, a graphic designer who can help create
+              a small business logo, or a gardener willing to share landscaping
+              tips, SkillSeek provides the bridge that connects local talent
+              with local needs.
             </p>
 
             <p className="text-lg leading-6 pt-4">
-              Beyond individual skill-sharing, we're committed to empowering
-              local businesses that are the heartbeat of our communities. By
-              creating strategic partnerships with small, local enterprises,
-              SkillSeek ensures that when a specific skill or service isn't
-              immediately available through our community network, users are
-              directed to trusted local businesses. These partnerships come with
-              exclusive discounts and offers, creating a win-win scenario that
-              supports local economic growth and provides added value to our
-              users.
+              Beyond individual skill-sharing, we&apos;re committed to
+              empowering local businesses that are the heartbeat of our
+              communities. SkillSeek is working towards creating strategic
+              partnerships with small, local enterprises, to ensure that when a
+              specific skill or service isn&apos;t immediately available through
+              our community network, users can be directed to trusted local
+              businesses. These partnerships will come with exclusive discounts
+              and offers, creating a win-win scenario that supports local
+              economic growth and provides added value to our users.
             </p>
 
             <p className="text-lg leading-6 pt-4">
               Technology today often disconnects us, but SkillSeek is different.
-              We're building more than just an app—we're cultivating a movement
-              of mutual support, learning, and genuine human connection. In a
-              world where impersonal digital interactions are the norm, we're
-              creating a space that celebrates personal skills, promotes
-              neighborly kindness, and reinforces the idea that we are stronger
-              when we work together. By valuing each person's unique abilities
-              and fostering an environment of trust and collaboration, SkillSeek
-              aims to redefine how communities interact, support, and elevate
-              one another.
+              We&apos;re building more than just an app—we&apos;re cultivating a
+              movement of mutual support, learning, and genuine human
+              connection. In a world where impersonal digital interactions are
+              the norm, we&apos;re creating a space that celebrates personal
+              skills, promotes neighborly kindness, and reinforces the idea that
+              we are stronger when we work together. By valuing each
+              person&apos;s unique abilities and fostering an environment of
+              trust and collaboration, SkillSeek aims to redefine how
+              communities interact, support, and elevate one another.
             </p>
           </div>
         </div>

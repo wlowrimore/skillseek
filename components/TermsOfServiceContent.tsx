@@ -181,7 +181,7 @@ const TermsOfServiceContent = () => {
         <div className="mt-2">
           <p className="text-lg">
             These Terms shall be governed by and construed in accordance with
-            the laws of [Your State/Country].
+            the laws of Tennessee/U.S.A.
           </p>
         </div>
       </section>

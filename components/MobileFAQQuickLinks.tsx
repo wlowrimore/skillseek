@@ -77,12 +77,16 @@ const MobileFAQQuickLinks = () => {
                   Learn how we protect your personal information and how to
                   safely choose your service provider
                 </ServicesSubmenu>
-                <ServicesSubmenu
-                  href="#pricing--payments"
-                  title="Pricing & Payments"
-                >
-                  Information on pricing and payment options
-                </ServicesSubmenu>
+                {/* GRAYED OUT UNDIL RECIEVING PAYMENTS */}
+                <div className="opacity-30">
+                  <ServicesSubmenu
+                    href="#pricing--payments"
+                    title="Pricing & Payments"
+                  >
+                    Information on pricing and payment options
+                  </ServicesSubmenu>
+                  {/* +++++++++++++++++++++++++++++++++++++++++ */}
+                </div>
                 <ServicesSubmenu
                   href="#technical-support"
                   title="Technical Support"

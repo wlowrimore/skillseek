@@ -44,12 +44,13 @@ const FAQContent = () => {
             </h3>
             <ul className="list-disc px-6 space-y-2 pt-3">
               <li>
-                Creating a basic account is free, but there are some additional
-                features that require a paid subscription.
+                Creating a basic account is free, however there may be some
+                additional features that require a paid subscription in the
+                future.
               </li>
               <li>
-                You can explore our paid plans and choose the one that best
-                suits your needs.
+                You can explore our paid plans when they become available and
+                choose the one that best suits your needs.
               </li>
               <li>
                 Once you sign up, you can start using SkillSeek right away.
@@ -135,11 +136,8 @@ const FAQContent = () => {
             <ul className="list-disc px-6 space-y-2 pt-3">
               <li>
                 Use our advanced search feature by searching for keywords,
-                authors, or categories.
-              </li>
-              <li>
-                Edit the details of your service, such as the title, image,
-                description, and category.
+                authors, or categories. You may also use the Categories dropdown
+                menu in the top left corner of the window.
               </li>
               <li>
                 Read client reviews and ratings to help you make an informed
@@ -150,8 +148,8 @@ const FAQContent = () => {
               </li>
               <li>
                 Email the service provider to discuss your specific needs and
-                requirements. You will find their contact email in the service
-                details page.
+                requirements. You will find a "Contact Service Provider" button
+                in the service details page.
               </li>
             </ul>
           </article>
@@ -167,10 +165,28 @@ const FAQContent = () => {
                 You can contact our support team if you encounter any issues.
               </li>
               <li>Providers must meet agreed-upon service standards.</li>
+            </ul>
+          </article>
+          <h3 className="text-xl font-semibold">
+            How do I write a review for a service provider?
+          </h3>
+          <article className="text-slate-900 mb-3">
+            <ul className="list-disc px-6 space-y-2 pt-3">
               <li>
-                Refund options are available in a case of unsatisfactory
-                service.
+                On the initial contact with the service provider, the message
+                sent to the provider will contain a link with a unique token.
               </li>
+              <li>
+                Once the service is completed, the provider will email you with
+                a link containing the token. You will have 90 days to leave a
+                review. After 90 days the link is no longer valid and won&apos;t
+                work.
+              </li>
+              <li>
+                That link will grant you access to a review page for that
+                service provider.
+              </li>
+              <li>You can leave a star-rating and/or a review.</li>
             </ul>
           </article>
           <h2
@@ -190,10 +206,6 @@ const FAQContent = () => {
               </li>
               <li>Your payment and personal details are securely stored.</li>
               <li>
-                Read client reviews and ratings to help you make an informed
-                decision.
-              </li>
-              <li>
                 We never share your personal information without your consent.
               </li>
               <li>
@@ -202,30 +214,43 @@ const FAQContent = () => {
               </li>
             </ul>
           </article>
-          <h2
-            id="pricing--payments"
-            className="text-2xl font-bold text-slate-900 mb-3"
-          >
-            Pricing & Payments
-          </h2>
-          <h3 className="text-xl font-semibold">
-            What payment methods do you accept?
-          </h3>
-          <article className="text-slate-900 mb-3">
-            <ul className="list-disc px-6 space-y-2 pt-3">
-              <li>Credit/Debit Cards</li>
-              <li>PayPal</li>
-            </ul>
-          </article>
-          <h3 className="text-xl font-semibold">Are there any hidden fees?</h3>
-          <article className="text-slate-900 mb-3">
-            <ul className="list-disc px-6 space-y-2 pt-3">
-              <li>No hidden fees.</li>
-              <li>Transparent pricing structure.</li>
-              <li>Small platform commissions on completed services.</li>
-              <li>All fees are clearly communicated before service booking.</li>
-            </ul>
-          </article>
+          {/* GRAYED OUT UNTIL PAYMENTS ACCEPTED */}
+          <div className="opacity-30">
+            <h2
+              id="pricing--payments"
+              className="text-2xl font-bold text-slate-900 mb-3"
+            >
+              Pricing & Payments
+            </h2>
+            <h3 className="text-xl font-semibold">
+              What payment methods do you accept?
+            </h3>
+            <article className="text-slate-900 mb-3">
+              <ul className="list-disc px-6 space-y-2 pt-3">
+                <li>Credit/Debit Cards</li>
+                <li>PayPal</li>
+              </ul>
+            </article>
+          </div>
+          {/* +++++++++++++++++++++++++++++++++++++++++++ */}
+
+          {/* GRAYED OUT UNTIL PAYMENTS ACCEPTED */}
+          <div className="opacity-30">
+            <h3 className="text-xl font-semibold">
+              Are there any hidden fees?
+            </h3>
+            <article className="text-slate-900 mb-3">
+              <ul className="list-disc px-6 space-y-2 pt-3">
+                <li>No hidden fees.</li>
+                <li>Transparent pricing structure.</li>
+                <li>Small platform commissions on completed services.</li>
+                <li>
+                  All fees are clearly communicated before service booking.
+                </li>
+              </ul>
+            </article>
+          </div>
+          {/* +++++++++++++++++++++++++++++++++++++++++++ */}
           <h2
             id="technical-support"
             className="text-2xl font-bold text-slate-900 mb-3"
@@ -304,7 +329,7 @@ const FAQContent = () => {
           <article className="text-slate-900">
             <p className="">
               Our support team is always ready to help. Reach out through the
-              contact methods listed in the support section.
+              contact methods listed in the "Contact Us" page.
             </p>
           </article>
         </div>
