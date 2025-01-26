@@ -41,14 +41,14 @@ const SplashScreen = () => {
   if (!isVisible || isAuthenticated) return null;
 
   return (
-    <div className="fixed z-40 h-screen left-0 right-0 top-0 bottom-0 bg-[url('/splash-screen-bg.webp')] flex flex-col items-center justify-center md:hidden">
+    <div className="fixed z-40 h-screen w-screen left-0 right-0 top-0 bottom-0 bg-[url('/splash-screen-bg.webp')] flex flex-col items-center justify-center md:hidden">
       <div className="h-screen flex flex-col items-center flex-center border-[3px] border-zinc-400 rounded-2xl">
         <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
           {/* Shapes */}
           <SplashScreenColorCircles />
           {/* Title */}
           <div className="relative z-50 w-full flex flex-col justify-center items-center">
-            <div className=" bg-black/80 w-screen h-screen flex flex-col items-center pt-[17rem] px-4 text-zinc-400">
+            <div className=" bg-black/80 w-screen h-screen flex flex-col items-center pt-[10rem] px-4 text-zinc-400">
               <h1 className="text-6xl text-center font-bold w-full bg-swirl-pattern bg-clip-text text-transparent opacity-80">
                 SkillSeek
               </h1>
@@ -57,7 +57,7 @@ const SplashScreen = () => {
               </p>
             </div>
             {/* Loading Spinner */}
-            <div className="absolute top-[22%] w-44 h-44 z-70">
+            <div className="absolute top-[15%] w-44 h-44 z-70">
               <Loader2 className="relative top-[100%] w-44 h-44 bg-gradient-to-br from-[#51819C] to-[#F29072] text-[#51819C]/80 rounded-full animate-spin p-6" />
               <div className="relative z-80  w-full">
                 <Image
@@ -72,7 +72,7 @@ const SplashScreen = () => {
             </div>
             <SignInVerificationWrapper>
               {!session?.user ? (
-                <div className="absolute bottom-[34%] left-0 right-0 z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
+                <div className="absolute bottom-40 left-0 right-0 z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
                   {/* <span className="bg-slate-800 relative min-w-[100vw] left-[13%] h-[0.2rem] rounded-full"></span> */}
                   <form
                     onSubmit={handleSubmit}
@@ -82,14 +82,14 @@ const SplashScreen = () => {
                       type="submit"
                       // className="relative flex justify-center right-[49.95vw] items-center top-[1.7rem] z-20 py-2 px-4"
                     >
-                      <p className="w-fit text-lg border-b border-zinc-300 pt-2 flex justify-center items-center">
+                      <p className="w-fit text-lg border-b border-zinc-300 flex justify-center items-center">
                         <span>Click Here to Get Started</span>
                       </p>
                     </button>
                   </form>
                 </div>
               ) : (
-                <div className="absolute bottom-[30%] left-0 right-0 z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
+                <div className="absolute bottom-20 left-0 right-0 z-90 flex justify-center items-end text-zinc-300 text-[1.3rem]">
                   <div className="w-full flex flex-col justify-center items-center mx-auto">
                     <h1 className="w-fit text-[0.8rem] pt-6  flex justify-center items-center font-normal tracking-wide">
                       Loading User Account For:
