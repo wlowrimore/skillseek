@@ -164,7 +164,7 @@ const Navbar = async () => {
                   alt={session.user.name || ""}
                   width={40}
                   height={40}
-                  className="rounded-full"
+                  className="rounded-full object-cover object-center"
                   unoptimized
                 />
               </div>

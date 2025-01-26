@@ -168,17 +168,9 @@ const UserServiceCard: React.FC<UserServiceCardProps> = ({
               <p className="text-sm">No ratings yet</p>
             </div>
           )}
-          {/* {rating ? (
-            <div className="flex items-center gap-2 mb-3">
-              <Star className="w-4 h-4 text-neutral-400 fill-yellow-400" />
-              <span className="text-sm text-muted-foreground">
-                {ratingsUtils.calculateAverageRating(rating).toFixed(1)} (
-                {rating.length} {rating.length === 1 ? "review" : "reviews"})
-              </span>
-            </div>
-          ) : null} */}
           <Link href={`/user/${_id}`} className="flex gap-3 items-center mb-5">
             <Image
+              title="User's Services"
               src={author?.image as string}
               alt={author?.name as string}
               width={100}

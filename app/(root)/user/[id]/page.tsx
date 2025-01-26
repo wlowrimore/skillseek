@@ -41,19 +41,10 @@ const UserPage = async ({ params }: { params: { id: string } }) => {
     params: await { id: null, serviceId: null }, // No specific filtering here
   });
 
-  // Explicitly filter services
+  // Filters the posts to only include posts by the selected user
   const usersPosts = posts?.filter(
     (post: UserServiceCardType) =>
       post.author?._id === serviceDetails?.author?._id
-  );
-  console.log(
-    "POST.AUTHOR.EMAIL:",
-    posts?.map((post: UserServiceCardType) => post.author?.email)
-  );
-  console.log("SERVICE_DETAILS.AUTHOR._ID:", serviceDetails?.author?._id);
-  console.log(
-    "USER'S POSTS:",
-    usersPosts.map((post: UserServiceCardType) => post)
   );
 
   return (

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useActionState, FormEvent } from "react";
+import { useState, useActionState, FormEvent, useEffect } from "react";
 import { useUpdatePath } from "@/hooks/useUpdatePath";
 import { useTimeLimit } from "@/hooks/useTimeLimit";
+import { useFormPersistence } from "@/hooks/useFormPersistence";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -74,24 +75,58 @@ interface ServiceFormData {
 }
 
 const ServiceForm = ({ initialData }: ServiceFormProps) => {
+  const { saveFormData, loadFormData, clearFormData } =
+    useFormPersistence("serviceForm");
+  const { toast } = useToast();
+  const { isUpdatePath } = useUpdatePath();
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [hasLicense, setHasLicense] = useState<boolean>(false);
   const [isStateValid, setIsStateValid] = useState<boolean>(false);
   const router = useRouter();
-  const [formData, setFormData] = useState<ServiceFormData>({
-    title: initialData?.title || "",
-    description: initialData?.description || "",
-    category: initialData?.category || "",
-    image: initialData?.image || "",
-    license: initialData?.license || "",
-    licensingState: initialData?.licensingState || "",
-    imageDeleteToken: "",
-    pitch: initialData?.pitch || "",
-    contact: initialData?.contact || "",
+  const [formData, setFormData] = useState<ServiceFormData>(() => {
+    // If editing an existing service, prioritize initial data
+    if (initialData?._id) {
+      return {
+        title: initialData.title || "",
+        description: initialData.description || "",
+        category: initialData.category || "",
+        image: initialData.image || "",
+        license: initialData.license || "",
+        licensingState: initialData.licensingState || "",
+        imageDeleteToken: "",
+        pitch: initialData.pitch || "",
+        contact: initialData.contact || "",
+      } as ServiceFormData;
+    }
+
+    const persistedData = loadFormData();
+    return (
+      persistedData || {
+        title: "",
+        description: "",
+        category: "",
+        image: "",
+        license: "",
+        licensingState: "",
+        imageDeleteToken: "",
+        pitch: "",
+        contact: "",
+      }
+    );
   });
-  const { toast } = useToast();
-  const { isUpdatePath } = useUpdatePath();
+
   const showSuccess = useTimeLimit(formData.image);
+
+  const handleSuccessfulSubmission = () => {
+    clearFormData();
+  };
+
+  useEffect(() => {
+    if (!initialData?._id) {
+      saveFormData(formData);
+    }
+  }, [formData, initialData?._id]);
 
   const handleImageChange = (url: string, deleteToken?: string) => {
     setFormData((prev) => ({
@@ -145,9 +180,6 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
     }
 
     try {
-      console.log("Initial Data:", initialData);
-      console.log("Is Admin", initialData?.role === "administrator");
-
       if (!validateEmail(formData.contact)) {
         setErrors((prev) => ({
           ...prev,
@@ -185,6 +217,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         );
 
         if (result) {
+          handleSuccessfulSubmission();
           toast({
             variant: "success",
             title: "Success",
@@ -200,18 +233,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           throw new Error("Failed to update service");
         }
       } else {
-        console.log("Taking Create Branch");
-
-        const validatedData = await formSchema.parseAsync(formData);
-
-        console.log("Form Data before submission:", {
-          ...formData,
-          licensingState: formData.licensingState,
-        });
-        console.log("Form Data from FormData API:", {
-          title: formDataSubmit.get("title"),
-          licensingState: formDataSubmit.get("licensingState"),
-        });
+        // const validatedData = await formSchema.parseAsync(formData);
 
         const submitFormData = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
@@ -223,6 +245,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
         const result = await createPitch(prevState, submitFormData);
 
         if (result.status === "SUCCESS" && formData.image) {
+          handleSuccessfulSubmission();
           toast({
             variant: "success",
             title: "Success",

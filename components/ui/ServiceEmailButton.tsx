@@ -33,12 +33,15 @@ export default function ServiceEmailButton({
   const { data: session } = useSession();
   console.log("Session data:", session);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("Service data:", service);
-    console.log("Contact data:", contact);
-    console.log("Service Contact:", contact.email);
-  }, []);
+    if (session?.user?.email === service?.author?.email?.toLowerCase()) {
+      setIsOwner(true);
+      setIsLoading(false);
+      return;
+    }
+  }, [session?.user?.email, service?.author?.email?.toLowerCase()]);
 
   const contactEmail = contact.email;
 
@@ -117,21 +120,6 @@ export default function ServiceEmailButton({
     setIsLoading(true);
 
     const userId = createValidId(session.user.email);
-
-    if (session?.user?.email === service?.author?.email?.toLowerCase()) {
-      alert("You cannot rate your own services");
-      return;
-    }
-
-    console.log("Service data:", {
-      serviceId: service._id,
-      title: service.title,
-      authorId: service.author._id,
-    });
-    console.log("Session data:", {
-      userId: session.user.id,
-      userEmail: session.user.email,
-    });
 
     try {
       const userEmail = session.user.email.toLowerCase();
@@ -274,19 +262,27 @@ The rating request will expire in 90 days.`;
   };
 
   return (
-    <button
-      onClick={handleEmailClick}
-      className="w-[13rem] inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#275975] hover:bg-[#387da5] transition duration-200"
-    >
-      {isLoading ? (
-        <span className="w-full flex items-center justify-center gap-2">
-          <Loader2 className="inline-flex border border-transparent brightness-110 w-4 h-4 animate-spin bg-gradient-to-br from-[#578cac] to-[#ff8661] text-[#5394b9] rounded-full" />
-          <span className="">Reaching Out Now...</span>
-        </span>
-      ) : (
-        // <Loader2 className="w-full bg-gradient-to-br from-[#51819C] to-[#F29072] text-[#51819C]/80 rounded-full animate-spin p-6" />
-        "Contact Service Provider"
+    <>
+      <button
+        onClick={handleEmailClick}
+        className={`${isOwner && "absolute mt-6"} disabled:cursor-not-allowed disabled:opacity-40 w-[13rem] inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#275975] hover:bg-[#387da5] disabled:hover:bg-none transition duration-200`}
+        disabled={isOwner}
+      >
+        {isLoading ? (
+          <span className="w-full flex items-center justify-center gap-2">
+            <Loader2 className="inline-flex border border-transparent brightness-110 w-4 h-4 animate-spin bg-gradient-to-br from-[#578cac] to-[#ff8661] text-[#5394b9] rounded-full" />
+            <span className="">Reaching Out Now...</span>
+          </span>
+        ) : (
+          "Contact Service Provider"
+        )}
+      </button>
+      {isOwner && (
+        <div className="relative flex flex-col items-center text-sm px-4 rounded-lg py-4 bg-white/40 text-amber-800/90 font-semibold">
+          <p className="text-lg">YOU OWN THIS SERVICE LISTING.</p>
+          <p>YOU ARE NOT ALLOWED TO RATE IT.</p>
+        </div>
       )}
-    </button>
+    </>
   );
 }
