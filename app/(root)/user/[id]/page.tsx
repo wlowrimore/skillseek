@@ -63,7 +63,7 @@ const UserPage = async ({ params }: { params: { id: string } }) => {
             loading="lazy"
             width={1000}
             height={1000}
-            className="w-44 h-44 object-cover object-top border-[3px] border-black/70 p-[0.8px] rounded-2xl"
+            className="w-44 h-44 object-cover object-top"
           />
         </div>
 

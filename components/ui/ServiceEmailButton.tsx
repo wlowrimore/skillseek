@@ -9,6 +9,7 @@ import { Contact } from "@/components/ServiceContent";
 import LoadingBar from "./LoadingBar";
 import LoadingBar2 from "./LoadingBar_2";
 import { Loader2 } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 export interface ServiceEmailButtonProps {
   service: {
@@ -43,7 +44,109 @@ export default function ServiceEmailButton({
     }
   }, [session?.user?.email, service?.author?.email?.toLowerCase()]);
 
-  const contactEmail = contact.email;
+  const handleEmailClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (!session?.user) {
+      alert("Please sign in to contact service providers");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const userEmail = session.user.email.toLowerCase();
+      const userExists = await client.fetch(
+        `*[_type == "author" && email == $email][0]`,
+        { email: userEmail }
+      );
+
+      if (!userExists) {
+        throw new Error(`No user found with the email ${userEmail}`);
+      }
+
+      const userId = userExists._id;
+
+      await verifyReferences(service._id, userId, service.author._id);
+
+      // Check for existing unused rating key
+      const existingKey = await checkExistingRatingKey(service._id, userId);
+
+      let ratingKey;
+
+      if (existingKey) {
+        ratingKey = existingKey;
+        console.log("Using existing rating key:", existingKey);
+      } else {
+        // Generate a unique key
+        const uniqueKey = nanoid(16);
+        const documentId = `ratingKey-${nanoid()}`;
+
+        const ratingKeyData = {
+          _id: documentId,
+          _type: "ratingKey",
+          key: uniqueKey,
+          slug: {
+            _type: "slug",
+            current: uniqueKey,
+          },
+          user: {
+            _type: "reference",
+            _ref: userId,
+          },
+          service: {
+            _type: "reference",
+            _ref: service._id,
+          },
+          serviceProvider: {
+            _type: "reference",
+            _ref: service.author._id,
+          },
+          createdAt: new Date().toISOString(),
+          expiresAt: new Date(
+            Date.now() + 90 * 24 * 60 * 60 * 1000
+          ).toISOString(),
+          isUsed: false,
+        };
+
+        ratingKey = await client.createIfNotExists(ratingKeyData);
+
+        const response = await fetch("/api/send-contact-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            senderName: session.user.name,
+            senderEmail: session.user.email,
+            recipientEmail: service.contact,
+            serviceTitle: service.title,
+            ratingKey: ratingKey.key,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to send email");
+        }
+
+        setIsLoading(false);
+        toast({
+          variant: "success",
+          title: "Request Sent",
+          description:
+            "Request for correspondence with the service provider has been sent successfully.",
+        });
+      }
+    } catch (error: any) {
+      console.error("Error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+      setIsLoading(false);
+    }
+  };
 
   const verifyReferences = async (
     serviceId: string,
@@ -107,158 +210,6 @@ export default function ServiceEmailButton({
     }
 
     return null;
-  };
-
-  const handleEmailClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    if (!session?.user) {
-      alert("Please sign in to contact service providers");
-      return;
-    }
-
-    setIsLoading(true);
-
-    const userId = createValidId(session.user.email);
-
-    try {
-      const userEmail = session.user.email.toLowerCase();
-      const userDoc = await client.fetch(
-        `*[_type == "author" && email == $email][0]{
-          _id,
-          email,
-          name
-        }`,
-        { email: userEmail }
-      );
-
-      if (!userDoc) {
-        throw new Error(`No user found with the email ${userEmail}`);
-        setIsLoading(false);
-      }
-
-      const userExists = await client.fetch(
-        `*[_type == "author" && email == $email][0]`,
-        {
-          email: userEmail,
-        }
-      );
-
-      if (!userExists) {
-        throw new Error(`No user found with the email ${userEmail}`);
-        setIsLoading(false);
-      }
-
-      const userId = userExists._id;
-
-      await verifyReferences(service._id, userId, service.author._id);
-
-      // Check for existing unused rating key
-      const existingKey = await checkExistingRatingKey(service._id, userId);
-
-      let ratingKey;
-
-      if (existingKey) {
-        ratingKey = existingKey;
-        console.log("Using existing rating key:", existingKey);
-      } else {
-        // Generate a unique key
-        const uniqueKey = nanoid(16);
-        const documentId = `ratingKey-${nanoid()}`;
-
-        const ratingKeyData = {
-          _id: documentId,
-          _type: "ratingKey",
-          key: uniqueKey,
-          slug: {
-            _type: "slug",
-            current: uniqueKey,
-          },
-          user: {
-            _type: "reference",
-            _ref: userId,
-          },
-          service: {
-            _type: "reference",
-            _ref: service._id,
-          },
-          serviceProvider: {
-            _type: "reference",
-            _ref: service.author._id,
-          },
-          createdAt: new Date().toISOString(),
-          expiresAt: new Date(
-            Date.now() + 90 * 24 * 60 * 60 * 1000
-          ).toISOString(),
-          isUsed: false,
-        };
-
-        ratingKey = await client.createIfNotExists(ratingKeyData);
-      }
-      setIsLoading(false);
-
-      // ------------------------------------------------------------------------------
-      // Prefabricated email to service provider containing rating link with rating key
-      // ------------------------------------------------------------------------------
-
-      const emailBody = `Hi ${service.author.name},
-
-I would like to inquire about your service "${service.title}". Please email me back at ${session.user.email} so we can speak in detail.
-
-Thank you for your time.
-
-Regards,
-${session.user.name}
-${session.user.email}
-
---- Note to service provider ---
-
-!!! DO NOT RESPOND TO THIS EMAIL WITHIN THIS EMAIL WINDOW AS IT WILL SEND THE RATING LINK WITH IT !!! 
-
-ONLY RESPOND DIRECTLY TO ${session.user.email}, OR BY CLICKING THE USER'S/CLIENT'S EMAIL ADDRESS SHOWN IN THEIR SIGNATURE. 
-
---- Rate My Service Link ---
-
-When you are ready to provide the user/client with the rating link, please copy and paste the following link inside an email to the user/client:
-
-${process.env.NEXT_PUBLIC_APP_URL}/rate/${ratingKey.key}
-
-This link carries with it a unique key that will allow the user/client to rate your service.
-
---- Please note the following: ---
-
-1. The user/client will have 90 days to rate your service.
-2. Only send this link when you are ready for the user/client to rate your service.
-3. The unique key needed to access this link is a one-time use key so once the user/client has rated your service, the link will no longer be valid.
-
-The rating request will expire in 90 days.`;
-
-      window.location.href = `mailto:${service.contact}?subject=Service Inquiry - ${
-        service.title
-      }&body=${encodeURIComponent(emailBody)}`;
-    } catch (error: any) {
-      console.error("Detailed error with full context:", {
-        error: error,
-        sessionUser: session.user,
-        serviceDetails: {
-          id: service._id,
-          authorId: service.author._id,
-        },
-      });
-      alert(
-        `Error: ${error.message || "There was an error preparing the email. Please try again."}`
-      );
-
-      if (error.status === 409) {
-        alert(
-          "A rating key already exists for this service request. Please try again later."
-        );
-      } else {
-        alert(
-          `Error: ${error.message || "There was an error preparing the email. Please check the console for details."}`
-        );
-      }
-    }
   };
 
   return (

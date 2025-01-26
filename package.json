@@ -45,6 +45,7 @@
     "next-auth": "^5.0.0-beta.25",
     "next-cloudinary": "^6.16.0",
     "next-sanity": "^9.8.20",
+    "nodemailer": "^6.10.0",
     "path": "^0.12.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
