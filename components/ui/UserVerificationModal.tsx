@@ -30,7 +30,6 @@ export const UserVerificationModal = ({
   const [ageVerified, setAgeVerified] = useState(false);
   const [isOpen, setIsOpen] = useState(dialogOpen);
 
-  // Update internal state when prop changes
   useEffect(() => {
     setIsOpen(dialogOpen);
   }, [dialogOpen]);

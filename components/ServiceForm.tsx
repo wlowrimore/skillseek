@@ -74,11 +74,6 @@ interface ServiceFormData {
   pitch: string;
 }
 
-interface TextareaWithLineBreaksProps {
-  value: { value: string };
-  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
-
 const ServiceForm = ({ initialData }: ServiceFormProps) => {
   const { saveFormData, loadFormData, clearFormData } =
     useFormPersistence("serviceForm");
@@ -260,8 +255,6 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
           throw new Error("Failed to update service");
         }
       } else {
-        // const validatedData = await formSchema.parseAsync(formData);
-
         const submitFormData = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
           if (value !== undefined) {

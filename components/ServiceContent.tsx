@@ -64,16 +64,10 @@ const ServiceContent: React.FC<ServiceContentProps> = async ({
   currentUserRating,
   editorPosts,
 }: ServiceContentProps) => {
-  console.log("LICENSE:", license);
-  console.log("POST:", post);
   const session = await auth();
   const createdUserName = post.author?.email?.split("@")[0];
   const username = `@${createdUserName}`;
   const parsedContent = post?.pitch || "";
-
-  console.log("EDITOR POSTS:", editorPosts);
-  console.log("POST:", post);
-  console.log("AUTHOR:", post.author);
 
   return (
     <Suspense fallback={<LoadingBar2 />}>

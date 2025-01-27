@@ -66,7 +66,6 @@ const UserServiceCard: React.FC<UserServiceCardProps> = ({
   post: UserServiceCardType;
   service: UserServiceCardType;
   ratings: RatingData[];
-  //   averageRating: number;
   currentUserEmail?: UserServiceCardType["author"]["email"];
   contact: Contact;
 }) => {
@@ -79,15 +78,11 @@ const UserServiceCard: React.FC<UserServiceCardProps> = ({
     image,
     license,
     licensingState,
-    // averageRating,
     description,
-    // pitch,
   } = post;
   const isAuthor = Boolean(
     currentUserEmail && author?.email && currentUserEmail === author.email
   );
-
-  console.log("SERVICE IN USER SERVICE CARD: ", service);
 
   const createdUsername = service?.author?.email?.split("@")[0];
   const username = `@${createdUsername}`;
@@ -130,14 +125,12 @@ const UserServiceCard: React.FC<UserServiceCardProps> = ({
                     following license id provided by this service provider:
                   </DialogDescription>
                 </DialogHeader>
-                {/* <div className="flex gap-4 items-center"> */}
                 <p className="text-center text-lg">
                   {license}
                   <span className="text-center text-lg">
                     &nbsp; &#40; {licensingState} &#41;
                   </span>
                 </p>
-                {/* </div> */}
                 <DialogFooter>
                   <div className="text-xs text-red-500">
                     <h2>

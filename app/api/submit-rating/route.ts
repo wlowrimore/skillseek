@@ -39,7 +39,7 @@ export async function POST(req: Request) {
         _ref: serviceId,
       },
       serviceProvider: {
-        // Updated to match your schema
+        // Updated to match the schema
         _type: "reference",
         _ref: providerId,
       },

@@ -59,7 +59,6 @@ export interface RatingData {
 export default function RatingPage() {
   const { toast } = useToast();
   const [ratingData, setRatingData] = useState<RatingData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const params = useParams();
@@ -141,21 +140,11 @@ export default function RatingPage() {
           description: errorMessage,
           variant: "destructive",
         });
-      } finally {
-        setIsLoading(false);
       }
     };
 
     fetchRatingKeyData();
   }, [ratingKey, toast]);
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex justify-center items-center min-h-screen">
-  //       <p>Loading rating information...</p>
-  //     </div>
-  //   );
-  // }
 
   if (error || !ratingData) {
     return (

@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { Metadata } from "next";
 import { ServiceCardSkeleton } from "@/components/ServiceCard";
 import LoadingBar2 from "@/components/ui/LoadingBar_2";
 import UserServiceCard, {
@@ -10,10 +11,26 @@ import { SERVICES_BY_AUTHOR_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
+export const metadata: Metadata = {
+  title: "My Services",
+  description: "Displaying all services created by the current you",
+  openGraph: {
+    title: "My Services",
+    description: "Displaying all services created by the current you",
+    images: [
+      {
+        url: "https://skillseekapp.com/brand-logo-new.png",
+        width: 1200,
+        height: 630,
+        alt: "My Services",
+      },
+    ],
+  },
+};
+
 const MyServicesPage = async ({ params }: { params: { id: string } }) => {
   const session = await auth();
 
-  // If no user is signed in, return not found
   if (!session?.user?.email) return notFound();
 
   // Fetch services for the current logged-in user

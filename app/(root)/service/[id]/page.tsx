@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { auth } from "@/auth";
+import { Metadata } from "next";
 import {
   PLAYLIST_BY_SLUG_QUERY,
   SERVICE_BY_ID_QUERY,
@@ -8,9 +9,24 @@ import { notFound } from "next/navigation";
 import ServiceContent from "@/components/ServiceContent";
 import { Suspense } from "react";
 import LoadingBar2 from "@/components/ui/LoadingBar_2";
-
-// Import our ratings utility
 import { ratingsUtils } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Selected Service",
+  description: "View specific services and their details",
+  openGraph: {
+    title: "Selected Service",
+    description: "View specific services and their details",
+    images: [
+      {
+        url: "https://skillseekapp.com/brand-logo-new.png",
+        width: 1200,
+        height: 630,
+        alt: "Selected Service",
+      },
+    ],
+  },
+};
 
 interface ServicePageParams {
   params: {
@@ -33,11 +49,11 @@ const ServicePage = async ({ params }: ServicePageParams) => {
 
   if (!post) return notFound();
 
-  // Process ratings using a utility functions
+  // Process ratings using utility functions
   const ratings = ratingsUtils.extractRatings(post);
   const averageRating = ratingsUtils.calculateAverageRating(ratings);
 
-  // Extract other necessary data
+  // Extract relevant data
   const editorPosts = playlist.select || [];
   const authorEmail = post.author?.email;
   const currentUserEmail = session?.user?.email || null;

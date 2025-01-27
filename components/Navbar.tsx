@@ -1,15 +1,9 @@
 import React from "react";
 import type { HTMLAttributes } from "react";
 import { auth } from "@/auth";
-import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
 import { SignInBtn } from "./AuthButtons";
-import {
-  AUTHOR_BY_EMAIL_QUERY,
-  SERVICES_BY_AUTHOR_QUERY,
-  SERVICES_WITHOUT_SEARCH,
-} from "@/sanity/lib/queries";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -21,8 +15,6 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { Work_Sans as WorkSans } from "next/font/google";
-import { sanityFetch } from "@/sanity/lib/live";
-import { UserServiceCardType } from "./UserServiceCard";
 
 const work = WorkSans({ subsets: ["latin"], weight: "500" });
 

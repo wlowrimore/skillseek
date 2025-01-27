@@ -47,11 +47,6 @@ export function StateInput({
     validateAndUpdateState(value);
   }, [value, required]);
 
-  const validateState = (stateCode: string) => {
-    const upperState = stateCode.toUpperCase();
-    return upperState in US_STATES;
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value.toUpperCase();
     onChange(newValue);
@@ -86,7 +81,7 @@ export function StateInput({
                 disabled={disabled}
                 required={required}
                 title="Please enter a valid 2-letter state code"
-                // Force HTML5 validation to use our custom validation
+                // Custom validation
                 onInvalid={(e) => {
                   e.preventDefault();
                   validateAndUpdateState(value);

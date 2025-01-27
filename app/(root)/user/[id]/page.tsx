@@ -3,10 +3,8 @@ import { Metadata } from "next";
 import {
   SERVICE_BY_ID_QUERY,
   SERVICES_WITHOUT_SEARCH,
-  SERVICES_BY_AUTHOR_QUERY,
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 
 import { Suspense } from "react";
 import { ServiceCardSkeleton } from "@/components/ServiceCard";
@@ -26,7 +24,6 @@ export const metadata: Metadata = {
 const UserPage = async ({ params }: { params: { id: string } }) => {
   const session = await auth();
 
-  // If no user is signed in, return not found
   if (!session?.user?.email) return notFound();
 
   // Fetch the service details
@@ -68,8 +65,6 @@ const UserPage = async ({ params }: { params: { id: string } }) => {
         </div>
 
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">
-          {/* <p className="text-30-bold">Your Services</p> */}
-
           <ul className="card_grid-sm">
             <Suspense fallback={<ServiceCardSkeleton />}>
               {usersPosts && usersPosts.length > 0 ? (

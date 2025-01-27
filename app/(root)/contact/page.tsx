@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Contact Us",
   description: "Have a question or want to work with us?",
   openGraph: {
-    title: "About Us",
+    title: "Contact Us",
     description: "Have a question or want to work with us?",
     images: [
       {

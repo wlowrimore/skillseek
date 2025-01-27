@@ -88,11 +88,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   const isAuthor = Boolean(
     currentUserEmail && author?.email && currentUserEmail === author.email
   );
-  console.log("POST IN SERVICE CARD: ", post); // post has a _id parameter
-  console.log("SERVICE IN SERVICE CARD: ", service); // service is the same thing as post
-  console.log("AUTHOR IN SERVICE CARD: ", author); // author is the same as session.user
-  console.log("CURRENT USER EMAIL IN SERVICE CARD: ", currentUserEmail); // current email is the same as author.email and session.user.email
-  console.log("POST ID IN SERVICE CARD: ", _id); // is the correct POST._ID (post._id)
 
   const createdUsername = service?.author?.email?.split("@")[0];
   const username = `@${createdUsername}`;

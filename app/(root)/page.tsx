@@ -1,11 +1,7 @@
 import { Suspense } from "react";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { auth } from "@/auth";
-import {
-  SERVICE_BY_ID_QUERY,
-  SERVICES_QUERY,
-  SERVICES_WITHOUT_SEARCH,
-} from "@/sanity/lib/queries";
+import { SERVICES_QUERY } from "@/sanity/lib/queries";
 import SearchForm from "@/components/SearchForm";
 import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
 import { Metadata } from "next";

@@ -4,10 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { nanoid } from "nanoid";
 import { client } from "@/sanity/lib/client";
-import { createValidId } from "@/auth";
 import { Contact } from "@/components/ServiceContent";
-import LoadingBar from "./LoadingBar";
-import LoadingBar2 from "./LoadingBar_2";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
