@@ -61,7 +61,7 @@ const SplashScreen = () => {
               <Loader2 className="relative top-[100%] w-44 h-44 bg-gradient-to-br from-[#51819C] to-[#F29072] text-[#51819C]/80 rounded-full animate-spin p-6" />
               <div className="relative z-80  w-full">
                 <Image
-                  src="/brand-logo-new.png"
+                  src="/images/brand-logo-new.png"
                   alt="skillseekapp"
                   width={500}
                   height={500}
