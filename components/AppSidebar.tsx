@@ -67,7 +67,7 @@ export function AppSidebar() {
         className={`w-[100vw] min-h-screen h-screen md:w-full flex flex-col gap-2 transition-all duration-300 ease-in ${isOpen ? "bg-white w-[100vw] md:w-full" : "bg-transparent w-full ml-[-3rem] md:ml-0"}`}
       >
         <img
-          src="/brand-logo-cropped.png"
+          src="/images/brand-logo-cropped.png"
           alt="brand logo"
           width={1000}
           height={1000}

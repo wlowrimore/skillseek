@@ -4,9 +4,9 @@ const TermsOfServiceContent = () => {
   return (
     <article className="mt-6">
       <div className="flex flex-col pb-1.5 border-b border-neutral-400">
-        <span className="flex items-center gap-1.5">
+        <span className="flex items-center -ml-1.5 gap-1.5">
           <img
-            src="/brand-logo-cropped.png"
+            src="/images/brand-logo-cropped.png"
             alt="skillseek"
             width={1000}
             height={1000}

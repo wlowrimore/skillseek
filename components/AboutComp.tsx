@@ -8,7 +8,7 @@ const AboutComp = () => {
         <div className="grid grid-cols-1 md:flex flex-col lg:grid-cols-2 py-10 md:py-12">
           <div className="w-full mx-auto pb-1 flex md:px-6">
             <img
-              src="/community_sharing_flat.webp"
+              src="/images/community_sharing_flat.webp"
               alt="community sharing"
               width={1000}
               height={1000}

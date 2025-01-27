@@ -72,14 +72,14 @@
   }
 
   .bg-swirl-pattern {
-    background-image: url("/multi-color-swirl.webp");
+    background-image: url("/images/multi-color-swirl.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
 
   .bg-contact {
-    background-image: url("/contact-image.webp");
+    background-image: url("/images/contact-image.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -87,14 +87,14 @@
 
   .bg-mobile-contact {
     margin-top: 3.5rem;
-    background-image: url("/contact-right-mobile.webp");
+    background-image: url("/images/contact-right-mobile.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
 
   .bg-faq {
-    background-image: url("/faq-background.webp");
+    background-image: url("/images/faq-background.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -201,7 +201,7 @@
   }
 
   .profile_card {
-    @apply w-64 h-72 px-6 pb-12 pt-20 flex flex-col justify-center items-center bg-[url('/splash-screen-bg.webp')] bg-left bg-cover border-[5px] border-black shadow-100 rounded-[30px] relative z-0 max-lg:w-full;
+    @apply w-64 h-72 px-6 pb-12 pt-20 flex flex-col justify-center items-center bg-[url('/images/splash-screen-bg.webp')] bg-left bg-cover border-[5px] border-black shadow-100 rounded-[30px] relative z-0 max-lg:w-full;
   }
 
   .profile_title {

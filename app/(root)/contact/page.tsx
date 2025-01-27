@@ -49,7 +49,7 @@ const Contact = () => {
                     </h2>
                     <div className="mt-4 md:mt-8 flex items-center gap-6">
                       <img
-                        src="/fakenamedev-logo.webp"
+                        src="/images/fakenamedev-logo.webp"
                         alt="fakenamedev"
                         width={1000}
                         height={1000}

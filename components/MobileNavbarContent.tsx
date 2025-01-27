@@ -67,7 +67,7 @@ export default function MobileNavbarContent({
           <div className="flex justify-start pl-2">
             <DrawerTitle>
               <img
-                src="/brand-logo-cropped.png"
+                src="/images/brand-logo-cropped.png"
                 alt="brand logo"
                 width={500}
                 height={500}
