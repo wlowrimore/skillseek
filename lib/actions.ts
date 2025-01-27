@@ -241,6 +241,18 @@ export async function deleteService(serviceId: string) {
       throw new Error("Authorization required");
     }
 
+    // Fetch and delete all ratings associated with the service
+    const ratingIds = await client.fetch(
+      `
+      *[_type == "rating" && service._ref == $serviceId]._id
+    `,
+      { serviceId }
+    );
+
+    for (const ratingId of ratingIds) {
+      await client.delete(ratingId);
+    }
+
     const service = await client.fetch(
       `
       *[_type == "service" && _id == $serviceId][0]{
@@ -267,10 +279,6 @@ export async function deleteService(serviceId: string) {
     }
 
     if (service.author.email !== session.user.email) {
-      console.log("Auth mismatch:", {
-        serviceAuthorEmail: service.author.email,
-        currentUserEmail: session.user.email,
-      });
       throw new Error(
         "Unauthorized: You don't have permission to delete this service"
       );
@@ -288,7 +296,6 @@ export async function deleteService(serviceId: string) {
 
     // Delete the service from Sanity
     await client.delete(serviceId);
-    console.log("Service deleted from Sanity successfully");
 
     revalidatePath("/");
 
@@ -297,16 +304,9 @@ export async function deleteService(serviceId: string) {
       message: "Service deleted successfully",
     };
   } catch (error) {
-    console.error("Delete error details:", {
-      error,
-      message: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : undefined,
-    });
-
     return {
       status: "ERROR",
-      message:
-        error instanceof Error ? error.message : "Failed to delete service",
+      message: error instanceof Error ? error.message : "Unknown error",
     };
   }
 }
