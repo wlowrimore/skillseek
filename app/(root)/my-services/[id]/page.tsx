@@ -46,7 +46,7 @@ const MyServicesPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <Suspense fallback={<LoadingBar2 />}>
-      <section className="profile_container mb-12 md:my-28 h-screen">
+      <section className="profile_container mb-12 md:my-28 h-[96vh]">
         <div className="profile_card">
           <div className="profile_title">
             <h3 className="text-xl font-bold uppercase text-center">
@@ -55,8 +55,8 @@ const MyServicesPage = async ({ params }: { params: { id: string } }) => {
           </div>
           <div className="w-full h-auto flex justify-center items-centeer">
             <img
-              src={session.user.image as string}
-              alt={session.user.name as string}
+              src={session?.user.image as string}
+              alt={session?.user.name as string}
               loading="lazy"
               width={1000}
               height={1000}

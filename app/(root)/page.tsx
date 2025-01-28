@@ -6,6 +6,7 @@ import SearchForm from "@/components/SearchForm";
 import ServiceCard, { ServiceTypeCard } from "@/components/ServiceCard";
 import { Metadata } from "next";
 import LoadingBar2 from "@/components/ui/LoadingBar_2";
+import StaticPrivacyPolicy from "@/components/ui/StaticPrivacyPolicy";
 
 export const metadata: Metadata = {
   title: "SkillSeek",
@@ -96,6 +97,7 @@ export default async function Home({
             </p>
           )}
         </ul>
+        <StaticPrivacyPolicy />
       </section>
       <SanityLive />
     </Suspense>

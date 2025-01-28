@@ -147,7 +147,7 @@ const TermsOfServiceContent = () => {
       </section>
       <section className="my-4">
         <p>
-          <strong className="text-xl">7. Limimation of Liability</strong>
+          <strong className="text-xl">7. Limitation of Liability</strong>
         </p>
         <div className="mt-2">
           <p className="text-lg leading-snug">
