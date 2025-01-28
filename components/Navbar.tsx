@@ -3,7 +3,6 @@ import type { HTMLAttributes } from "react";
 import { auth } from "@/auth";
 import Link from "next/link";
 import Image from "next/image";
-import { SignInBtn } from "./AuthButtons";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { Work_Sans as WorkSans } from "next/font/google";
+import { SignInBtn } from "./AuthButtons";
 
 const work = WorkSans({ subsets: ["latin"], weight: "500" });
 
