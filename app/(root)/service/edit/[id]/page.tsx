@@ -36,6 +36,8 @@ export default async function EditServicePage({
 }: {
   params: { id: string };
 }) {
+  params = (await params) || {};
+
   const service = await client.fetch(SERVICE_BY_ID_QUERY, {
     id: params?.id,
   });

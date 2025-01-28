@@ -35,6 +35,8 @@ interface ServicePageParams {
 }
 
 const ServicePage = async ({ params }: ServicePageParams) => {
+  params = (await params) || {};
+
   if (!params.id) {
     return notFound();
   }

@@ -4,7 +4,7 @@ const LoadingBar2 = () => {
   return (
     // <main className="w-full h-screen flex flex-col justify-center items-center mx-auto">
     <div className="loader2">
-      <div className="loading-text2 animate-pulse duration-[2000ms]">
+      <div className="loading-text2 animate-pulse duration-2000">
         Loading Content<span className="dot">.</span>
         <span className="dot">.</span>
         <span className="dot">.</span>

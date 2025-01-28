@@ -57,12 +57,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             const validId = createValidId(user.email);
             try {
               const adminRole = await client.fetch(
-                `*[_type == "role" && code == "administrator"][0]`
+                `*[_type == "role" && code == "administrator"][0]._id`
               );
 
               if (!adminRole) {
                 const roleDoc = await writeClient.create({
                   _type: "role",
+                  _id: "role-administrator",
                   name: "Administrator",
                   code: "administrator",
                 });
@@ -78,7 +79,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 roles: [
                   {
                     _type: "reference",
-                    _ref: adminRole || "administrator",
+                    _ref: adminRole || "role-administrator",
                   },
                 ],
               });

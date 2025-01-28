@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 
 const UserPage = async ({ params }: { params: { id: string } }) => {
   const session = await auth();
+  params = (await params) || {};
 
   if (!session?.user?.email) return notFound();
 
