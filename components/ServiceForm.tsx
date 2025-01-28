@@ -228,7 +228,7 @@ const ServiceForm = ({ initialData }: ServiceFormProps) => {
             ...formData,
             title: formDataSubmit.get("title") as string,
             description: formDataSubmit.get("description") as string,
-            category: formDataSubmit.get("category") as string,
+            category: formData.category,
             image: formData.image,
             license: formDataSubmit.get("license") as string,
             licensingState: formDataSubmit.get("licensingState") as string,

@@ -2,9 +2,6 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  productionBrowser: {
-    sourceMap: true,
-  },
   eslint: {
     ignoreDuringBuilds: true,
   },

@@ -148,6 +148,7 @@ export async function updateService(
   data: Partial<
     Omit<ServiceWithAuthorRef, "author"> & {
       contact: string;
+      category: string;
       imageDeleteToken?: string;
       license: string;
       licensingState: string;
