@@ -13,7 +13,6 @@ import { useSearchParams } from "next/navigation";
 
 const RatingsModal = ({
   selectedRating,
-  handleReadMore,
   dialogOpen,
   onClose,
 }: {
@@ -32,7 +31,9 @@ const RatingsModal = ({
       <Dialog open={dialogOpen} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>Review Details</DialogTitle>
+            <DialogTitle>
+              <div className="text-start w-full pb-4">Full Review</div>
+            </DialogTitle>
           </DialogHeader>
 
           {selectedRating && (

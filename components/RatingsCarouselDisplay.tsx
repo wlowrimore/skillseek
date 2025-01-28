@@ -15,21 +15,22 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import RatingsModal from "./ui/RatingsModal";
 
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  image?: string;
+}
+
 export interface RatingData {
-  rating: number | null;
-  ratingInfo: {
-    serviceId: string;
-    providerId: string;
-  };
-  ratingKey: string | undefined;
+  _id: string;
+  user: User;
+  rating: number;
+  averageRating: number | null;
   review: string;
   createdAt: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    image?: string;
-  };
+  license: string | null;
+  licensingState: string | null;
 }
 
 export interface ServiceRatingProps {
@@ -41,12 +42,24 @@ export interface ServiceRatingProps {
   review?: string;
 }
 
-const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
+const RatingsCarousel = ({ ratings }: { ratings: RatingData[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedRating, setSelectedRating] = useState<RatingData | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-
   const mounted = useRef(false);
+
+  const truncateText = (text: string, maxLength = 60) => {
+    if (!text) return "No review provided";
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
+  };
+
+  const handleReadMore = (rating: RatingData) => {
+    if (mounted.current) {
+      setSelectedRating(rating);
+      setDialogOpen(true);
+    }
+  };
 
   useEffect(() => {
     mounted.current = true;
@@ -67,18 +80,18 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
     }
   };
 
-  const truncateText = (text: string, maxLength = 60) => {
-    if (!text) return "No review provided";
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + "...";
-  };
+  useEffect(() => {
+    console.log(
+      "Current rating:",
+      ratings[currentIndex]?.review?.length,
+      ratings[currentIndex]
+    );
+    console.log(`Review Length: ${ratings[currentIndex]?.review?.length}`);
+  }, [currentIndex, ratings]);
 
-  const handleReadMore = (rating: RatingData) => {
-    if (mounted.current) {
-      setSelectedRating(rating);
-      setDialogOpen(true);
-    }
-  };
+  if (!ratings || ratings.length === 0) {
+    return null;
+  }
 
   return (
     <div className="relative w-[22.9rem] md:w-[56rem] mx-auto">
@@ -167,13 +180,13 @@ const RatingsCarousel: React.FC<{ ratings: RatingData[] }> = ({ ratings }) => {
               <div className="mt-2 h-[2rem]">
                 <p className="text-sm">
                   {truncateText(ratings[currentIndex].review)}
-                  {ratings[currentIndex].review?.length > 100 && (
+                  {ratings[currentIndex].review?.length > 50 && (
                     <Button
                       variant="link"
-                      className="px-1 py-0 h-fit"
+                      className="pr-1 pl-0 py-0 h-fit text-cyan-600 md:text-slate-400 hover:underline"
                       onClick={() => handleReadMore(ratings[currentIndex])}
                     >
-                      Read More
+                      read more
                     </Button>
                   )}
                 </p>

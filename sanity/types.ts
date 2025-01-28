@@ -105,6 +105,12 @@ export type Rating = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  author?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "author";
+  };
   rating?: number;
   review?: string;
   service?: {
@@ -246,7 +252,7 @@ export type Service = {
     [internalGroqTypeReferenceTo]?: "author";
   };
   description?: string;
-  category?: Category;
+  category?: string;
   image?: string;
   license?: string;
   licensingState?: string;
